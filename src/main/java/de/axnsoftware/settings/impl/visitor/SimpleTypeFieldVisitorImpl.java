@@ -17,10 +17,9 @@ package de.axnsoftware.settings.impl.visitor;
 
 import de.axnsoftware.settings.ITypeMapper;
 import de.axnsoftware.settings.Property;
-import de.axnsoftware.settings.impl.IAccessor;
-import de.axnsoftware.settings.impl.IPropertyAccessor;
-import de.axnsoftware.settings.impl.IVisitor;
-import de.axnsoftware.settings.impl.DefaultValueHolder;
+import de.axnsoftware.settings.impl.accessor.IAccessor;
+import de.axnsoftware.settings.impl.accessor.IPropertyAccessor;
+import de.axnsoftware.settings.impl.accessor.DefaultValueHolder;
 import de.axnsoftware.settings.impl.accessor.LeafPropertyAccessorImpl;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -28,11 +27,14 @@ import java.math.BigInteger;
 import java.util.UUID;
 
 /**
+ * The final class SimpleTypeFieldVisitorImpl models a concrete implementation
+ * of the {@code IVisitor} interface that is responsible for visiting all simple
+ * typed fields, such as {@code Integer} or {@code Enum} typed fields.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class SimpleTypeFieldVisitorImpl extends AbstractFieldVisitorImpl {
+public final class SimpleTypeFieldVisitorImpl extends AbstractFieldVisitorImpl {
 
     private static IVisitor<Field>[] preparedSimpleTypeFieldVisitors;
     private final Class<?> valueType;
@@ -41,11 +43,17 @@ public class SimpleTypeFieldVisitorImpl extends AbstractFieldVisitorImpl {
         this.valueType = valueType;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected final Boolean canVisitImpl(final Field visitee) {
         return this.valueType.isAssignableFrom(visitee.getType());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void visit(Field visitee, IAccessor parentAccessor) {
         Class<?> type = visitee.getType();

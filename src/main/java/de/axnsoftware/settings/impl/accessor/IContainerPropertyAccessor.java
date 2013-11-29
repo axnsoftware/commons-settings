@@ -13,28 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.axnsoftware.settings.impl;
-
-import java.lang.reflect.Method;
+package de.axnsoftware.settings.impl.accessor;
 
 /**
+ * The interface IContainerPropertyAccessor models an accessor for all container
+ * like properties such as {@code Array}s, {@code List}s, and {@code Map}s.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public interface IPropertyAccessor extends IAccessor {
+public interface IContainerPropertyAccessor extends IPropertyAccessor {
 
-    public DefaultValueHolder getDefaultValueHolder();
+    /**
+     * Returns the item accessor acting as a template for accessing individual
+     * items in the container.
+     *
+     * @return the item accessor template
+     */
+    public IAccessor getItemAccessorTemplate();
 
-    public Method getGetter();
-
-    public Method getSetter();
-
-    public void setDefaultValueHolder(final DefaultValueHolder defaultValueHolder);
-
-    public void setGetter(final Method getter);
-
-    public void setSetter(final Method setter);
-
-    public void setValue(final Object value, final Object settingsRoot);
+    /**
+     * Sets the item accessor template.
+     *
+     * @param itemAccessorTemplate
+     */
+    public void setItemAccessorTemplate(final IAccessor itemAccessorTemplate);
 }

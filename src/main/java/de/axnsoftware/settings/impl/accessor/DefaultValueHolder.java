@@ -13,11 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.axnsoftware.settings.impl;
+package de.axnsoftware.settings.impl.accessor;
 
 import de.axnsoftware.settings.ITypeMapper;
 
 /**
+ * The class DefaultValueHolder models a holder for a default value which was
+ * declared by the {@code Property} annotation's {@code defaultValue} property.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -37,6 +39,11 @@ public class DefaultValueHolder {
         this.typeMapper = typeMapper;
     }
 
+    /**
+     * Return the mapped default value.
+     *
+     * @return the mapped default value or null
+     */
     public Object getValue() {
         if (this.cachedValue == null && !this.doNotCacheAgain) {
             this.cachedValue = this.typeMapper.valueOf(this.defaultValue, this.type);

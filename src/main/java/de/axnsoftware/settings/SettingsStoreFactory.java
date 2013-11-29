@@ -16,44 +16,74 @@
 package de.axnsoftware.settings;
 
 import de.axnsoftware.settings.impl.SettingsStoreImpl;
-import de.axnsoftware.settings.impl.IAccessor;
+import de.axnsoftware.settings.impl.accessor.IAccessor;
 import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
 import de.axnsoftware.settings.impl.PropertiesFileBackingStoreWrapperImpl;
 import de.axnsoftware.settings.impl.accessor.RootAccessorFactory;
 import java.io.File;
-import java.util.Properties;
 
 /**
- * TODO:document
+ * The final class SettingsStoreFactory models a factory for instances of type
+ * {@code ISettingsStore}.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class SettingsStoreFactory {
+public final class SettingsStoreFactory {
 
     /**
-     * TODO:document
+     * Returns a new instance of this.
      *
+     * @return the instance
+     */
+    public static SettingsStoreFactory newInstance() {
+        return new SettingsStoreFactory();
+    }
+
+    /**
+     * Returns a new instance of the {@code ISettingsStore} interface for the
+     * specified {@code storagePath} and the specified {@code type}, which must
+     * be annotated with the {@code PropertyClass} annotation.
+     *
+     * The backing store will use the file system and standard plain text format
+     * Java property files.
+     *
+     * @param storagePath
+     * @param type
+     * @return the settings store
+     */
+    public ISettingsStore newFileStore(final File storagePath, final Class<?> type) {
+        return this.createNewFileStore(EFileFormat.FILE_FORMAT_PLAIN_TEXT, storagePath, type);
+    }
+
+    /**
+     * Returns a new instance of the {@code ISettingsStore} interface for the
+     * specified {@code storagePath} and the specified {@code type}, which must
+     * be annotated with the {@code PropertyClass} annotation.
+     *
+     * The backing store will use the file system and standard XML format Java
+     * property files.
+     *
+     * @param storagePath
+     * @param type
+     * @return the settings store
+     */
+    public ISettingsStore newXMLFileStore(final File storagePath, final Class<?> type) {
+        return this.createNewFileStore(EFileFormat.FILE_FORMAT_XML, storagePath, type);
+    }
+
+    /**
+     * Returns a new instance of the {@code ISettingsStore} interface for the
+     * specified {@code fileFormat}, the specified {@code storagePath}, and, the
+     * specified {@code type}, which must be annotated with the
+     * {@code PropertyClass} annotation.
+     *
+     * @param fileStoreType
      * @param storagePath
      * @param type
      * @return
      */
-    public static ISettingsStore newFileStore(final File storagePath, final Class<?> type) {
-        return createNewFileStore(EFileFormat.FILE_FORMAT_PLAIN_TEXT, storagePath, type);
-    }
-
-    /**
-     * TODO:document
-     *
-     * @param storagePath
-     * @param type
-     * @return
-     */
-    public static ISettingsStore newXMLFileStore(final File storagePath, final Class<?> type) {
-        return createNewFileStore(EFileFormat.FILE_FORMAT_XML, storagePath, type);
-    }
-
-    private static ISettingsStore createNewFileStore(final EFileFormat fileStoreType, final File storagePath, final Class<?> type) {
+    private ISettingsStore createNewFileStore(final EFileFormat fileStoreType, final File storagePath, final Class<?> type) {
         IAccessor rootAccessor = RootAccessorFactory.newInstance().buildRootAccessor(type);
         IMutableBackingStoreWrapper backingStoreWrapper = new PropertiesFileBackingStoreWrapperImpl(fileStoreType, storagePath);
         return new SettingsStoreImpl(backingStoreWrapper, rootAccessor, type);

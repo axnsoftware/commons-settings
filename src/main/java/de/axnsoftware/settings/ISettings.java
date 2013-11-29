@@ -16,7 +16,10 @@
 package de.axnsoftware.settings;
 
 /**
- * TODO:document
+ * The interface ISettings models a service by which one can access properties
+ * loaded from the underlying {@link ISettingsStore} and it provides a simple
+ * workflow for maintaining pending changes, discarding pending changes and
+ * finally, finalizing these pending changes.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -24,46 +27,49 @@ package de.axnsoftware.settings;
 public interface ISettings {
 
     /**
-     * TODO:document
+     * Returns the type registered with the underlying {@code ISettingsStore}.
      *
      * @return
      */
     public Class<?> getType();
 
     /**
-     * TODO:document
+     * Discards all pending changes.
      */
     public void discardChanges();
 
     /**
-     * TODO:document
+     * Finalizes all pending changes but does not store them permanently. In
+     * order for the settings to be permanently stored, one must call
+     * {@code ISettingsStore#storeProperties()}.
      */
     public void finalizeChanges();
 
     /**
-     * TODO:document
+     * Returns whether there are any pending changes which either need to be
+     * finalized or discarded.
      *
-     * @return
+     * @return true whether there are any pending changes
      */
-    public Boolean getHasUncommittedChanges();
+    public Boolean getHasPendingChanges();
 
     /**
-     * TODO:document
+     * Returns an instance of the registered type.
      *
-     * @return
+     * @return the properties
      */
     public Object getProperties();
 
     /**
-     * TODO:document
+     * Gets the underlying store.
      *
-     * @return
+     * @return the underlying store
      */
     public ISettingsStore getStore();
 
-    // properties must be an instance of #getType()
     /**
-     * TODO:document
+     * Sets the properties but does not finalize them. {@code properties} must
+     * be an instance of the registered type.
      *
      * @param properties
      */

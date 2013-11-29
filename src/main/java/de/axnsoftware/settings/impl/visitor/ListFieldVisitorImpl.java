@@ -15,10 +15,9 @@
  */
 package de.axnsoftware.settings.impl.visitor;
 
-import de.axnsoftware.settings.impl.IVisitor;
-import de.axnsoftware.settings.impl.IAccessor;
-import de.axnsoftware.settings.impl.IContainerPropertyAccessor;
-import de.axnsoftware.settings.impl.IContainerItemAccessor;
+import de.axnsoftware.settings.impl.accessor.IAccessor;
+import de.axnsoftware.settings.impl.accessor.IContainerPropertyAccessor;
+import de.axnsoftware.settings.impl.accessor.IContainerItemAccessor;
 import de.axnsoftware.settings.impl.accessor.BranchListItemAccessorImpl;
 import de.axnsoftware.settings.impl.accessor.LeafListItemAccessorImpl;
 import de.axnsoftware.settings.impl.accessor.ListPropertyAccessorImpl;
@@ -29,11 +28,14 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * The final class ListFieldVisitorImpl models a concrete implementation of the
+ * {@code IVisitor} interface that is responsible for visiting fields of type
+ * {@code List}.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class ListFieldVisitorImpl extends AbstractFieldVisitorImpl {
+public final class ListFieldVisitorImpl extends AbstractFieldVisitorImpl {
 
     private final List<IVisitor> visitors;
     private Class<?> itemType;
@@ -46,6 +48,9 @@ public class ListFieldVisitorImpl extends AbstractFieldVisitorImpl {
         this.visitors.add(new FailFastVisitorImpl<Class<?>>());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Boolean canVisitImpl(final Field visitee) {
         Boolean result = Boolean.FALSE;
@@ -70,6 +75,9 @@ public class ListFieldVisitorImpl extends AbstractFieldVisitorImpl {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void visit(final Field visitee, final IAccessor parentAccessor) {
         IContainerPropertyAccessor accessor = new ListPropertyAccessorImpl();

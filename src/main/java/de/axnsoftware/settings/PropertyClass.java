@@ -27,10 +27,8 @@ import java.lang.annotation.Target;
  *
  * Currently, the annotation is used only for detecting whether a given class
  * should be treated as a property container. The system will fail on all
- * classes, where either, the annotation is not present, or, where the class
- * is not one of the supported simple types, e.g. Integer or String or UUID.
- *
- * TODO:example
+ * classes, where the annotation is missing and which are not considered simple
+ * types such as {@code Integer} or {@code UUID}.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0

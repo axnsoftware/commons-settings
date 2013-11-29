@@ -20,30 +20,34 @@ import java.util.Set;
 import java.util.prefs.BackingStoreException;
 
 /**
+ * The interface IMutableBackingStoreWrapper models the mutable version of the
+ * interface {@code IBackingStoreWrapper}.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  */
 public interface IMutableBackingStoreWrapper extends IBackingStoreWrapper {
 
     /**
-     * TODO:document
+     * Deletes the properties. Depending on the implementation this could mean
+     * that the file will be removed from the file system, or that the entries
+     * in a registry will be removed.
      *
      * @throws BackingStoreException
      */
     public void deleteProperties() throws BackingStoreException;
 
     /**
-     * TODO:document
+     * Loads the properties into memory.
      *
      * @throws BackingStoreException
      */
     public void loadProperties() throws BackingStoreException;
 
     /**
-     * TODO:document
+     * Gets the value of the property identified by the specified {@code key}.
      *
      * @param key
-     * @return
+     * @return the value or null
      */
     public String getProperty(final String key);
 
@@ -56,7 +60,7 @@ public interface IMutableBackingStoreWrapper extends IBackingStoreWrapper {
     public Set<String> keySet() throws BackingStoreException;
 
     /**
-     * TODO:document
+     * Sets the value of the property identified by the specified {@code key}.
      *
      * @param key
      * @param value
@@ -64,7 +68,7 @@ public interface IMutableBackingStoreWrapper extends IBackingStoreWrapper {
     public void setProperty(final String key, final String value);
 
     /**
-     * TODO:document
+     * Stored the properties and makes them permanent.
      *
      * @throws BackingStoreException
      */

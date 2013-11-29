@@ -15,18 +15,21 @@
  */
 package de.axnsoftware.settings.impl.visitor;
 
-import de.axnsoftware.settings.impl.IVisitor;
-import de.axnsoftware.settings.impl.IAccessor;
-import de.axnsoftware.settings.impl.IPropertyAccessor;
+import de.axnsoftware.settings.impl.accessor.IAccessor;
+import de.axnsoftware.settings.impl.accessor.IPropertyAccessor;
 import de.axnsoftware.settings.impl.accessor.BranchPropertyAccessorImpl;
 import java.lang.reflect.Field;
 
 /**
+ * The final class PropertyClassFieldVisitorImpl models a concrete
+ * implementation of the {@code IVisitor} interface that is responsible for
+ * visiting fields of custom type where the classes have been annotated using
+ * the {@code PropertyClass} annotation.{@code Array}.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class PropertyClassFieldVisitorImpl extends AbstractFieldVisitorImpl {
+public final class PropertyClassFieldVisitorImpl extends AbstractFieldVisitorImpl {
 
     private IVisitor propertyClassVisitor;
 
@@ -34,11 +37,17 @@ public class PropertyClassFieldVisitorImpl extends AbstractFieldVisitorImpl {
         this.propertyClassVisitor = propertyClassVisitor;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Boolean canVisitImpl(final Field visitee) {
         return this.propertyClassVisitor.canVisit(visitee.getType());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void visit(final Field visitee, final IAccessor parentAccessor) {
         final IPropertyAccessor accessor = new BranchPropertyAccessorImpl();

@@ -15,17 +15,21 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
-import de.axnsoftware.settings.impl.IAccessor;
 import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
-import de.axnsoftware.settings.impl.IPropertyAccessor;
 
 /**
+ * The final class BranchListItemAccessorImpl models a concrete implementation
+ * of the {@code IAccessor} interface, responsible for accessing items in
+ * {@code List}S that are instances of {@code PropertyClass} annotated classes.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class BranchListItemAccessorImpl extends AbstractListItemAccessorImpl {
+public final class BranchListItemAccessorImpl extends AbstractListItemAccessorImpl {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void copyValue(final Object source, final Object target) {
         if (null != this.getValue(source)) {
@@ -35,6 +39,9 @@ public class BranchListItemAccessorImpl extends AbstractListItemAccessorImpl {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getValue(final Object settingsRoot) {
         Object result = super.getValue(settingsRoot);
@@ -49,6 +56,9 @@ public class BranchListItemAccessorImpl extends AbstractListItemAccessorImpl {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
         for (IAccessor childAccessor : this.getChildAccessors()) {
@@ -56,6 +66,9 @@ public class BranchListItemAccessorImpl extends AbstractListItemAccessorImpl {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void writeToProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
         for (IAccessor childAccessor : this.getChildAccessors()) {

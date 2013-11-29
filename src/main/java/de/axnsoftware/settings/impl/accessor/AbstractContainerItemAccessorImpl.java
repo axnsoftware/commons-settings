@@ -15,9 +15,10 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
-import de.axnsoftware.settings.impl.IContainerItemAccessor;
-
 /**
+ * The abstract class AbstractArrayItemAccessorImpl models the root of a
+ * hierarchy of derived classes and provides default behaviour for all
+ * implementations of the {@code IAccessor} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -30,16 +31,25 @@ public abstract class AbstractContainerItemAccessorImpl<T> extends AbstractPrope
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public T getItemKey() {
         return this.itemKey;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getKey() {
         return this.getItemKey().toString();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setItemKey(final T itemKey) {
         this.itemKey = itemKey;

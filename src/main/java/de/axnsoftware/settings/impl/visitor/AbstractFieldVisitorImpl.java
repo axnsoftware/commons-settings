@@ -16,22 +16,28 @@
 package de.axnsoftware.settings.impl.visitor;
 
 import de.axnsoftware.settings.ITypeMapper;
-import de.axnsoftware.settings.impl.IVisitor;
 import de.axnsoftware.settings.Property;
-import de.axnsoftware.settings.impl.IAccessor;
-import de.axnsoftware.settings.impl.IPropertyAccessor;
+import de.axnsoftware.settings.impl.accessor.IAccessor;
+import de.axnsoftware.settings.impl.accessor.IPropertyAccessor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Map;
 
 /**
+ * The abstract class AbstractFieldVisitorImpl models the root of a hierarchy of
+ * derived implementation classes and it provides the default behaviour for all
+ * implementations of the {@code IVisitor} interface. It also encapsulated
+ * commonly used code to be reused by the concrete implementations.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
 public abstract class AbstractFieldVisitorImpl implements IVisitor<Field> {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public final Boolean canVisit(final Field visitee) {
         Boolean result = Boolean.FALSE;
@@ -41,8 +47,23 @@ public abstract class AbstractFieldVisitorImpl implements IVisitor<Field> {
         return result;
     }
 
+    /**
+     * Delegated from by {@link #canVisit(java.lang.reflect.Field)}. Derived
+     * classes must implement this.
+     *
+     * @param visitee
+     * @return true whether the visitee can be visited, false otherwise
+     */
     protected abstract Boolean canVisitImpl(final Field visitee);
 
+    /**
+     * Configures the specified {@code accessor} and adds it as a child accessor
+     * to the specified {@code parentAccessor}.
+     *
+     * @param accessor
+     * @param parentAccessor
+     * @param visitee
+     */
     protected void configureAccessor(final IPropertyAccessor accessor, final IAccessor parentAccessor, final Field visitee) {
         final Class<?> type = visitee.getType();
         final Property annotation = visitee.getAnnotation(Property.class);
@@ -65,6 +86,16 @@ public abstract class AbstractFieldVisitorImpl implements IVisitor<Field> {
         parentAccessor.getChildAccessors().add(accessor);
     }
 
+    /**
+     * Gets an instance of the {@code ITypeMapper} interface for the specified
+     * {@code typeMapperTypename}. Also registers the instance with the
+     * specified {@code typeMappings} for the specified {@code type}.
+     *
+     * @param type
+     * @param typeMapperTypename
+     * @param typeMappings
+     * @return instance of the type mapper
+     */
     protected ITypeMapper getAndRegisterTypeMapper(final Class<?> type, final String typeMapperTypename, final Map<Class<?>, ITypeMapper> typeMappings) {
         ITypeMapper result = typeMappings.get(type);
         if (null == result) {
@@ -91,6 +122,16 @@ public abstract class AbstractFieldVisitorImpl implements IVisitor<Field> {
         return result;
     }
 
+    /**
+     * Gets the method specified by {@code methodName} for the optionally
+     * specified {@code parameterTypes} from the specified {@code visitee}'s
+     * declaring class.
+     *
+     * @param visitee
+     * @param methodName
+     * @param parameterTypes
+     * @return the method
+     */
     protected Method getMethod(final Field visitee, final String methodName, final Class<?>... parameterTypes) {
         Method result = null;
         try {

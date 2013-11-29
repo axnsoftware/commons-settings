@@ -30,11 +30,13 @@ import java.util.Set;
 import java.util.prefs.BackingStoreException;
 
 /**
+ * The final class PropertiesFileBackingStoreWrapperImpl models a concrete
+ * implementation of the {@code IMutableBackingStoreWrapper} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class PropertiesFileBackingStoreWrapperImpl implements IMutableBackingStoreWrapper {
+public final class PropertiesFileBackingStoreWrapperImpl implements IMutableBackingStoreWrapper {
 
     private final EFileFormat fileFormat;
     private final File storagePath;
@@ -45,6 +47,9 @@ public class PropertiesFileBackingStoreWrapperImpl implements IMutableBackingSto
         this.storagePath = storagePath;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deleteProperties() throws BackingStoreException {
         try {
@@ -55,6 +60,9 @@ public class PropertiesFileBackingStoreWrapperImpl implements IMutableBackingSto
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getProperties() {
         if (null == this.properties) {
@@ -63,6 +71,9 @@ public class PropertiesFileBackingStoreWrapperImpl implements IMutableBackingSto
         return (Properties) this.properties.clone();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getProperty(final String key) {
         if (null == this.properties) {
@@ -71,6 +82,9 @@ public class PropertiesFileBackingStoreWrapperImpl implements IMutableBackingSto
         return this.properties.getProperty(key);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Set<String> keySet() throws BackingStoreException {
         if (null == this.properties) {
@@ -79,6 +93,9 @@ public class PropertiesFileBackingStoreWrapperImpl implements IMutableBackingSto
         return this.properties.stringPropertyNames();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void loadProperties() throws BackingStoreException {
         if (this.storagePath.exists()) {
@@ -106,6 +123,9 @@ public class PropertiesFileBackingStoreWrapperImpl implements IMutableBackingSto
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setProperty(final String key, final String value) {
         if (null == this.properties) {
@@ -114,6 +134,9 @@ public class PropertiesFileBackingStoreWrapperImpl implements IMutableBackingSto
         this.properties.setProperty(key, value);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void storeProperties() throws BackingStoreException {
         if (null == this.properties) {

@@ -16,7 +16,9 @@
 package de.axnsoftware.settings;
 
 /**
- * TODO:document
+ * The enum EFileFormat defines the various file formats that can be read from
+ * or written out by implementations of the {@code IBackingStoreWrapper}
+ * interface.
  */
 public enum EFileFormat {
 

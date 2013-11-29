@@ -16,12 +16,14 @@
 package de.axnsoftware.settings.impl.accessor;
 
 import de.axnsoftware.settings.ITypeMapper;
-import de.axnsoftware.settings.impl.IAccessor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
+ * The abstract class AbstractAccessorImpl models the root of a hierarchy of
+ * derived classes and it provides the default behaviour for all implementations
+ * of the {@code IAccessor} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -38,6 +40,9 @@ public abstract class AbstractAccessorImpl implements IAccessor {
     protected AbstractAccessorImpl() {
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object clone() {
         IAccessor result = null;
@@ -60,21 +65,33 @@ public abstract class AbstractAccessorImpl implements IAccessor {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<IAccessor> getChildAccessors() {
         return childAccessors;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getKey() {
         return this.key;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IAccessor getParentAccessor() {
         return this.parentAccessor;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getQualifiedKey() {
         if (null == this.cachedQualifiedKey) {
@@ -88,6 +105,9 @@ public abstract class AbstractAccessorImpl implements IAccessor {
         return this.cachedQualifiedKey;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IAccessor getRootAccessor() {
         if (null == this.cachedRootAccessor) {
@@ -100,31 +120,49 @@ public abstract class AbstractAccessorImpl implements IAccessor {
         return this.cachedRootAccessor;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<Class<?>, ITypeMapper> getTypeMappings() {
         return this.getRootAccessor().getTypeMappings();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Class<?> getType() {
         return this.type;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setChildAccessors(final List<IAccessor> childAccessors) {
         this.childAccessors = childAccessors;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setKey(final String key) {
         this.key = key;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setParentAccessor(final IAccessor parentAccessor) {
         this.parentAccessor = parentAccessor;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setType(final Class<?> type) {
         this.type = type;

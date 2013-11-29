@@ -16,19 +16,21 @@
 package de.axnsoftware.settings.impl.visitor;
 
 import de.axnsoftware.settings.PropertyClass;
-import de.axnsoftware.settings.impl.IVisitor;
-import de.axnsoftware.settings.impl.IAccessor;
+import de.axnsoftware.settings.impl.accessor.IAccessor;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 /**
+ * The final class AbstractFieldVisitorImpl models a concrete implementation of
+ * the {@code IVisitor} interface that is responsible for visiting classes that
+ * have been annotated with the {@code PropertyClass} annotation.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class PropertyClassVisitorImpl implements IVisitor<Class<?>> {
+public final class PropertyClassVisitorImpl implements IVisitor<Class<?>> {
 
     private List<IVisitor<Field>> fieldVisitors;
 
@@ -42,11 +44,17 @@ public class PropertyClassVisitorImpl implements IVisitor<Class<?>> {
         this.fieldVisitors.add(new FailFastVisitorImpl<Field>());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Boolean canVisit(final Class<?> visitee) {
         return visitee.isAnnotationPresent(PropertyClass.class);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void visit(final Class<?> visitee, final IAccessor parentAccessor) {
         if (null == parentAccessor.getChildAccessors()) {

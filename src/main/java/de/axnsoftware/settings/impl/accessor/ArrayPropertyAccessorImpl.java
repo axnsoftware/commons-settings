@@ -16,7 +16,6 @@
 package de.axnsoftware.settings.impl.accessor;
 
 import de.axnsoftware.settings.ITypeMapper;
-import de.axnsoftware.settings.impl.IContainerItemAccessor;
 import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -26,16 +25,18 @@ import java.util.Map;
 import java.util.prefs.BackingStoreException;
 
 /**
+ * The final class ArrayPropertyAccessorImpl models a concrete implementation of
+ * the {@code IAccessor} interface, representing the root of a hierarchy of
+ * accessors.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class ArrayPropertyAccessorImpl extends AbstractContainerPropertyAccessorImpl {
+public final class ArrayPropertyAccessorImpl extends AbstractContainerPropertyAccessorImpl {
 
-    public ArrayPropertyAccessorImpl() {
-        super();
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void copyValue(final Object source, final Object target) {
         final Object[] sourceArray = (Object[]) this.getValue(source);
@@ -49,6 +50,9 @@ public class ArrayPropertyAccessorImpl extends AbstractContainerPropertyAccessor
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
         final String key = this.getKey();
@@ -78,6 +82,9 @@ public class ArrayPropertyAccessorImpl extends AbstractContainerPropertyAccessor
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void writeToProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
         final Object[] items = (Object[]) this.getValue(settingsRoot);

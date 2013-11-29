@@ -15,20 +15,20 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
-import de.axnsoftware.settings.impl.IPropertyAccessor;
-import de.axnsoftware.settings.impl.IAccessor;
 import de.axnsoftware.settings.ITypeMapper;
 import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * TODO:document
+ * The final class RootAccessorImpl models a concrete implementation of the
+ * {@code IAccessor} interface, representing the root of a hierarchy of
+ * accessors.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class RootAccessorImpl extends AbstractAccessorImpl {
+public final class RootAccessorImpl extends AbstractAccessorImpl {
 
     private final Map<Class<?>, ITypeMapper> typeMappings;
 
@@ -37,6 +37,9 @@ public class RootAccessorImpl extends AbstractAccessorImpl {
         this.typeMappings = new HashMap<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void copyValue(final Object source, final Object target) {
         for (IAccessor childAccessor : this.getChildAccessors()) {
@@ -44,26 +47,41 @@ public class RootAccessorImpl extends AbstractAccessorImpl {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getValue(Object settingsRoot) {
         return settingsRoot;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IAccessor getParentAccessor() {
         return null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IAccessor getRootAccessor() {
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Map<Class<?>, ITypeMapper> getTypeMappings() {
         return this.typeMappings;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
         for (IAccessor childAccessor : this.getChildAccessors()) {
@@ -71,6 +89,9 @@ public class RootAccessorImpl extends AbstractAccessorImpl {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void writeToProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
         for (IAccessor childAccessor : this.getChildAccessors()) {

@@ -18,7 +18,9 @@ package de.axnsoftware.settings;
 import java.util.prefs.BackingStoreException;
 
 /**
- * TODO:document
+ * The interface ISettingsStore models a service for loading and storing
+ * properties from and to an underlying backing store represented by an instance
+ * of the {@code IBackingStoreWrapper} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -31,37 +33,37 @@ public interface ISettingsStore {
      * This will throw an {@code IllegalStateException} if the settings have not
      * been loaded yet.
      *
-     * @return
+     * @return the underlying backing store
      * @throws IllegalStateException
      * @see IBackingStoreWrapper
      */
     public IBackingStoreWrapper getBackingStoreWrapper();
 
     /**
-     * Returns the {@code type} representing the root {@link PropertyClass},
-     * that was registered with the store upon its creation.
+     * Returns the type representing the root {@link PropertyClass}, that was
+     * registered with the store upon its creation.
      *
-     * @return the {@code type} of the root {@code PropertyClass}
+     * @return the type of the root {@code PropertyClass}
      */
     public Class<?> getType();
 
     /**
-     * TODO:document
+     * Returns the settings loaded from the backing store.
      *
-     * @return
+     * @return the settings
      * @throws BackingStoreException
      */
     public ISettings loadSettings() throws BackingStoreException;
 
     /**
-     * TODO:document
+     * Deletes the settings from the underlying backing store.
      *
      * @throws BackingStoreException
      */
     public void deleteSettings() throws BackingStoreException;
 
     /**
-     * TODO:document
+     * Stores the specified {@code settings} in the underlying backing store.
      *
      * @param settings
      * @throws BackingStoreException

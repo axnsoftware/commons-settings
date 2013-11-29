@@ -44,7 +44,7 @@ public class SimpleFileStoreExample {
         try {
             File storagePath = File.createTempFile("testSettings", ".properties");
             storagePath.deleteOnExit();
-            this.settingsStore = SettingsStoreFactory.newFileStore(storagePath, SimpleSettings.class);
+            this.settingsStore = SettingsStoreFactory.newInstance().newFileStore(storagePath, SimpleSettings.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -15,15 +15,18 @@
  */
 package de.axnsoftware.settings.impl;
 
+import de.axnsoftware.settings.impl.accessor.IAccessor;
 import de.axnsoftware.settings.ISettings;
 import de.axnsoftware.settings.ISettingsStore;
 
 /**
+ * The final class SettingsImpl models a concrete implementation of the
+ * {@code ISettings} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class SettingsImpl implements ISettings {
+public final class SettingsImpl implements ISettings {
 
     private Object dirtyProperties;
     private Object properties;
@@ -36,48 +39,75 @@ public class SettingsImpl implements ISettings {
         this.settingsStore = settingsStore;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void discardChanges() {
         this.dirtyProperties = null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void finalizeChanges() {
-        if (this.getHasUncommittedChanges()) {
+        if (this.getHasPendingChanges()) {
             this.properties = this.dirtyProperties;
             this.dirtyProperties = null;
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public Boolean getHasUncommittedChanges() {
+    public Boolean getHasPendingChanges() {
         return this.dirtyProperties != null;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getProperties() {
         Object source = this.properties;
-        if (this.getHasUncommittedChanges()) {
+        if (this.getHasPendingChanges()) {
             source = this.dirtyProperties;
         }
         return this.copyProperties(source);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ISettingsStore getStore() {
         return this.settingsStore;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Class<?> getType() {
         return this.getStore().getType();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setProperties(final Object properties) {
         this.dirtyProperties = this.copyProperties(properties);
     }
 
+    /**
+     * Creates a copy of the specified {@code source}.
+     *
+     * @param source
+     * @return the copied object
+     */
     private Object copyProperties(final Object source) {
         Object result = null;
         try {

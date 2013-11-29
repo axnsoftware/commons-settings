@@ -15,7 +15,6 @@
  */
 package de.axnsoftware.settings;
 
-import de.axnsoftware.settings.impl.DefaultTypeMapperImpl;
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -62,11 +61,10 @@ public @interface Property {
     /**
      * For custom types, which have not been annotated by the
      * {@link PropertyClass} annotation, custom type mappers {@link ITypeMapper}
-     * can be specified. By default, the {@link DefaultTypeMapperImpl} will be
+     * can be specified. By default, the {@code DefaultTypeMapperImpl} will be
      * used.
      *
      * @return the fully qualified class name of the type mapper implementation
-     * or the empty string
      */
-    public String typeMapper() default "";
+    public String typeMapper() default "de.axnsoftware.settings.impl.DefaultTypeMapperImpl";
 }

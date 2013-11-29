@@ -15,6 +15,7 @@
  */
 package de.axnsoftware.settings.impl;
 
+import de.axnsoftware.settings.impl.accessor.IAccessor;
 import de.axnsoftware.settings.ISettings;
 import de.axnsoftware.settings.IBackingStoreWrapper;
 import de.axnsoftware.settings.ISettingsStore;
@@ -23,6 +24,8 @@ import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
 /**
+ * The final class SettingsStoreImpl models a concrete implementation for the
+ * {@code ISettingsStore} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -39,11 +42,17 @@ public final class SettingsStoreImpl implements ISettingsStore {
         this.type = type;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Class<?> getType() {
         return this.type;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ISettings loadSettings() throws BackingStoreException {
         ISettings result = null;
@@ -59,6 +68,9 @@ public final class SettingsStoreImpl implements ISettingsStore {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void deleteSettings() throws BackingStoreException {
         if (null == this.backingStoreWrapper) {
@@ -67,6 +79,9 @@ public final class SettingsStoreImpl implements ISettingsStore {
         this.backingStoreWrapper.deleteProperties();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void storeSettings(final ISettings settings) throws BackingStoreException {
         if (null == this.backingStoreWrapper) {
@@ -76,6 +91,9 @@ public final class SettingsStoreImpl implements ISettingsStore {
         this.backingStoreWrapper.storeProperties();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IBackingStoreWrapper getBackingStoreWrapper() {
         if (null == this.backingStoreWrapper) {

@@ -16,36 +16,39 @@
 package de.axnsoftware.settings.impl.accessor;
 
 import de.axnsoftware.settings.ITypeMapper;
-import de.axnsoftware.settings.impl.DefaultTypeMapperImpl;
-import de.axnsoftware.settings.impl.IAccessor;
-import de.axnsoftware.settings.impl.IVisitor;
+import de.axnsoftware.settings.impl.visitor.IVisitor;
 import de.axnsoftware.settings.impl.visitor.PropertyClassVisitorImpl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 /**
- * TODO:document
+ * The final class RootAccessorFactory models a factory for instances of the
+ * {@code IAccessor} interface that represent the root of a hierarchy of
+ * accessors for traversing and accessing the properties of instances of classes
+ * that have been annotated with the {@code PropertyClass} annotation.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class RootAccessorFactory {
+public final class RootAccessorFactory {
 
     /**
-     * TODO:document
+     * Returns a new instance of this.
      *
-     * @return
+     * @return the instance
      */
     public static RootAccessorFactory newInstance() {
         return new RootAccessorFactory();
     }
 
     /**
-     * TODO:document
+     * Builds and returns a new instance of the {@code IAccessor} interface for
+     * the specified {@code type}, which must have been annotated using the
+     * {@code PropertyClass} annotation.
      *
      * @param type
-     * @return
+     * @return the root accessor
      */
     public IAccessor buildRootAccessor(final Class<?> type) {
         final IAccessor result = new RootAccessorImpl();

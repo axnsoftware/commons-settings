@@ -18,6 +18,10 @@ package de.axnsoftware.settings.impl.accessor;
 import java.util.List;
 
 /**
+ * The abstract class AbstractListItemAccessorImpl models the root of a
+ * hierarchy of derived implementation classes and it provides the default
+ * behaviour for all implementations of the {@code IContainerItemAccessor}
+ * interface for all {@code List} like properties.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -28,6 +32,9 @@ public abstract class AbstractListItemAccessorImpl extends AbstractContainerItem
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getValue(final Object settingsRoot) {
         Object result = null;
@@ -39,6 +46,9 @@ public abstract class AbstractListItemAccessorImpl extends AbstractContainerItem
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setValue(final Object value, final Object settingsRoot) {
         List<Object> container = (List<Object>) this.getParentAccessor().getValue(settingsRoot);

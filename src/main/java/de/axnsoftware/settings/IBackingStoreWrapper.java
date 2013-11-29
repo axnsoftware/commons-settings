@@ -16,7 +16,8 @@
 package de.axnsoftware.settings;
 
 /**
- * TODO:document
+ * The interface IBackingStoreWrapper models a wrapper for a backing store which
+ * is responsible for both loading and storing configuration data.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -26,8 +27,8 @@ public interface IBackingStoreWrapper {
     /**
      * Returns a copy of the loaded properties.
      *
-     * Throws an {@code IllegalStateException} if the properties have not been
-     * loaded.
+     * This will throw an {@code IllegalStateException} if the properties have
+     * not been loaded.
      *
      * @return the properties
      * @throws IllegalStateException

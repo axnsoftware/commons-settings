@@ -18,6 +18,10 @@ package de.axnsoftware.settings.impl.accessor;
 import java.util.Map;
 
 /**
+ * The abstract class AbstractMapItemAccessorImpl models the root of a hierarchy
+ * of derived implementation classes and it provides the default behaviour for
+ * all implementations of the {@code IContainerItemAccessor} interface for all
+ * {@code Map} like properties.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -28,12 +32,18 @@ public abstract class AbstractMapItemAccessorImpl extends AbstractContainerItemA
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getValue(final Object settingsRoot) {
         Map<String, Object> container = (Map<String, Object>) this.getParentAccessor().getValue(settingsRoot);
         return container.get(this.getItemKey());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setValue(final Object value, final Object settingsRoot) {
         Map<String, Object> container = (Map<String, Object>) this.getParentAccessor().getValue(settingsRoot);

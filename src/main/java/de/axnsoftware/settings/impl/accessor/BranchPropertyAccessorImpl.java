@@ -15,21 +15,21 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
-import de.axnsoftware.settings.impl.IPropertyAccessor;
-import de.axnsoftware.settings.impl.IAccessor;
 import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
 
 /**
+ * The final class BranchPropertyAccessorImpl models a concrete implementation
+ * of the {@code IAccessor} interface, responsible for accessing properties that
+ * are instances of {@code PropertyClass} annotated classes.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
 public final class BranchPropertyAccessorImpl extends AbstractPropertyAccessorImpl {
 
-    public BranchPropertyAccessorImpl() {
-        super();
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void copyValue(final Object source, final Object target) {
         for (IAccessor childAccessor : this.getChildAccessors()) {
@@ -37,6 +37,9 @@ public final class BranchPropertyAccessorImpl extends AbstractPropertyAccessorIm
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getValue(final Object settingsRoot) {
         Object result = super.getValue(settingsRoot);
@@ -51,6 +54,9 @@ public final class BranchPropertyAccessorImpl extends AbstractPropertyAccessorIm
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
         for (IAccessor childAccessor : this.getChildAccessors()) {
@@ -58,6 +64,9 @@ public final class BranchPropertyAccessorImpl extends AbstractPropertyAccessorIm
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void writeToProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
         for (IAccessor childAccessor : this.getChildAccessors()) {

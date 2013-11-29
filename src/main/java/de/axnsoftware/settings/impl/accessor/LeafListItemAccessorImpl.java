@@ -20,12 +20,18 @@ import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
 import java.util.Map;
 
 /**
+ * The final class LeafListItemAccessorImpl models a concrete implementation of
+ * the {@code IAccessor} interface, responsible for accessing simple type items
+ * of {@code List}S, such as {@code Integer} or {@code Enum}S.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class LeafListItemAccessorImpl extends AbstractListItemAccessorImpl {
+public final class LeafListItemAccessorImpl extends AbstractListItemAccessorImpl {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void copyValue(final Object source, final Object target) {
         Map<Class<?>, ITypeMapper> typeMappings = this.getTypeMappings();
@@ -33,6 +39,9 @@ public class LeafListItemAccessorImpl extends AbstractListItemAccessorImpl {
         this.setValue(copy, target);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
         final Class<?> type = this.getType();
@@ -40,6 +49,9 @@ public class LeafListItemAccessorImpl extends AbstractListItemAccessorImpl {
         this.setValue(value, settingsRoot);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void writeToProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
         final String value = this.getTypeMappings().get(this.getType()).valueOf(this.getValue(settingsRoot));

@@ -15,23 +15,29 @@
  */
 package de.axnsoftware.settings.impl.visitor;
 
-import de.axnsoftware.settings.impl.IAccessor;
-import de.axnsoftware.settings.impl.IVisitor;
+import de.axnsoftware.settings.impl.accessor.IAccessor;
 
 /**
- * TODO: this is the last visitor in a series of visitors causing the process to
- * always fail when visited.
+ * The final class FailFastVisitorImpl models a concrete implementation of the
+ * {@code IVisitor} interface that acts as a sentinel. When accessed it will
+ * cause the visitation process to be stopped.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class FailFastVisitorImpl<T> implements IVisitor<T> {
+public final class FailFastVisitorImpl<T> implements IVisitor<T> {
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Boolean canVisit(final T visitee) {
         throw new RuntimeException("Unsupported type for field: " + visitee.toString() + ". Did you forget to annotate the class with the PropertyClass annotation or provide a type mapper?");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void visit(final T visitee, final IAccessor parentAccessor) {
         throw new RuntimeException("Unsupported type for field: " + visitee.toString() + ". Did you forget to annotate the class with the PropertyClass annotation or provide a type mapper?");

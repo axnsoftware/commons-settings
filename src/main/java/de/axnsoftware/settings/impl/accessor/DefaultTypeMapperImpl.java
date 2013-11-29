@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.axnsoftware.settings.impl;
+package de.axnsoftware.settings.impl.accessor;
 
 import de.axnsoftware.settings.ITypeMapper;
 import java.math.BigDecimal;
@@ -24,14 +24,25 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
+ * The class DefaultTypeMapperImpl models a concrete implementation of the
+ * {@code ITypeMapper} interface, with support for only the standard Java types
+ * such as {@code java.lang.Boolean} and {@code java.math.BigDecimal} including
+ * generic {@code Enum} support. In addition, it provides support for
+ * {@code java.util.UUID}.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class DefaultTypeMapperImpl implements ITypeMapper {
+public final class DefaultTypeMapperImpl implements ITypeMapper {
 
+    /**
+     * Default type mappings to be used when building the root accessor.
+     */
     private static Map<Class<?>, ITypeMapper> preparedDefaultTypeMappings;
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object valueOf(final String value, final Class<?> type) {
         Object result = value;
@@ -60,11 +71,16 @@ public class DefaultTypeMapperImpl implements ITypeMapper {
                 result = Short.valueOf(value);
             } else if (UUID.class.equals(type)) {
                 result = UUID.fromString(value);
+            } else {
+                throw new IllegalArgumentException("unsupported type " + type.getName());
             }
         }
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String valueOf(final Object value) {
         String result = null;
@@ -74,11 +90,20 @@ public class DefaultTypeMapperImpl implements ITypeMapper {
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object copyOf(final Object value) {
         return value;
     }
 
+    /**
+     * Prepares the default type mappings to be used when building the root
+     * accessor.
+     *
+     * @return the prepared default type mappings
+     */
     public static Map<Class<?>, ITypeMapper> getPreparedDefaultTypeMappings() {
         if (null == preparedDefaultTypeMappings) {
             ITypeMapper mapper = new DefaultTypeMapperImpl();

@@ -19,16 +19,18 @@ import de.axnsoftware.settings.ITypeMapper;
 import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
 
 /**
+ * The final class LeafPropertyAccessorImpl models a concrete implementation of
+ * the {@code IAccessor} interface, responsible for accessing simple type
+ * fields, such as {@code Integer} or {@code Enum}S.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
 public final class LeafPropertyAccessorImpl extends AbstractPropertyAccessorImpl {
 
-    public LeafPropertyAccessorImpl() {
-        super();
-    }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void copyValue(final Object source, final Object target) {
         Object value = this.getValue(source);
@@ -39,6 +41,9 @@ public final class LeafPropertyAccessorImpl extends AbstractPropertyAccessorImpl
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
         Object value = this.getTypeMappings().get(this.getType()).valueOf(properties.getProperty(this.getQualifiedKey()), this.getType());
@@ -47,6 +52,9 @@ public final class LeafPropertyAccessorImpl extends AbstractPropertyAccessorImpl
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void writeToProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
         Object value = this.getValue(settingsRoot);

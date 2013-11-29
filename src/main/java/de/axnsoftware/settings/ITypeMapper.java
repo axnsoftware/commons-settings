@@ -16,15 +16,15 @@
 package de.axnsoftware.settings;
 
 /**
- * The interface ITypeMapper models a mapper that is capable of rendering a
- * given object to a string, instantiating a given object from a string, and
- * producing copies of an existing object.
+ * The interface ITypeMapper models a mapper that is responsible for rendering a
+ * given object to a {@code String}, instantiating a given object from a
+ * {@code String}, and producing copies of an existing object.
  *
  * By default, the system will use a default implementation capable of mapping
  * all of the standard numeric types, found in both java.lang and java.math,
- * including java.lang.Character and java.lang.String. It also acts as a fall
- * back for all enum types for which no custom type mappers have been defined.
- * Additionally, it supports java.util.UUID.
+ * including java.lang.Character, java.lang.String and java.util.UUID. It also
+ * acts as a fall back for all enum types for which no custom type mappers have
+ * been defined.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -41,7 +41,7 @@ public interface ITypeMapper {
      *
      * @param value
      * @param type
-     * @return instance of {@code type} or null
+     * @return the instance or null
      * @throws IllegalArgumentException
      */
     public Object valueOf(final String value, final Class<?> type);

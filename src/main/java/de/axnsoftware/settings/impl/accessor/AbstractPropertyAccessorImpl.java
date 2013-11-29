@@ -15,13 +15,13 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
-import de.axnsoftware.settings.impl.IPropertyAccessor;
-import de.axnsoftware.settings.impl.IAccessor;
-import de.axnsoftware.settings.impl.DefaultValueHolder;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
+ * The abstract class AbstractPropertyAccessorImpl models the root of a
+ * hierarchy of derived implementation classes and it provides the default
+ * behaviour for all implementations of the {@code IPropertyAccessor} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -36,21 +36,33 @@ public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl 
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public DefaultValueHolder getDefaultValueHolder() {
         return this.defaultValueHolder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Method getGetter() {
         return this.getter;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Method getSetter() {
         return this.setter;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object getValue(final Object settingsRoot) {
         Object result = null;
@@ -76,21 +88,33 @@ public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl 
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setDefaultValueHolder(DefaultValueHolder defaultValueHolder) {
         this.defaultValueHolder = defaultValueHolder;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setGetter(final Method getter) {
         this.getter = getter;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setSetter(final Method setter) {
         this.setter = setter;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setValue(final Object value, final Object settingsRoot) {
         Object valueHolder = settingsRoot;

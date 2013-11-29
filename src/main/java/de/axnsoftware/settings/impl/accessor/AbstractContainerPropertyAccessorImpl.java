@@ -15,10 +15,10 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
-import de.axnsoftware.settings.impl.IAccessor;
-import de.axnsoftware.settings.impl.IContainerPropertyAccessor;
-
 /**
+ * The abstract class AbstractArrayItemAccessorImpl models the root of a
+ * hierarchy of derived classes and it provides the default behaviour for all
+ * implementations of the {@code IContainerPropertyAccessor} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -31,6 +31,9 @@ public abstract class AbstractContainerPropertyAccessorImpl extends AbstractProp
         super();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object clone() {
         AbstractContainerPropertyAccessorImpl result = (AbstractContainerPropertyAccessorImpl) super.clone();
@@ -40,11 +43,17 @@ public abstract class AbstractContainerPropertyAccessorImpl extends AbstractProp
         return result;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public IAccessor getItemAccessorTemplate() {
         return this.itemAccessorTemplate;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setItemAccessorTemplate(final IAccessor itemAccessorTemplate) {
         this.itemAccessorTemplate = itemAccessorTemplate;

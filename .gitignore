@@ -1,3 +1,5 @@
+target/
+src/examples/*/target/
 *.class
 
 # Package Files #

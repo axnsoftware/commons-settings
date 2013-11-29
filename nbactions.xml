@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+    <action>
+        <actionName>CUSTOM-install recursive</actionName>
+        <displayName>install recursive</displayName>
+        <goals>
+            <goal>install</goal>
+        </goals>
+    </action>
+    <action>
+        <actionName>CUSTOM-install non-recursive</actionName>
+        <displayName>install non-recursive</displayName>
+        <recursive>false</recursive>
+        <goals>
+            <goal>install</goal>
+        </goals>
+    </action>
+    <action>
+            <actionName>CUSTOM-javadoc</actionName>
+            <displayName>javadoc</displayName>
+            <recursive>false</recursive>
+            <goals>
+                <goal>javadoc:javadoc</goal>
+            </goals>
+        </action>
+</actions>

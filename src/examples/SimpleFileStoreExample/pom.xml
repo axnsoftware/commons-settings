@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.axnsoftware.commons</groupId>
+    <artifactId>commons-settings-examples-simple-file-store-example</artifactId>
+    <version>1</version>
+    <packaging>jar</packaging>
+
+    <name>axn-commons-settings-examples-simple-file-store-example</name>
+    <!--<description></description>-->
+    <!--<url>...</url>-->
+    <inceptionYear>2013</inceptionYear>
+    <!--<licenses>TBD</licenses>-->
+    <organization>
+        <name>axn software UG</name>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>cklein</id>
+            <name>Carsten Klein</name>
+            <email>carsten.klein@axn-software.de</email>
+        </developer>
+    </developers>
+
+    <properties>
+        <de.axnsoftware.commons.commons-settings>1.0.0-SNAPSHOT</de.axnsoftware.commons.commons-settings>
+        <junit.junit.version>3.8.1</junit.junit.version>
+    </properties>
+    
+    <dependencies>
+        <dependency>
+            <groupId>de.axnsoftware.commons</groupId>
+            <artifactId>commons-settings</artifactId>
+            <version>${de.axnsoftware.commons.commons-settings}</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.junit.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+        <sourceDirectory>src/main/java</sourceDirectory>
+        <testSourceDirectory>src/test/java</testSourceDirectory>
+    </build>
+</project>

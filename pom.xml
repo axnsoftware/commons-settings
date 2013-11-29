@@ -19,11 +19,14 @@
     <url>http://axnsoftware.github.com/commons-settings</url>
 
     <licenses>
-        <license>Apache License v2</license>
+        <license>
+            <name>Apache License v2</name>
+            <url>https://github.com/silkentrance/commons-settings/blob/master/LICENSE</url>
+        </license>
     </licenses>
 
     <organization>
-        <name>axn software UG</name>]
+        <name>axn software UG</name>
         <url>http://axnsoftware.github.com/</url>
     </organization>
 

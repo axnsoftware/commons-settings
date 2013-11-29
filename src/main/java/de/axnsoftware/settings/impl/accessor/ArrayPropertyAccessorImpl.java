@@ -55,7 +55,7 @@ public final class ArrayPropertyAccessorImpl extends AbstractContainerPropertyAc
      */
     @Override
     public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
-        final String key = this.getKey();
+        final String key = this.getQualifiedKey();
         final List<String> itemKeys = new ArrayList<>();
         final List<String> sortedPropertyNames = new ArrayList<>();
         try {
@@ -70,7 +70,7 @@ public final class ArrayPropertyAccessorImpl extends AbstractContainerPropertyAc
                     provableKey = key + "." + nextProvableItemKey;
                 }
             }
-            final Object items = this.getType().cast(Array.newInstance(this.getItemAccessorTemplate().getType(), Math.max(0, nextProvableItemKey)));
+            final Object items = this.getType().cast(Array.newInstance(this.getItemAccessorTemplate().getType(), nextProvableItemKey));
             this.setValue(items, settingsRoot);
             for (int index = 0; index < itemKeys.size(); index++) {
                 IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();

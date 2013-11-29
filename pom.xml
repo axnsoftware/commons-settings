@@ -32,7 +32,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <junit.junit.version>3.8.1</junit.junit.version>
+        <junit.junit.version>4.11</junit.junit.version>
     </properties>
 
     <dependencies>

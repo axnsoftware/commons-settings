@@ -68,15 +68,15 @@ public final class MapPropertyAccessorImpl extends AbstractContainerPropertyAcce
      */
     @Override
     public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
-        final String key = this.getKey();
+        final String key = this.getQualifiedKey();
         final List<String> itemKeys = new ArrayList<>();
         final List<String> sortedPropertyNames = new ArrayList<>();
         try {
             sortedPropertyNames.addAll(properties.keySet());
             Collections.sort(sortedPropertyNames);
-            String currentKey = "";
+            String currentKey = null;
             for (String propertyName : sortedPropertyNames) {
-                if (propertyName.startsWith(currentKey)) {
+                if (null != currentKey && propertyName.startsWith(currentKey)) {
                     continue;
                 }
                 if (propertyName.startsWith(key)) {
@@ -86,10 +86,10 @@ public final class MapPropertyAccessorImpl extends AbstractContainerPropertyAcce
                     } else {
                         currentKey = propertyName.substring(0, dotPosition);
                     }
-                    itemKeys.add(currentKey);
+                    itemKeys.add(currentKey.replace(key + ".", ""));
                 }
             }
-            this.setValue(new HashMap<String, Object>(), settingsRoot);
+            this.setValue(this.getType().cast(new HashMap<String, Object>()), settingsRoot);
             for (final String itemKey : itemKeys) {
                 IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();
                 accessor.setItemKey(itemKey);

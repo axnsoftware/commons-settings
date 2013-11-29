@@ -13,12 +13,18 @@
     <packaging>jar</packaging>
 
     <name>axnsoftware-commons-settings</name>
-    <!--<description></description>-->
-    <!--<url>...</url>-->
+    <description>Simple API that lets you model your application settings using standard Java POJOs.</description>
     <inceptionYear>2013</inceptionYear>
-    <!--<licenses>TBD</licenses>-->
+
+    <url>http://axnsoftware.github.com/commons-settings</url>
+
+    <licenses>
+        <license>Apache License v2</license>
+    </licenses>
+
     <organization>
-        <name>axn software UG</name>
+        <name>axn software UG</name>]
+        <url>http://axnsoftware.github.com/</url>
     </organization>
 
     <developers>
@@ -28,11 +34,13 @@
             <email>carsten.klein@axn-software.de</email>
         </developer>
     </developers>
-    <!--<contributors>...</contributors>-->
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <sourceVersion>1.7</sourceVersion>
+        <targetVersion>1.7</targetVersion>
         <junit.junit.version>4.11</junit.junit.version>
+        <org.apache.maven.plugins.maven-compiler-plugin.version>3.1</org.apache.maven.plugins.maven-compiler-plugin.version>
     </properties>
 
     <dependencies>
@@ -48,10 +56,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>2.3.2</version>
+                <version>${org.apache.maven.plugins.maven-compiler-plugin.version}</version>
                 <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
+                    <source>${sourceVersion}</source>
+                    <target>${targetVersion}</target>
                     <debug>true</debug>
                     <showDeprecation>true</showDeprecation>
                 </configuration>
@@ -63,11 +71,18 @@
 
     <!--<reporting></reporting>-->
 
-    <!-- Environment Settings -->
-    <!--<issueManagement>...</issueManagement>-->
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/axnsoftware/commons-settings/issues</url>
+    </issueManagement>
+
+    <scm>
+        <connection>scm:git:https://github.com/axnsoftware/commons-settings.git</connection>
+        <url>https://github.com/axnsoftware/commons-settings</url>
+    </scm>
+
     <!--<ciManagement>...</ciManagement>-->
     <!--<mailingLists>...</mailingLists>-->
-    <!--<scm>...</scm>-->
     <!--<prerequisites>...</prerequisites>-->
     <!--<repositories>...</repositories>-->
     <!--<pluginRepositories>...</pluginRepositories>-->

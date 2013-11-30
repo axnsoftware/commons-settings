@@ -20,7 +20,7 @@ if [ ${?} -ne 0 ]; then
     exit 2
 fi
 
-rm -Rf maven/*
+git rm -Rf maven/*
 cp -a target/site/* maven/
 git add maven
 git commit -m "- automatic import of generated maven site"

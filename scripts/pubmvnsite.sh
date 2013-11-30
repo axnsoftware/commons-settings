@@ -2,9 +2,12 @@
 
 if [ ! -z "$(git status --porcelain)" ]; then
     echo "working directory is dirty, unable to continue"
-    exit 1
+#    exit 1
 fi
 
+cat >../pubmvnsite.$$ <<EOF
+
+cd "\${1}"
 mvn site:site
 if [ ${?} -ne 0 ]; then
     echo "error building the site, unable to continue"
@@ -17,10 +20,16 @@ if [ ${?} -ne 0 ]; then
     exit 2
 fi
 
-rm -Rf maven/*
-cp -a target/site/* maven/
-git add maven
-git commit -m "- automatic import of generated maven site"
+#rm -Rf maven/*
+#cp -a target/site/* maven/
+#git add maven
+#git commit -m "- automatic import of generated maven site"
 git checkout master
 echo "operation complete. you need to manually git push origin gh-pages"
+echo "rm ${0}"
+
+EOF
+
+chmod 755 ../pubmvnsite.$$
+../pubmvnsite.$$ "$(pwd)" &
 

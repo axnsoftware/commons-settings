@@ -25,8 +25,8 @@
 <a class="jxr_linenumber" name="15" href="#15">15</a>  <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="16" href="#16">16</a>  <strong class="jxr_keyword">package</strong> de.axnsoftware.settings.impl.accessor;
 <a class="jxr_linenumber" name="17" href="#17">17</a>  
-<a class="jxr_linenumber" name="18" href="#18">18</a>  <strong class="jxr_keyword">import</strong> de.axnsoftware.settings.ITypeMapper;
-<a class="jxr_linenumber" name="19" href="#19">19</a>  <strong class="jxr_keyword">import</strong> de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
+<a class="jxr_linenumber" name="18" href="#18">18</a>  <strong class="jxr_keyword">import</strong> de.axnsoftware.settings.IBackingStore;
+<a class="jxr_linenumber" name="19" href="#19">19</a>  <strong class="jxr_keyword">import</strong> de.axnsoftware.settings.ITypeMapper;
 <a class="jxr_linenumber" name="20" href="#20">20</a>  <strong class="jxr_keyword">import</strong> java.util.Map;
 <a class="jxr_linenumber" name="21" href="#21">21</a>  
 <a class="jxr_linenumber" name="22" href="#22">22</a>  <em class="jxr_javadoccomment">/**</em>
@@ -53,7 +53,7 @@
 <a class="jxr_linenumber" name="43" href="#43">43</a>  <em class="jxr_javadoccomment">     * {@inheritDoc}</em>
 <a class="jxr_linenumber" name="44" href="#44">44</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="45" href="#45">45</a>      @Override
-<a class="jxr_linenumber" name="46" href="#46">46</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> readFromProperties(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/impl/IMutableBackingStoreWrapper.html">IMutableBackingStoreWrapper</a> properties, <strong class="jxr_keyword">final</strong> Object settingsRoot) {
+<a class="jxr_linenumber" name="46" href="#46">46</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> readFromProperties(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/IBackingStore.html">IBackingStore</a> properties, <strong class="jxr_keyword">final</strong> Object settingsRoot) {
 <a class="jxr_linenumber" name="47" href="#47">47</a>          <strong class="jxr_keyword">final</strong> Class&lt;?&gt; type = <strong class="jxr_keyword">this</strong>.getType();
 <a class="jxr_linenumber" name="48" href="#48">48</a>          <strong class="jxr_keyword">final</strong> Object value = <strong class="jxr_keyword">this</strong>.getTypeMappings().get(type).valueOf(properties.getProperty(<strong class="jxr_keyword">this</strong>.getQualifiedKey()), type);
 <a class="jxr_linenumber" name="49" href="#49">49</a>          <strong class="jxr_keyword">this</strong>.setValue(value, settingsRoot);
@@ -63,7 +63,7 @@
 <a class="jxr_linenumber" name="53" href="#53">53</a>  <em class="jxr_javadoccomment">     * {@inheritDoc}</em>
 <a class="jxr_linenumber" name="54" href="#54">54</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="55" href="#55">55</a>      @Override
-<a class="jxr_linenumber" name="56" href="#56">56</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeToProperties(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/impl/IMutableBackingStoreWrapper.html">IMutableBackingStoreWrapper</a> properties, <strong class="jxr_keyword">final</strong> Object settingsRoot) {
+<a class="jxr_linenumber" name="56" href="#56">56</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeToProperties(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/IBackingStore.html">IBackingStore</a> properties, <strong class="jxr_keyword">final</strong> Object settingsRoot) {
 <a class="jxr_linenumber" name="57" href="#57">57</a>          String value = <strong class="jxr_keyword">this</strong>.getTypeMappings().get(<strong class="jxr_keyword">this</strong>.getType()).valueOf(<strong class="jxr_keyword">this</strong>.getValue(settingsRoot));
 <a class="jxr_linenumber" name="58" href="#58">58</a>          properties.setProperty(<strong class="jxr_keyword">this</strong>.getQualifiedKey(), value);
 <a class="jxr_linenumber" name="59" href="#59">59</a>      }

@@ -92,10 +92,10 @@ public class MapPropertyAccessorImplTest {
     @Test
     public void readFromPropertiesMustPopulateSimpleSettingsRootAsExpected() {
         SimpleSettingsRoot settingsRoot = new SimpleSettingsRoot();
-        properties.setProperty("values.0", "1");
-        properties.setProperty("values.1", "2");
-        properties.setProperty("values.2", "3");
-        this.simpleSettingsRootAccessor.readFromProperties(properties, settingsRoot);
+        properties.setString("values.0", "1");
+        properties.setString("values.1", "2");
+        properties.setString("values.2", "3");
+        this.simpleSettingsRootAccessor.readFromBackingStore(properties, settingsRoot);
         Map<String, Integer> expected = new HashMap<>();
         expected.put("0", 1);
         expected.put("1", 2);
@@ -106,10 +106,10 @@ public class MapPropertyAccessorImplTest {
     @Test
     public void readFromPropertiesMustPopulateCompoundSettingsRootAsExpected() {
         CompoundSettingsRoot settingsRoot = new CompoundSettingsRoot();
-        properties.setProperty("values.0.values.0", "1");
-        properties.setProperty("values.0.values.1", "2");
-        properties.setProperty("values.0.values.2", "3");
-        this.compoundSettingsRootAccessor.readFromProperties(properties, settingsRoot);
+        properties.setString("values.0.values.0", "1");
+        properties.setString("values.0.values.1", "2");
+        properties.setString("values.0.values.2", "3");
+        this.compoundSettingsRootAccessor.readFromBackingStore(properties, settingsRoot);
         Assert.assertEquals(1, settingsRoot.getValues().size());
         Map<String, Integer> expected = new HashMap<>();
         expected.put("0", 1);
@@ -125,13 +125,13 @@ public class MapPropertyAccessorImplTest {
         settingsRoot.getValues().put("0", 1);
         settingsRoot.getValues().put("1", 2);
         settingsRoot.getValues().put("2", 3);
-        this.simpleSettingsRootAccessor.writeToProperties(properties, settingsRoot);
+        this.simpleSettingsRootAccessor.writeToBackingStore(properties, settingsRoot);
         Object[] sortedKeys = properties.keySet().toArray();
         Arrays.sort(sortedKeys);
         Assert.assertArrayEquals(new String[]{"values.0", "values.1", "values.2"}, sortedKeys);
-        Assert.assertEquals("1", properties.getProperty("values.0"));
-        Assert.assertEquals("2", properties.getProperty("values.1"));
-        Assert.assertEquals("3", properties.getProperty("values.2"));
+        Assert.assertEquals("1", properties.getString("values.0"));
+        Assert.assertEquals("2", properties.getString("values.1"));
+        Assert.assertEquals("3", properties.getString("values.2"));
     }
 
     @Test
@@ -144,12 +144,12 @@ public class MapPropertyAccessorImplTest {
         v1.getValues().put("2", 3);
         settingsRoot.setValues(new HashMap<String, SimpleSettingsRoot>());
         settingsRoot.getValues().put("0", v1);
-        this.compoundSettingsRootAccessor.writeToProperties(properties, settingsRoot);
+        this.compoundSettingsRootAccessor.writeToBackingStore(properties, settingsRoot);
         Object[] sortedKeys = properties.keySet().toArray();
         Arrays.sort(sortedKeys);
         Assert.assertArrayEquals(new String[]{"values.0.values.0", "values.0.values.1", "values.0.values.2"}, sortedKeys);
-        Assert.assertEquals("1", properties.getProperty("values.0.values.0"));
-        Assert.assertEquals("2", properties.getProperty("values.0.values.1"));
-        Assert.assertEquals("3", properties.getProperty("values.0.values.2"));
+        Assert.assertEquals("1", properties.getString("values.0.values.0"));
+        Assert.assertEquals("2", properties.getString("values.0.values.1"));
+        Assert.assertEquals("3", properties.getString("values.0.values.2"));
     }
 }

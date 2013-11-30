@@ -8,11 +8,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>de.axnsoftware.commons</groupId>
-    <artifactId>commons-settings-examples-simple-file-store-example</artifactId>
+    <artifactId>commons-settings-examples-jme3-appsettings-example</artifactId>
     <version>1</version>
     <packaging>jar</packaging>
 
-    <name>axnsoftware-commons-settings-examples-simple-file-store-example</name>
+    <name>axnsoftware-commons-settings-examples-jme3-appsettings-example</name>
     <!--<description></description>-->
     <!--<url>...</url>-->
     <inceptionYear>2013</inceptionYear>
@@ -45,7 +45,37 @@
             <artifactId>junit</artifactId>
             <version>${junit.junit.version}</version>
         </dependency>
+        <dependency>
+            <groupId>com.jme3</groupId>
+            <artifactId>jME3-core</artifactId>
+            <version>3.0.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
+
+    <repositories>
+        <repository>
+            <id>sonatypeoss-snapshots</id>
+            <url>http://oss.sonatype.org/content/repositories/snapshots</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>sonatypeoss-releases</id>
+            <url>http://oss.sonatype.org/content/repositories/releases</url>
+            <layout>default</layout>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>

@@ -45,8 +45,8 @@ public final class LeafPropertyAccessorImpl extends AbstractPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
-    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
-        Object value = this.getTypeMappings().get(this.getType()).valueOf(properties.getProperty(this.getQualifiedKey()), this.getType());
+    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
+        Object value = this.getTypeMappings().get(this.getType()).readFromBackingStore(backingStore, this.getQualifiedKey(), this.getType());
         if (value != null) {
             this.setValue(value, settingsRoot);
         }
@@ -56,10 +56,10 @@ public final class LeafPropertyAccessorImpl extends AbstractPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
-    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {
+    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
         Object value = this.getValue(settingsRoot);
         if (value != null) {
-            properties.setProperty(this.getQualifiedKey(), this.getTypeMappings().get(this.getType()).valueOf(value));
+            this.getTypeMappings().get(this.getType()).writeToBackingStore(backingStore, this.getQualifiedKey(), value);
         }
     }
 }

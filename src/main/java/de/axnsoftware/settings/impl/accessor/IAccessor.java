@@ -106,12 +106,12 @@ public interface IAccessor extends Cloneable {
 
     /**
      * Reads the value of the property represented by this from the specified
-     * {@code properties} into the specified {@code settingsRoot}.
+     * {@code backingStore} into the specified {@code settingsRoot}.
      *
-     * @param properties
+     * @param backingStore
      * @param settingsRoot
      */
-    public void readFromProperties(final IBackingStore properties, final Object settingsRoot);
+    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot);
 
     /**
      * Replaces the existing child accessors with the specified
@@ -145,10 +145,10 @@ public interface IAccessor extends Cloneable {
 
     /**
      * Gets the value of the property represented by this from the specified
-     * {@code settingsRoot} and writes it to the specified {@code properties}.
+     * {@code settingsRoot} and writes it to the specified {@code backingStore}.
      *
-     * @param properties
+     * @param backingStore
      * @param settingsRoot
      */
-    public void writeToProperties(final IBackingStore properties, final Object settingsRoot);
+    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot);
 }

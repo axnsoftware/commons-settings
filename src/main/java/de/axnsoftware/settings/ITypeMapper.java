@@ -16,9 +16,10 @@
 package de.axnsoftware.settings;
 
 /**
- * The interface ITypeMapper models a mapper that is responsible for rendering a
- * given object to a {@code String}, instantiating a given object from a
- * {@code String}, and producing copies of an existing object.
+ * The interface ITypeMapper models a mapper that is responsible for reading and
+ * writing a given object from and to a given backing store. The mapper is
+ * responsible for any transformations that need to be applied for a given
+ * object to be written to and read from the backing store.
  *
  * By default, the system will use a default implementation capable of mapping
  * all of the standard numeric types, found in both java.lang and java.math,
@@ -32,41 +33,43 @@ package de.axnsoftware.settings;
 public interface ITypeMapper {
 
     /**
-     * Returns an instance of the specified {@code type} for the specified
-     * {@code value}.
-     *
-     * This will throw an {@code IllegalArgumentException} if either this does
-     * not support the specified {@code type}, or the specified {@code value}
-     * cannot be parsed.
-     *
-     * @param value
-     * @param type
-     * @return the instance or null
-     * @throws IllegalArgumentException
-     */
-    public Object valueOf(final String value, final Class<?> type);
-
-    /**
-     * Returns a string representation of the specified {@code value}.
-     *
-     * This will throw an {@code IllegalArgumentException} if the type of the
-     * {@code value} is not supported.
-     *
-     * @param value
-     * @return string representation of the specified value or null
-     * @throws IllegalArgumentException
-     */
-    public String valueOf(final Object value);
-
-    /**
      * Returns a copy of the specified {@code value}.
-     *
-     * This will throw an {@code IllegalArgumentException} if the type of the
-     * {@code value} is not supported.
      *
      * @param value
      * @return a copy of the specified value or null
      * @throws IllegalArgumentException
      */
     public Object copyOf(final Object value);
+
+    /**
+     * Returns an instance of the specified {@code key} and {@code type} which
+     * is read from the specified {@code backingStore}.
+     *
+     * @param backingStore
+     * @param key
+     * @param type
+     * @return the instance or null
+     * @throws IllegalArgumentException
+     */
+    public Object readFromBackingStore(final IBackingStore backingStore, final String key, final Class<?> type);
+
+    /**
+     * Returns an instance of the specified {@code type} for the specified
+     * {@code value}.
+     *
+     * @param value
+     * @param type
+     * @return instance of type or null
+     * @throws IllegalArgumentException
+     */
+    public Object valueOf(final String value, final Class<?> type);
+
+    /**
+     * Writes the specified {@code value} to the specified {@code backingStore}.
+     *
+     * @param backingStore
+     * @param value
+     * @throws IllegalArgumentException
+     */
+    public void writeToBackingStore(final IBackingStore backingStore, final String key, final Object value);
 }

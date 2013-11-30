@@ -15,6 +15,7 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
+import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -44,9 +45,67 @@ public final class DefaultTypeMapperImpl implements ITypeMapper {
      * {@inheritDoc}
      */
     @Override
+    public Object copyOf(final Object value) {
+        return value;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object readFromBackingStore(final IBackingStore backingStore, final String key, final Class<?> type) {
+        Object result = null;
+        if (BigDecimal.class.equals(type)) {
+            final String value = backingStore.getString(key);
+            if (null != value) {
+                result = new BigDecimal(value);
+            }
+        } else if (BigInteger.class.equals(type)) {
+            final String value = backingStore.getString(key);
+            if (null != value) {
+                result = new BigInteger(value);
+            }
+        } else if (Boolean.class.equals(type)) {
+            result = backingStore.getBoolean(key);
+        } else if (Byte.class.equals(type)) {
+            result = backingStore.getByte(key);
+        } else if (Character.class.equals(type)) {
+            result = backingStore.getCharacter(key);
+        } else if (Double.class.equals(type)) {
+            result = backingStore.getDouble(key);
+        } else if (type.isEnum()) {
+            final String value = backingStore.getString(key);
+            if (null != value) {
+                result = Enum.valueOf((Class<? extends Enum>) type, value);
+            }
+        } else if (Float.class.equals(type)) {
+            result = backingStore.getFloat(key);
+        } else if (Integer.class.equals(type)) {
+            result = backingStore.getInteger(key);
+        } else if (Long.class.equals(type)) {
+            result = backingStore.getLong(key);
+        } else if (Short.class.equals(type)) {
+            result = backingStore.getShort(key);
+        } else if (String.class.equals(type)) {
+            result = backingStore.getString(key);
+        } else if (UUID.class.equals(type)) {
+            final String value = backingStore.getString(key);
+            if (null != value) {
+                result = UUID.fromString(value);
+            }
+        } else {
+            throw new IllegalArgumentException("unsupported type " + type.getName());
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object valueOf(final String value, final Class<?> type) {
         Object result = value;
-        if (value != null && value.length() > 0) {
+        if (null != value) {
             if (BigDecimal.class.equals(type)) {
                 result = new BigDecimal(value);
             } else if (BigInteger.class.equals(type)) {
@@ -58,7 +117,7 @@ public final class DefaultTypeMapperImpl implements ITypeMapper {
             } else if (Character.class.equals(type)) {
                 result = Character.valueOf(value.charAt(0));
             } else if (Double.class.equals(type)) {
-                result = Double.valueOf(value);
+                Double.valueOf(value);
             } else if (type.isEnum()) {
                 result = Enum.valueOf((Class<? extends Enum>) type, value);
             } else if (Float.class.equals(type)) {
@@ -69,6 +128,8 @@ public final class DefaultTypeMapperImpl implements ITypeMapper {
                 result = Long.valueOf(value);
             } else if (Short.class.equals(type)) {
                 result = Short.valueOf(value);
+            } else if (String.class.equals(type)) {
+                result = value;
             } else if (UUID.class.equals(type)) {
                 result = UUID.fromString(value);
             } else {
@@ -82,20 +143,37 @@ public final class DefaultTypeMapperImpl implements ITypeMapper {
      * {@inheritDoc}
      */
     @Override
-    public String valueOf(final Object value) {
-        String result = null;
+    public void writeToBackingStore(final IBackingStore backingStore, final String key, final Object value) {
         if (value != null) {
-            result = value.toString();
+            final Class<?> type = value.getClass();
+            if (BigDecimal.class.equals(type)) {
+                backingStore.setString(key, value.toString());
+            } else if (BigInteger.class.equals(type)) {
+                backingStore.setString(key, value.toString());
+            } else if (Boolean.class.equals(type)) {
+                backingStore.setBoolean(key, value);
+            } else if (Byte.class.equals(type)) {
+                backingStore.setByte(key, (Byte) value);
+            } else if (Character.class.equals(type)) {
+                backingStore.setCharacter(key, (Character) value);
+            } else if (Double.class.equals(type)) {
+                backingStore.setDouble(key, (Double) value);
+            } else if (type.isEnum()) {
+                backingStore.setString(key, value.toString());
+            } else if (Float.class.equals(type)) {
+                backingStore.setFloat(key, (Float) value);
+            } else if (Integer.class.equals(type)) {
+                backingStore.setInteger(key, (Integer) value);
+            } else if (Long.class.equals(type)) {
+                backingStore.setLong(key, (Long) value);
+            } else if (Short.class.equals(type)) {
+                backingStore.setShort(key, (Short) value);
+            } else if (UUID.class.equals(type)) {
+                backingStore.setString(key, value.toString());
+            } else {
+                throw new IllegalArgumentException("unsupported type " + type.getName());
+            }
         }
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object copyOf(final Object value) {
-        return value;
     }
 
     /**
@@ -108,7 +186,8 @@ public final class DefaultTypeMapperImpl implements ITypeMapper {
         if (null == preparedDefaultTypeMappings) {
             ITypeMapper mapper = new DefaultTypeMapperImpl();
             preparedDefaultTypeMappings = new HashMap<>();
-            preparedDefaultTypeMappings.put(BigDecimal.class, mapper);
+            preparedDefaultTypeMappings
+                    .put(BigDecimal.class, mapper);
             preparedDefaultTypeMappings.put(BigInteger.class, mapper);
             preparedDefaultTypeMappings.put(Boolean.class, mapper);
             preparedDefaultTypeMappings.put(Byte.class, mapper);

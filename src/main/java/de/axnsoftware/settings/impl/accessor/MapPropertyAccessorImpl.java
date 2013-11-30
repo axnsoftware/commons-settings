@@ -67,12 +67,12 @@ public final class MapPropertyAccessorImpl extends AbstractContainerPropertyAcce
      * {@inheritDoc}
      */
     @Override
-    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
+    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
         final String key = this.getQualifiedKey();
         final List<String> itemKeys = new ArrayList<>();
         final List<String> sortedPropertyNames = new ArrayList<>();
         try {
-            sortedPropertyNames.addAll(properties.keySet());
+            sortedPropertyNames.addAll(backingStore.keySet());
             Collections.sort(sortedPropertyNames);
             String currentKey = null;
             for (String propertyName : sortedPropertyNames) {
@@ -93,7 +93,7 @@ public final class MapPropertyAccessorImpl extends AbstractContainerPropertyAcce
             for (final String itemKey : itemKeys) {
                 IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();
                 accessor.setItemKey(itemKey);
-                accessor.readFromProperties(properties, settingsRoot);
+                accessor.readFromBackingStore(backingStore, settingsRoot);
             }
         } catch (BackingStoreException e) {
             throw new RuntimeException(e);
@@ -104,12 +104,12 @@ public final class MapPropertyAccessorImpl extends AbstractContainerPropertyAcce
      * {@inheritDoc}
      */
     @Override
-    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {
+    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
         final Map<String, Object> items = (Map<String, Object>) this.getValue(settingsRoot);
         for (final String itemKey : items.keySet()) {
             IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();
             accessor.setItemKey(itemKey);
-            accessor.writeToProperties(properties, settingsRoot);
+            accessor.writeToBackingStore(backingStore, settingsRoot);
         }
     }
 }

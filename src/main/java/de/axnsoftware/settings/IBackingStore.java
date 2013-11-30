@@ -19,8 +19,8 @@ import java.util.Set;
 import java.util.prefs.BackingStoreException;
 
 /**
- * The interface IBackingStore models a wrapper for a backing store which
- * is responsible for both loading and storing configuration data.
+ * The interface IBackingStore models a wrapper for a backing store which is
+ * responsible for both loading and storing configuration data.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -53,7 +53,71 @@ public interface IBackingStore {
      * @param key
      * @return the value or null
      */
-    String getProperty(final String key);
+    Boolean getBoolean(final String key);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     */
+    Byte getByte(final String key);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     */
+    Character getCharacter(final String key);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     */
+    Double getDouble(final String key);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     */
+    Float getFloat(final String key);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     */
+    Integer getInteger(final String key);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     */
+    Long getLong(final String key);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     */
+    Short getShort(final String key);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     */
+    String getString(final String key);
 
     /**
      * Returns all available keys from the underlying properties object.
@@ -71,12 +135,76 @@ public interface IBackingStore {
     void loadProperties() throws BackingStoreException;
 
     /**
-     * Sets the value of the property identified by the specified {@code key}.
+     * Gets the value of the property identified by the specified {@code key}.
      *
      * @param key
      * @param value
      */
-    void setProperty(final String key, final String value);
+    public void setBoolean(String key, Object value);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @param value
+     */
+    void setByte(final String key, final Byte value);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @param value
+     */
+    void setCharacter(final String key, final Character value);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     */
+    void setDouble(final String key, final Double value);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @param value
+     */
+    void setFloat(final String key, final Float value);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @param value
+     */
+    void setInteger(final String key, final Integer value);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @param value
+     */
+    void setLong(final String key, final Long value);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @param value
+     */
+    void setShort(final String key, final Short value);
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @param value
+     */
+    void setString(final String key, final String value);
 
     /**
      * Stored the properties and makes them permanent.

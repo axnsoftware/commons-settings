@@ -25,7 +25,7 @@
 <a class="jxr_linenumber" name="15" href="#15">15</a>  <em class="jxr_comment"> */</em>
 <a class="jxr_linenumber" name="16" href="#16">16</a>  <strong class="jxr_keyword">package</strong> de.axnsoftware.settings.impl.accessor;
 <a class="jxr_linenumber" name="17" href="#17">17</a>  
-<a class="jxr_linenumber" name="18" href="#18">18</a>  <strong class="jxr_keyword">import</strong> de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
+<a class="jxr_linenumber" name="18" href="#18">18</a>  <strong class="jxr_keyword">import</strong> de.axnsoftware.settings.IBackingStore;
 <a class="jxr_linenumber" name="19" href="#19">19</a>  
 <a class="jxr_linenumber" name="20" href="#20">20</a>  <em class="jxr_javadoccomment">/**</em>
 <a class="jxr_linenumber" name="21" href="#21">21</a>  <em class="jxr_javadoccomment"> * The final class BranchPropertyAccessorImpl models a concrete implementation</em>
@@ -68,7 +68,7 @@
 <a class="jxr_linenumber" name="58" href="#58">58</a>  <em class="jxr_javadoccomment">     * {@inheritDoc}</em>
 <a class="jxr_linenumber" name="59" href="#59">59</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="60" href="#60">60</a>      @Override
-<a class="jxr_linenumber" name="61" href="#61">61</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> readFromProperties(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/impl/IMutableBackingStoreWrapper.html">IMutableBackingStoreWrapper</a> properties, <strong class="jxr_keyword">final</strong> Object settingsRoot) {
+<a class="jxr_linenumber" name="61" href="#61">61</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> readFromProperties(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/IBackingStore.html">IBackingStore</a> properties, <strong class="jxr_keyword">final</strong> Object settingsRoot) {
 <a class="jxr_linenumber" name="62" href="#62">62</a>          <strong class="jxr_keyword">for</strong> (IAccessor childAccessor : <strong class="jxr_keyword">this</strong>.getChildAccessors()) {
 <a class="jxr_linenumber" name="63" href="#63">63</a>              ((<a href="../../../../../de/axnsoftware/settings/impl/accessor/IPropertyAccessor.html">IPropertyAccessor</a>) childAccessor).readFromProperties(properties, settingsRoot);
 <a class="jxr_linenumber" name="64" href="#64">64</a>          }
@@ -78,7 +78,7 @@
 <a class="jxr_linenumber" name="68" href="#68">68</a>  <em class="jxr_javadoccomment">     * {@inheritDoc}</em>
 <a class="jxr_linenumber" name="69" href="#69">69</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="70" href="#70">70</a>      @Override
-<a class="jxr_linenumber" name="71" href="#71">71</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeToProperties(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/impl/IMutableBackingStoreWrapper.html">IMutableBackingStoreWrapper</a> properties, <strong class="jxr_keyword">final</strong> Object settingsRoot) {
+<a class="jxr_linenumber" name="71" href="#71">71</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeToProperties(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/IBackingStore.html">IBackingStore</a> properties, <strong class="jxr_keyword">final</strong> Object settingsRoot) {
 <a class="jxr_linenumber" name="72" href="#72">72</a>          <strong class="jxr_keyword">for</strong> (IAccessor childAccessor : <strong class="jxr_keyword">this</strong>.getChildAccessors()) {
 <a class="jxr_linenumber" name="73" href="#73">73</a>              ((<a href="../../../../../de/axnsoftware/settings/impl/accessor/IPropertyAccessor.html">IPropertyAccessor</a>) childAccessor).writeToProperties(properties, settingsRoot);
 <a class="jxr_linenumber" name="74" href="#74">74</a>          }

@@ -20,7 +20,7 @@ import java.util.prefs.BackingStoreException;
 /**
  * The interface ISettingsStore models a service for loading and storing
  * properties from and to an underlying backing store represented by an instance
- * of the {@code IBackingStoreWrapper} interface.
+ * of the {@code IBackingStore} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -35,9 +35,9 @@ public interface ISettingsStore {
      *
      * @return the underlying backing store
      * @throws IllegalStateException
-     * @see IBackingStoreWrapper
+     * @see IBackingStore
      */
-    public IBackingStoreWrapper getBackingStoreWrapper();
+    public IBackingStore getBackingStoreWrapper();
 
     /**
      * Returns the type representing the root {@link PropertyClass}, that was

@@ -4,9 +4,9 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
+import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.Property;
 import de.axnsoftware.settings.PropertyClass;
-import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
 import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,7 +20,7 @@ public class ArrayPropertyAccessorImplTest {
 
     private IAccessor simpleSettingsRootAccessor;
     private IAccessor compoundSettingsRootAccessor;
-    private IMutableBackingStoreWrapper properties;
+    private IBackingStore properties;
 
     @PropertyClass
     public static class SimpleSettingsRoot {

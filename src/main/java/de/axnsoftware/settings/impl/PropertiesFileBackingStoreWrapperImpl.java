@@ -16,6 +16,7 @@
 package de.axnsoftware.settings.impl;
 
 import de.axnsoftware.settings.EFileFormat;
+import de.axnsoftware.settings.IBackingStore;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -31,12 +32,12 @@ import java.util.prefs.BackingStoreException;
 
 /**
  * The final class PropertiesFileBackingStoreWrapperImpl models a concrete
- * implementation of the {@code IMutableBackingStoreWrapper} interface.
+ * implementation of the {@code IBackingStoreWrapper} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class PropertiesFileBackingStoreWrapperImpl implements IMutableBackingStoreWrapper {
+public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStore {
 
     private final EFileFormat fileFormat;
     private final File storagePath;

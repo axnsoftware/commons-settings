@@ -15,8 +15,8 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
+import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
-import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
 import java.util.Map;
 
 /**
@@ -43,7 +43,7 @@ public final class LeafArrayItemAccessorImpl extends AbstractArrayItemAccessorIm
      * {@inheritDoc}
      */
     @Override
-    public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
+    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
         final Class<?> type = this.getType();
         final Object value = this.getTypeMappings().get(type).valueOf(properties.getProperty(this.getQualifiedKey()), type);
         this.setValue(value, settingsRoot);
@@ -53,7 +53,7 @@ public final class LeafArrayItemAccessorImpl extends AbstractArrayItemAccessorIm
      * {@inheritDoc}
      */
     @Override
-    public void writeToProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
+    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {
         String value = this.getTypeMappings().get(this.getType()).valueOf(this.getValue(settingsRoot));
         properties.setProperty(this.getQualifiedKey(), value);
     }

@@ -17,7 +17,7 @@ package de.axnsoftware.settings.impl;
 
 import de.axnsoftware.settings.impl.accessor.IAccessor;
 import de.axnsoftware.settings.ISettings;
-import de.axnsoftware.settings.IBackingStoreWrapper;
+import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ISettingsStore;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,10 +33,10 @@ import java.util.prefs.BackingStoreException;
 public final class SettingsStoreImpl implements ISettingsStore {
 
     private final Class<?> type;
-    private IMutableBackingStoreWrapper backingStoreWrapper;
+    private IBackingStore backingStoreWrapper;
     private final IAccessor rootAccessor;
 
-    public SettingsStoreImpl(final IMutableBackingStoreWrapper backingStoreWrapper, final IAccessor rootAccessor, final Class<?> type) {
+    public SettingsStoreImpl(final IBackingStore backingStoreWrapper, final IAccessor rootAccessor, final Class<?> type) {
         this.backingStoreWrapper = backingStoreWrapper;
         this.rootAccessor = rootAccessor;
         this.type = type;
@@ -95,15 +95,10 @@ public final class SettingsStoreImpl implements ISettingsStore {
      * {@inheritDoc}
      */
     @Override
-    public IBackingStoreWrapper getBackingStoreWrapper() {
+    public IBackingStore getBackingStoreWrapper() {
         if (null == this.backingStoreWrapper) {
             throw new IllegalStateException("TODO:backing store has not been loaded.");
         }
-        return new IBackingStoreWrapper() {
-            @Override
-            public Object getProperties() {
-                return SettingsStoreImpl.this.backingStoreWrapper.getProperties();
-            }
-        };
+        return this.backingStoreWrapper;
     }
 }

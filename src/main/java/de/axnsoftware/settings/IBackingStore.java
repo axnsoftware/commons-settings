@@ -13,19 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.axnsoftware.settings.impl;
+package de.axnsoftware.settings;
 
-import de.axnsoftware.settings.IBackingStoreWrapper;
 import java.util.Set;
 import java.util.prefs.BackingStoreException;
 
 /**
- * The interface IMutableBackingStoreWrapper models the mutable version of the
- * interface {@code IBackingStoreWrapper}.
+ * The interface IBackingStore models a wrapper for a backing store which
+ * is responsible for both loading and storing configuration data.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
+ * @since 1.0.0
  */
-public interface IMutableBackingStoreWrapper extends IBackingStoreWrapper {
+public interface IBackingStore {
+
+    /**
+     * Returns a copy of the loaded properties.
+     *
+     * This will throw an {@code IllegalStateException} if the properties have
+     * not been loaded.
+     *
+     * @return the properties
+     * @throws IllegalStateException
+     */
+    public Object getProperties();
 
     /**
      * Deletes the properties. Depending on the implementation this could mean
@@ -34,14 +45,7 @@ public interface IMutableBackingStoreWrapper extends IBackingStoreWrapper {
      *
      * @throws BackingStoreException
      */
-    public void deleteProperties() throws BackingStoreException;
-
-    /**
-     * Loads the properties into memory.
-     *
-     * @throws BackingStoreException
-     */
-    public void loadProperties() throws BackingStoreException;
+    void deleteProperties() throws BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
@@ -49,7 +53,7 @@ public interface IMutableBackingStoreWrapper extends IBackingStoreWrapper {
      * @param key
      * @return the value or null
      */
-    public String getProperty(final String key);
+    String getProperty(final String key);
 
     /**
      * Returns all available keys from the underlying properties object.
@@ -57,7 +61,14 @@ public interface IMutableBackingStoreWrapper extends IBackingStoreWrapper {
      * @return all available keys in no specific order
      * @throws BackingStoreException
      */
-    public Set<String> keySet() throws BackingStoreException;
+    Set<String> keySet() throws BackingStoreException;
+
+    /**
+     * Loads the properties into memory.
+     *
+     * @throws BackingStoreException
+     */
+    void loadProperties() throws BackingStoreException;
 
     /**
      * Sets the value of the property identified by the specified {@code key}.
@@ -65,12 +76,12 @@ public interface IMutableBackingStoreWrapper extends IBackingStoreWrapper {
      * @param key
      * @param value
      */
-    public void setProperty(final String key, final String value);
+    void setProperty(final String key, final String value);
 
     /**
      * Stored the properties and makes them permanent.
      *
      * @throws BackingStoreException
      */
-    public void storeProperties() throws BackingStoreException;
+    void storeProperties() throws BackingStoreException;
 }

@@ -15,8 +15,8 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
+import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
-import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
 import java.util.List;
 import java.util.Map;
 
@@ -111,7 +111,7 @@ public interface IAccessor extends Cloneable {
      * @param properties
      * @param settingsRoot
      */
-    public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot);
+    public void readFromProperties(final IBackingStore properties, final Object settingsRoot);
 
     /**
      * Replaces the existing child accessors with the specified
@@ -150,5 +150,5 @@ public interface IAccessor extends Cloneable {
      * @param properties
      * @param settingsRoot
      */
-    public void writeToProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot);
+    public void writeToProperties(final IBackingStore properties, final Object settingsRoot);
 }

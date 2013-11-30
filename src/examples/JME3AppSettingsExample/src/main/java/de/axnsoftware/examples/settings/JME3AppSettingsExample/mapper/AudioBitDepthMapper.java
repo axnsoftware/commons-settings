@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.mapper;
+package de.axnsoftware.examples.settings.JME3AppSettingsExample.mapper;
 
-import de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.pojos.EAudioBitDepth;
+import de.axnsoftware.examples.settings.JME3AppSettingsExample.pojos.EAudioBitDepth;
 import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
 

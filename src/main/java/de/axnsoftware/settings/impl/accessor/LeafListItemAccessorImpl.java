@@ -43,9 +43,9 @@ public final class LeafListItemAccessorImpl extends AbstractListItemAccessorImpl
      * {@inheritDoc}
      */
     @Override
-    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
+    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
         final Class<?> type = this.getType();
-        final Object value = this.getTypeMappings().get(type).valueOf(properties.getProperty(this.getQualifiedKey()), type);
+        final Object value = this.getTypeMappings().get(type).readFromBackingStore(backingStore, this.getQualifiedKey(), type);
         this.setValue(value, settingsRoot);
     }
 
@@ -53,8 +53,7 @@ public final class LeafListItemAccessorImpl extends AbstractListItemAccessorImpl
      * {@inheritDoc}
      */
     @Override
-    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {
-        final String value = this.getTypeMappings().get(this.getType()).valueOf(this.getValue(settingsRoot));
-        properties.setProperty(this.getQualifiedKey(), value);
+    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
+        this.getTypeMappings().get(this.getType()).writeToBackingStore(backingStore, this.getQualifiedKey(), this.getValue(settingsRoot));
     }
 }

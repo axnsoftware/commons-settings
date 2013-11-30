@@ -67,12 +67,12 @@ public final class ListPropertyAccessorImpl extends AbstractContainerPropertyAcc
      * {@inheritDoc}
      */
     @Override
-    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
+    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
         final String key = this.getQualifiedKey();
         final List<String> itemKeys = new ArrayList<>();
         final List<String> sortedPropertyNames = new ArrayList<>();
         try {
-            sortedPropertyNames.addAll(properties.keySet());
+            sortedPropertyNames.addAll(backingStore.keySet());
             Collections.sort(sortedPropertyNames);
             int nextProvableItemKey = 0;
             String provableKey = key + "." + nextProvableItemKey;
@@ -83,12 +83,12 @@ public final class ListPropertyAccessorImpl extends AbstractContainerPropertyAcc
                     provableKey = key + "." + nextProvableItemKey;
                 }
             }
-            final List<?> items = (List<?>) this.getType().cast(new ArrayList<Object>());
+            final List<?> items = (List<?>) this.getType().cast(new ArrayList<>());
             this.setValue(items, settingsRoot);
             for (int index = 0; index < itemKeys.size(); index++) {
                 IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();
                 accessor.setItemKey(index);
-                accessor.readFromProperties(properties, settingsRoot);
+                accessor.readFromBackingStore(backingStore, settingsRoot);
             }
             // in case the user or the program created gaps in the order of indices, we will close these now
             if (items.size() > itemKeys.size()) {
@@ -108,12 +108,12 @@ public final class ListPropertyAccessorImpl extends AbstractContainerPropertyAcc
      * {@inheritDoc}
      */
     @Override
-    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {
+    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
         final List<Object> items = (List<Object>) this.getValue(settingsRoot);
         for (int index = 0; index < items.size(); index++) {
             IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();
             accessor.setItemKey(index);
-            accessor.writeToProperties(properties, settingsRoot);
+            accessor.writeToBackingStore(backingStore, settingsRoot);
         }
     }
 }

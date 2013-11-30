@@ -59,7 +59,7 @@ public final class SettingsStoreImpl implements ISettingsStore {
         try {
             Object settingsRoot = this.type.newInstance();
             this.backingStoreWrapper.loadProperties();
-            this.rootAccessor.readFromProperties(this.backingStoreWrapper, settingsRoot);
+            this.rootAccessor.readFromBackingStore(this.backingStoreWrapper, settingsRoot);
             result = new SettingsImpl(settingsRoot, this.rootAccessor, this);
         } catch (InstantiationException | IllegalAccessException e) {
             Logger.getLogger(SettingsStoreImpl.class.getName()).log(Level.SEVERE, null, e);
@@ -87,7 +87,7 @@ public final class SettingsStoreImpl implements ISettingsStore {
         if (null == this.backingStoreWrapper) {
             throw new IllegalStateException("TODO:backing store has not been loaded.");
         }
-        this.rootAccessor.writeToProperties(this.backingStoreWrapper, settings.getProperties());
+        this.rootAccessor.writeToBackingStore(this.backingStoreWrapper, settings.getProperties());
         this.backingStoreWrapper.storeProperties();
     }
 

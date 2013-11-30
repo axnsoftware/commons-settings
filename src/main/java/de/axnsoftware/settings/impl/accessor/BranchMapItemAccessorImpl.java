@@ -58,9 +58,9 @@ public final class BranchMapItemAccessorImpl extends AbstractMapItemAccessorImpl
      * {@inheritDoc}
      */
     @Override
-    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
+    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
         for (IAccessor childAccessor : this.getChildAccessors()) {
-            ((IPropertyAccessor) childAccessor).readFromProperties(properties, settingsRoot);
+            ((IPropertyAccessor) childAccessor).readFromBackingStore(backingStore, settingsRoot);
         }
     }
 
@@ -68,9 +68,9 @@ public final class BranchMapItemAccessorImpl extends AbstractMapItemAccessorImpl
      * {@inheritDoc}
      */
     @Override
-    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {
+    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
         for (IAccessor childAccessor : this.getChildAccessors()) {
-            ((IPropertyAccessor) childAccessor).writeToProperties(properties, settingsRoot);
+            ((IPropertyAccessor) childAccessor).writeToBackingStore(backingStore, settingsRoot);
         }
     }
 }

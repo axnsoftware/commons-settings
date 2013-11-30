@@ -15,7 +15,9 @@
  */
 package de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.mapper;
 
+import de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.pojos.EAudioBitDepth;
 import de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.pojos.EAudioSampleRate;
+import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
 
 /**
@@ -25,14 +27,13 @@ import de.axnsoftware.settings.ITypeMapper;
 public class AudioSampleRateMapper implements ITypeMapper {
 
     @Override
-    public String valueOf(final Object value) {
-        String result = "24kHz";
+    public Object copyOf(final Object value) {
+        return value;
+    }
 
-        if (value == EAudioSampleRate.AUDIO_SAMPLE_RATE_48KHZ) {
-            result = "48kHz";
-        }
-
-        return result;
+    @Override
+    public Object readFromBackingStore(IBackingStore backingStore, String key, Class<?> type) {
+        return this.valueOf(backingStore.getString(key), type);
     }
 
     @Override
@@ -40,17 +41,22 @@ public class AudioSampleRateMapper implements ITypeMapper {
         Object result = EAudioSampleRate.AUDIO_SAMPLE_RATE_24KHZ;
 
         if (type != EAudioSampleRate.class) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(type.getName());
         }
 
         if ("48kHz".equals(value)) {
             result = EAudioSampleRate.AUDIO_SAMPLE_RATE_48KHZ;
         }
+
         return result;
     }
 
     @Override
-    public Object copyOf(final Object value) {
-        return value;
+    public void writeToBackingStore(IBackingStore backingStore, String key, Object value) {
+        String stringValue = "24kHz";
+        if (EAudioSampleRate.AUDIO_SAMPLE_RATE_48KHZ.equals(value)) {
+            stringValue = "48kHz";
+        }
+        backingStore.setString(key, stringValue);
     }
 }

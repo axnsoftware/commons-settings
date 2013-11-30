@@ -65,6 +65,97 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
+    public Boolean getBoolean(String key) {
+        Boolean result = null;
+        String value = this.getString(key);
+        if (null != value) {
+            result = Boolean.valueOf(value);
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Byte getByte(String key) {
+        Byte result = null;
+        String value = this.getString(key);
+        if (null != value) {
+            result = Byte.valueOf(value);
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Character getCharacter(String key) {
+        Character result = null;
+        String value = this.getString(key);
+        if (null != value) {
+            result = Character.valueOf(value.charAt(0));
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Double getDouble(String key) {
+        Double result = null;
+        String value = this.getString(key);
+        if (null != value) {
+            result = Double.valueOf(value);
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Float getFloat(String key) {
+        Float result = null;
+        String value = this.getString(key);
+        if (null != value) {
+            result = Float.valueOf(value);
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getInteger(String key) {
+        Integer result = null;
+        String value = this.getString(key);
+        if (null != value) {
+            result = Integer.valueOf(value);
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Long getLong(String key) {
+        Long result = null;
+        String value = this.getString(key);
+        if (null != value) {
+            result = Long.valueOf(value);
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Object getProperties() {
         if (null == this.properties) {
             throw new IllegalStateException("TODO:properties have not been loaded.");
@@ -76,10 +167,20 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public String getProperty(final String key) {
-        if (null == this.properties) {
-            throw new IllegalStateException("TODO:properties have not been loaded.");
+    public Short getShort(String key) {
+        Short result = null;
+        String value = this.getString(key);
+        if (null != value) {
+            result = Short.valueOf(value);
         }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getString(String key) {
         return this.properties.getProperty(key);
     }
 
@@ -128,11 +229,72 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void setProperty(final String key, final String value) {
-        if (null == this.properties) {
-            throw new IllegalStateException("TODO:properties have not been loaded.");
-        }
-        this.properties.setProperty(key, value);
+    public void setBoolean(String key, Object value) {
+        this.setString(key, value.toString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setByte(String key, Byte value) {
+        this.setString(key, value.toString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setCharacter(String key, Character value) {
+        this.setString(key, value.toString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setDouble(String key, Double value) {
+        this.setString(key, value.toString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setFloat(String key, Float value) {
+        this.setString(key, value.toString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setInteger(String key, Integer value) {
+        this.setString(key, value.toString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setLong(String key, Long value) {
+        this.setString(key, value.toString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setShort(String key, Short value) {
+        this.setString(key, value.toString());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setString(String key, String value) {
+        this.properties.setProperty(key, value.toString());
     }
 
     /**

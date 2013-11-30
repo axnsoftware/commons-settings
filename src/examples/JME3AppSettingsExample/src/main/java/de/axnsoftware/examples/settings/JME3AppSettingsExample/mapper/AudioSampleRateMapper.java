@@ -13,9 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.mapper;
+package de.axnsoftware.examples.settings.JME3AppSettingsExample.mapper;
 
-import de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.pojos.EAudioBitDepth;
+import de.axnsoftware.examples.settings.JME3AppSettingsExample.pojos.EAudioSampleRate;
 import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
 
@@ -23,7 +23,7 @@ import de.axnsoftware.settings.ITypeMapper;
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  */
-public class AudioBitDepthMapper implements ITypeMapper {
+public class AudioSampleRateMapper implements ITypeMapper {
 
     @Override
     public Object copyOf(final Object value) {
@@ -37,14 +37,14 @@ public class AudioBitDepthMapper implements ITypeMapper {
 
     @Override
     public Object valueOf(final String value, final Class<?> type) {
-        Object result = EAudioBitDepth.AUDIO_BIT_DEPTH_16BIT;
+        Object result = EAudioSampleRate.AUDIO_SAMPLE_RATE_24KHZ;
 
-        if (type != EAudioBitDepth.class) {
+        if (type != EAudioSampleRate.class) {
             throw new IllegalArgumentException(type.getName());
         }
 
-        if ("24bit".equals(value)) {
-            result = EAudioBitDepth.AUDIO_BIT_DEPTH_24BIT;
+        if ("48kHz".equals(value)) {
+            result = EAudioSampleRate.AUDIO_SAMPLE_RATE_48KHZ;
         }
 
         return result;
@@ -52,9 +52,9 @@ public class AudioBitDepthMapper implements ITypeMapper {
 
     @Override
     public void writeToBackingStore(IBackingStore backingStore, String key, Object value) {
-        String stringValue = "16bit";
-        if (EAudioBitDepth.AUDIO_BIT_DEPTH_24BIT.equals(value)) {
-            stringValue = "24bit";
+        String stringValue = "24kHz";
+        if (EAudioSampleRate.AUDIO_SAMPLE_RATE_48KHZ.equals(value)) {
+            stringValue = "48kHz";
         }
         backingStore.setString(key, stringValue);
     }

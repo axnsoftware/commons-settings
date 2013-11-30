@@ -27,9 +27,9 @@ import de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.pojos.Gra
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.prefs.BackingStoreException;
 
 /**
@@ -54,30 +54,12 @@ public class SimpleFileStoreExample {
         SimpleFileStoreExample app = new SimpleFileStoreExample();
         ISettings settings;
         System.out.println("loading properties");
-        long startMillis = System.currentTimeMillis();
-        long start = System.nanoTime();
+        // the properties file does not exist yet, of course, but we will reload
+        // it later
         settings = app.settingsStore.loadSettings();
-        long endMillis = System.currentTimeMillis();
-        long end = System.nanoTime();
-        System.out.println("Nanoseconds: " + ((end - start) / 1000));
-        System.out.println("Microseconds: " + ((end - start) / 1000));
-        System.out.println("Milliseconds: " + ((end - start) / 1000 / 1000));
-        System.out.println("Milliseconds: " + (endMillis - startMillis));
-
-        System.out.println("getting properties");
-        startMillis = System.currentTimeMillis();
-        start = System.nanoTime();
-        SimpleSettings properties = (SimpleSettings) settings.getProperties();
-        endMillis = System.currentTimeMillis();
-        end = System.nanoTime();
-        System.out.println("Nanoseconds: " + ((end - start) / 1000));
-        System.out.println("Microseconds: " + ((end - start) / 1000));
-        System.out.println("Milliseconds: " + ((end - start) / 1000 / 1000));
-        System.out.println("Milliseconds: " + (endMillis - startMillis));
 
         System.out.println("setting properties");
-        startMillis = System.currentTimeMillis();
-        start = System.nanoTime();
+        SimpleSettings properties = (SimpleSettings) settings.getProperties();
         properties.getGeneralAudioSettings().setBitDepth(EAudioBitDepth.AUDIO_BIT_DEPTH_24BIT);
         Map<String, GraphicsResolution> profiles = properties.getGeneralGraphicsSettings().getProfiles();
         GraphicsResolution resolution = new GraphicsResolution();
@@ -85,45 +67,20 @@ public class SimpleFileStoreExample {
         resolution.setHeight(800);
         profiles.put("default", resolution);
         properties.getGeneralGraphicsSettings().setProfiles(profiles);
-        settings.setProperties(properties);
-        endMillis = System.currentTimeMillis();
-        end = System.nanoTime();
-        System.out.println("Nanoseconds: " + ((end - start) / 1000));
-        System.out.println("Microseconds: " + ((end - start) / 1000));
-        System.out.println("Milliseconds: " + ((end - start) / 1000 / 1000));
-        System.out.println("Milliseconds: " + (endMillis - startMillis));
 
-        System.out.println("getting properties");
-        startMillis = System.currentTimeMillis();
-        start = System.nanoTime();
-        settings.getProperties();
-        endMillis = System.currentTimeMillis();
-        end = System.nanoTime();
-        System.out.println("Nanoseconds: " + ((end - start) / 1000));
-        System.out.println("Microseconds: " + ((end - start) / 1000));
-        System.out.println("Milliseconds: " + ((end - start) / 1000 / 1000));
-        System.out.println("Milliseconds: " + (endMillis - startMillis));
-
-        System.out.println("accessing leaflist property");
         List<Integer> leaflist = new ArrayList<>();
         leaflist.add(100);
         leaflist.add(200);
         leaflist.add(400);
         properties.setLeaflist(leaflist);
-        settings.setProperties(properties);
 
-        System.out.println("accessing leafarray property");
         Integer[] leafArray = new Integer[]{1, 2, 3};
         properties.setLeafarray(leafArray);
-        settings.setProperties(properties);
 
-        System.out.println("accessing leafmap property");
         properties.getLeafmap().put("a", 1);
         properties.getLeafmap().put("b", 2);
         properties.getLeafmap().put("c", 3);
-        settings.setProperties(properties);
 
-        System.out.println("accessing branchlist property");
         List<GeneralAudioSettings> branchList = new ArrayList<>();
         GeneralAudioSettings setting = new GeneralAudioSettings();
         setting.setSampleRate(EAudioSampleRate.AUDIO_SAMPLE_RATE_24KHZ);
@@ -132,9 +89,7 @@ public class SimpleFileStoreExample {
         setting.setBitDepth(EAudioBitDepth.AUDIO_BIT_DEPTH_24BIT);
         branchList.add(setting);
         properties.setBranchlist(branchList);
-        settings.setProperties(properties);
 
-        System.out.println("accessing brancharray property");
         GeneralAudioSettings[] branchArray = new GeneralAudioSettings[2];
         setting = new GeneralAudioSettings();
         setting.setSampleRate(EAudioSampleRate.AUDIO_SAMPLE_RATE_24KHZ);
@@ -143,9 +98,7 @@ public class SimpleFileStoreExample {
         setting.setBitDepth(EAudioBitDepth.AUDIO_BIT_DEPTH_24BIT);
         branchArray[1] = setting;
         properties.setBrancharray(branchArray);
-        settings.setProperties(properties);
 
-        System.out.println("accessing branchmap property");
         setting = new GeneralAudioSettings();
         setting.setSampleRate(EAudioSampleRate.AUDIO_SAMPLE_RATE_24KHZ);
         properties.getBranchmap().put("a", setting);
@@ -153,52 +106,24 @@ public class SimpleFileStoreExample {
         setting.setBitDepth(EAudioBitDepth.AUDIO_BIT_DEPTH_24BIT);
         setting.setSampleRate(EAudioSampleRate.AUDIO_SAMPLE_RATE_48KHZ);
         properties.getBranchmap().put("b", setting);
+
         settings.setProperties(properties);
 
         System.out.println("finalizing changes");
-        startMillis = System.currentTimeMillis();
-        start = System.nanoTime();
         settings.finalizeChanges();
-        endMillis = System.currentTimeMillis();
-        end = System.nanoTime();
-        System.out.println("Nanoseconds: " + ((end - start) / 1000));
-        System.out.println("Microseconds: " + ((end - start) / 1000));
-        System.out.println("Milliseconds: " + ((end - start) / 1000 / 1000));
-        System.out.println("Milliseconds: " + (endMillis - startMillis));
-
-        System.out.println("getting properties");
-        startMillis = System.currentTimeMillis();
-        start = System.nanoTime();
-        settings.getProperties();
-        endMillis = System.currentTimeMillis();
-        end = System.nanoTime();
-        System.out.println("Nanoseconds: " + ((end - start) / 1000));
-        System.out.println("Microseconds: " + ((end - start) / 1000));
-        System.out.println("Milliseconds: " + ((end - start) / 1000 / 1000));
-        System.out.println("Milliseconds: " + (endMillis - startMillis));
 
         System.out.println("storing properties");
-        startMillis = System.currentTimeMillis();
-        start = System.nanoTime();
         settings.getStore().storeSettings(settings);
-        endMillis = System.currentTimeMillis();
-        end = System.nanoTime();
-        System.out.println("Nanoseconds: " + ((end - start) / 1000));
-        System.out.println("Microseconds: " + ((end - start) / 1000));
-        System.out.println("Milliseconds: " + ((end - start) / 1000 / 1000));
-        System.out.println("Milliseconds: " + (endMillis - startMillis));
 
-        System.out.println("getting and printing properties from backing store");
-        startMillis = System.currentTimeMillis();
-        start = System.nanoTime();
-        IBackingStore wrapper = app.settingsStore.getBackingStoreWrapper();
-        Properties props = (Properties) wrapper.getProperties();
-        end = System.nanoTime();
-        System.out.println(props);
-        System.out.println("Nanoseconds: " + ((end - start) / 1000));
-        System.out.println("Microseconds: " + ((end - start) / 1000));
-        System.out.println("Milliseconds: " + ((end - start) / 1000 / 1000));
-        System.out.println("Milliseconds: " + (endMillis - startMillis));
+        System.out.println("and loading them back again");
+        settings = settings.getStore().loadSettings();
+
+        IBackingStore backingStore = settings.getStore().getBackingStoreWrapper();
+        String[] keys = (String[]) backingStore.keySet().toArray(new String[]{});
+        Arrays.sort(keys);
+        for (String key : keys) {
+            System.out.println(String.format("%s=%s", key, backingStore.getProperty(key)));
+        }
         System.exit(0);
     }
 }

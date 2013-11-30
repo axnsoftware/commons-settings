@@ -15,6 +15,7 @@
  */
 package de.axnsoftware.settings.impl;
 
+import de.axnsoftware.settings.IBackingStore;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -30,7 +31,7 @@ import java.util.prefs.Preferences;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class PreferencesBackingStoreWrapperImpl implements IMutableBackingStoreWrapper {
+public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
 
     private final String storagePath;
     private Preferences preferences;

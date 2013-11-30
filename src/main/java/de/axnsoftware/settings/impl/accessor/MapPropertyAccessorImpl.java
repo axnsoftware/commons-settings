@@ -15,8 +15,8 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
+import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
-import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -67,7 +67,7 @@ public final class MapPropertyAccessorImpl extends AbstractContainerPropertyAcce
      * {@inheritDoc}
      */
     @Override
-    public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
+    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
         final String key = this.getQualifiedKey();
         final List<String> itemKeys = new ArrayList<>();
         final List<String> sortedPropertyNames = new ArrayList<>();
@@ -104,7 +104,7 @@ public final class MapPropertyAccessorImpl extends AbstractContainerPropertyAcce
      * {@inheritDoc}
      */
     @Override
-    public void writeToProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
+    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {
         final Map<String, Object> items = (Map<String, Object>) this.getValue(settingsRoot);
         for (final String itemKey : items.keySet()) {
             IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();

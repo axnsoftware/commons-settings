@@ -15,7 +15,7 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
-import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
+import de.axnsoftware.settings.IBackingStore;
 
 /**
  * The final class BranchMapItemAccessorImpl models a concrete implementation of
@@ -58,7 +58,7 @@ public final class BranchMapItemAccessorImpl extends AbstractMapItemAccessorImpl
      * {@inheritDoc}
      */
     @Override
-    public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
+    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
         for (IAccessor childAccessor : this.getChildAccessors()) {
             ((IPropertyAccessor) childAccessor).readFromProperties(properties, settingsRoot);
         }
@@ -68,7 +68,7 @@ public final class BranchMapItemAccessorImpl extends AbstractMapItemAccessorImpl
      * {@inheritDoc}
      */
     @Override
-    public void writeToProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
+    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {
         for (IAccessor childAccessor : this.getChildAccessors()) {
             ((IPropertyAccessor) childAccessor).writeToProperties(properties, settingsRoot);
         }

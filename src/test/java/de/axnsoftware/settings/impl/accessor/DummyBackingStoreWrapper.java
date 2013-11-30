@@ -4,7 +4,7 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
-import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
+import de.axnsoftware.settings.IBackingStore;
 import java.util.Properties;
 import java.util.Set;
 import java.util.prefs.BackingStoreException;
@@ -13,7 +13,7 @@ import java.util.prefs.BackingStoreException;
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  */
-public class DummyBackingStoreWrapper implements IMutableBackingStoreWrapper {
+public class DummyBackingStoreWrapper implements IBackingStore {
 
     private Properties properties = new Properties();
 

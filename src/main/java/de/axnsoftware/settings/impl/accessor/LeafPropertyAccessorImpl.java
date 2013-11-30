@@ -15,8 +15,8 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
+import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
-import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
 
 /**
  * The final class LeafPropertyAccessorImpl models a concrete implementation of
@@ -45,7 +45,7 @@ public final class LeafPropertyAccessorImpl extends AbstractPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
-    public void readFromProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
+    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
         Object value = this.getTypeMappings().get(this.getType()).valueOf(properties.getProperty(this.getQualifiedKey()), this.getType());
         if (value != null) {
             this.setValue(value, settingsRoot);
@@ -56,7 +56,7 @@ public final class LeafPropertyAccessorImpl extends AbstractPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
-    public void writeToProperties(final IMutableBackingStoreWrapper properties, final Object settingsRoot) {
+    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {
         Object value = this.getValue(settingsRoot);
         if (value != null) {
             properties.setProperty(this.getQualifiedKey(), this.getTypeMappings().get(this.getType()).valueOf(value));

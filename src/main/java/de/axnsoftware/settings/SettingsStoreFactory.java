@@ -17,7 +17,6 @@ package de.axnsoftware.settings;
 
 import de.axnsoftware.settings.impl.SettingsStoreImpl;
 import de.axnsoftware.settings.impl.accessor.IAccessor;
-import de.axnsoftware.settings.impl.IMutableBackingStoreWrapper;
 import de.axnsoftware.settings.impl.PropertiesFileBackingStoreWrapperImpl;
 import de.axnsoftware.settings.impl.accessor.RootAccessorFactory;
 import java.io.File;
@@ -53,7 +52,8 @@ public final class SettingsStoreFactory {
      * @return the settings store
      */
     public ISettingsStore newFileStore(final File storagePath, final Class<?> type) {
-        return this.createNewFileStore(EFileFormat.FILE_FORMAT_PLAIN_TEXT, storagePath, type);
+        final IBackingStore backingStoreWrapper = new PropertiesFileBackingStoreWrapperImpl(EFileFormat.FILE_FORMAT_PLAIN_TEXT, storagePath);
+        return this.createNewStore(backingStoreWrapper, type);
     }
 
     /**
@@ -69,7 +69,8 @@ public final class SettingsStoreFactory {
      * @return the settings store
      */
     public ISettingsStore newXMLFileStore(final File storagePath, final Class<?> type) {
-        return this.createNewFileStore(EFileFormat.FILE_FORMAT_XML, storagePath, type);
+        final IBackingStore backingStoreWrapper = new PropertiesFileBackingStoreWrapperImpl(EFileFormat.FILE_FORMAT_XML, storagePath);
+        return this.createNewStore(backingStoreWrapper, type);
     }
 
     /**
@@ -78,14 +79,12 @@ public final class SettingsStoreFactory {
      * specified {@code type}, which must be annotated with the
      * {@code PropertyClass} annotation.
      *
-     * @param fileStoreType
-     * @param storagePath
+     * @param backingStoreWrapper
      * @param type
-     * @return
+     * @return the settings store
      */
-    private ISettingsStore createNewFileStore(final EFileFormat fileStoreType, final File storagePath, final Class<?> type) {
+    public ISettingsStore createNewStore(final IBackingStore backingStoreWrapper, final Class<?> type) {
         IAccessor rootAccessor = RootAccessorFactory.newInstance().buildRootAccessor(type);
-        IMutableBackingStoreWrapper backingStoreWrapper = new PropertiesFileBackingStoreWrapperImpl(fileStoreType, storagePath);
         return new SettingsStoreImpl(backingStoreWrapper, rootAccessor, type);
     }
 }

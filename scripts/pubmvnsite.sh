@@ -19,7 +19,7 @@ fi
 
 rm -Rf maven/*
 cp -a target/site/* maven/
-git add .
+git add maven
 git commit -m "- automatic import of generated maven site"
 git checkout master
 echo "operation complete. you need to manually git push origin gh-pages"

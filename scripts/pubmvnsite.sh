@@ -26,7 +26,7 @@ fi
 #git commit -m "- automatic import of generated maven site"
 git checkout master
 echo "operation complete. you need to manually git push origin gh-pages"
-echo "rm ${0}"
+echo "rm \${0}"
 
 EOF
 

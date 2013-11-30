@@ -15,7 +15,7 @@
  */
 package de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample;
 
-import de.axnsoftware.settings.IBackingStoreWrapper;
+import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.SettingsStoreFactory;
 import de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.pojos.EAudioBitDepth;
 import de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.pojos.SimpleSettings;
@@ -191,7 +191,7 @@ public class SimpleFileStoreExample {
         System.out.println("getting and printing properties from backing store");
         startMillis = System.currentTimeMillis();
         start = System.nanoTime();
-        IBackingStoreWrapper wrapper = app.settingsStore.getBackingStoreWrapper();
+        IBackingStore wrapper = app.settingsStore.getBackingStoreWrapper();
         Properties props = (Properties) wrapper.getProperties();
         end = System.nanoTime();
         System.out.println(props);

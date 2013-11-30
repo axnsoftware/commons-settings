@@ -21,6 +21,7 @@ if [ ${?} -ne 0 ]; then
 fi
 
 git rm -rf maven/*
+mkdir maven
 cp -a target/site/* maven/
 git add maven
 git commit -m "- automatic import of generated maven site"

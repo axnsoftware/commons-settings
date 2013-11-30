@@ -93,6 +93,167 @@
 <th>File</th>
 <th>Line</th></tr>
 <tr class="b">
+<td>de\axnsoftware\settings\impl\accessor\BranchMapItemAccessorImpl.java</td>
+<td><a href="./xref/de/axnsoftware/settings/impl/accessor/BranchMapItemAccessorImpl.html#28">28</a></td></tr>
+<tr class="a">
+<td>de\axnsoftware\settings\impl\accessor\BranchPropertyAccessorImpl.java</td>
+<td><a href="./xref/de/axnsoftware/settings/impl/accessor/BranchPropertyAccessorImpl.html#28">28</a></td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>public final class BranchMapItemAccessorImpl extends AbstractMapItemAccessorImpl {
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void copyValue(final Object source, final Object target) {
+        for (IAccessor childAccessor : this.getChildAccessors()) {
+            ((IPropertyAccessor) childAccessor).copyValue(source, target);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getValue(final Object settingsRoot) {
+        Object result = super.getValue(settingsRoot);
+        if (null == result) {
+            try {
+                result = this.getType().newInstance();
+                this.setValue(result, settingsRoot);
+            } catch (InstantiationException | IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
+        for (IAccessor childAccessor : this.getChildAccessors()) {
+            ((IPropertyAccessor) childAccessor).readFromBackingStore(backingStore, settingsRoot);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
+        for (IAccessor childAccessor : this.getChildAccessors()) {
+            ((IPropertyAccessor) childAccessor).writeToBackingStore(backingStore, settingsRoot);
+        }
+    }
+}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
+<td>de\axnsoftware\settings\impl\accessor\LeafArrayItemAccessorImpl.java</td>
+<td><a href="./xref/de/axnsoftware/settings/impl/accessor/LeafArrayItemAccessorImpl.html#30">30</a></td></tr>
+<tr class="a">
+<td>de\axnsoftware\settings\impl\accessor\LeafListItemAccessorImpl.java</td>
+<td><a href="./xref/de/axnsoftware/settings/impl/accessor/LeafListItemAccessorImpl.html#30">30</a></td></tr>
+<tr class="b">
+<td>de\axnsoftware\settings\impl\accessor\LeafMapItemAccessorImpl.java</td>
+<td><a href="./xref/de/axnsoftware/settings/impl/accessor/LeafMapItemAccessorImpl.html#30">30</a></td></tr>
+<tr class="a"><td colspan='2'>
+<div>
+<pre>public final class LeafArrayItemAccessorImpl extends AbstractArrayItemAccessorImpl {
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void copyValue(final Object source, final Object target) {
+        Map&lt;Class&lt;?&gt;, ITypeMapper&gt; typeMappings = this.getTypeMappings();
+        Object copy = typeMappings.get(this.getType()).copyOf(this.getValue(source));
+        this.setValue(copy, target);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
+        final Class&lt;?&gt; type = this.getType();
+        final Object value = this.getTypeMappings().get(type).readFromBackingStore(backingStore, this.getQualifiedKey(), type);
+        this.setValue(value, settingsRoot);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
+        this.getTypeMappings().get(this.getType()).writeToBackingStore(backingStore, this.getQualifiedKey(), this.getValue(settingsRoot));
+    }
+}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="b">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="a">
+<td>de\axnsoftware\settings\impl\accessor\BranchListItemAccessorImpl.java</td>
+<td><a href="./xref/de/axnsoftware/settings/impl/accessor/BranchListItemAccessorImpl.html#39">39</a></td></tr>
+<tr class="b">
+<td>de\axnsoftware\settings\impl\accessor\BranchMapItemAccessorImpl.java</td>
+<td><a href="./xref/de/axnsoftware/settings/impl/accessor/BranchMapItemAccessorImpl.html#37">37</a></td></tr>
+<tr class="a">
+<td>de\axnsoftware\settings\impl\accessor\BranchPropertyAccessorImpl.java</td>
+<td><a href="./xref/de/axnsoftware/settings/impl/accessor/BranchPropertyAccessorImpl.html#37">37</a></td></tr>
+<tr class="b"><td colspan='2'>
+<div>
+<pre>        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Object getValue(final Object settingsRoot) {
+        Object result = super.getValue(settingsRoot);
+        if (null == result) {
+            try {
+                result = this.getType().newInstance();
+                this.setValue(result, settingsRoot);
+            } catch (InstantiationException | IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return result;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
+        for (IAccessor childAccessor : this.getChildAccessors()) {
+            ((IPropertyAccessor) childAccessor).readFromBackingStore(backingStore, settingsRoot);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
+        for (IAccessor childAccessor : this.getChildAccessors()) {
+            ((IPropertyAccessor) childAccessor).writeToBackingStore(backingStore, settingsRoot);
+        }
+    }
+}</pre></div></td></tr></table>
+<table border="0" class="bodyTable">
+<tr class="a">
+<th>File</th>
+<th>Line</th></tr>
+<tr class="b">
 <td>de\axnsoftware\settings\impl\accessor\BranchArrayItemAccessorImpl.java</td>
 <td><a href="./xref/de/axnsoftware/settings/impl/accessor/BranchArrayItemAccessorImpl.html#28">28</a></td></tr>
 <tr class="a">
@@ -136,200 +297,7 @@
      * {@inheritDoc}
      */
     @Override
-    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
-        for (IAccessor childAccessor : this.getChildAccessors()) {
-            ((IPropertyAccessor) childAccessor).readFromProperties(properties, settingsRoot);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {
-        for (IAccessor childAccessor : this.getChildAccessors()) {
-            ((IPropertyAccessor) childAccessor).writeToProperties(properties, settingsRoot);
-        }
-    }
-}</pre></div></td></tr></table>
-<table border="0" class="bodyTable">
-<tr class="b">
-<th>File</th>
-<th>Line</th></tr>
-<tr class="a">
-<td>de\axnsoftware\settings\impl\accessor\LeafListItemAccessorImpl.java</td>
-<td><a href="./xref/de/axnsoftware/settings/impl/accessor/LeafListItemAccessorImpl.html#30">30</a></td></tr>
-<tr class="b">
-<td>de\axnsoftware\settings\impl\accessor\LeafMapItemAccessorImpl.java</td>
-<td><a href="./xref/de/axnsoftware/settings/impl/accessor/LeafMapItemAccessorImpl.html#30">30</a></td></tr>
-<tr class="a"><td colspan='2'>
-<div>
-<pre>public final class LeafListItemAccessorImpl extends AbstractListItemAccessorImpl {
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void copyValue(final Object source, final Object target) {
-        Map&lt;Class&lt;?&gt;, ITypeMapper&gt; typeMappings = this.getTypeMappings();
-        Object copy = typeMappings.get(this.getType()).copyOf(this.getValue(source));
-        this.setValue(copy, target);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
-        final Class&lt;?&gt; type = this.getType();
-        final Object value = this.getTypeMappings().get(type).valueOf(properties.getProperty(this.getQualifiedKey()), type);
-        this.setValue(value, settingsRoot);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {
-        final String value = this.getTypeMappings().get(this.getType()).valueOf(this.getValue(settingsRoot));
-        properties.setProperty(this.getQualifiedKey(), value);
-    }
-}</pre></div></td></tr></table>
-<table border="0" class="bodyTable">
-<tr class="b">
-<th>File</th>
-<th>Line</th></tr>
-<tr class="a">
-<td>de\axnsoftware\settings\impl\accessor\BranchArrayItemAccessorImpl.java</td>
-<td><a href="./xref/de/axnsoftware/settings/impl/accessor/BranchArrayItemAccessorImpl.html#37">37</a></td></tr>
-<tr class="b">
-<td>de\axnsoftware\settings\impl\accessor\BranchListItemAccessorImpl.java</td>
-<td><a href="./xref/de/axnsoftware/settings/impl/accessor/BranchListItemAccessorImpl.html#39">39</a></td></tr>
-<tr class="a">
-<td>de\axnsoftware\settings\impl\accessor\BranchMapItemAccessorImpl.java</td>
-<td><a href="./xref/de/axnsoftware/settings/impl/accessor/BranchMapItemAccessorImpl.html#37">37</a></td></tr>
-<tr class="b">
-<td>de\axnsoftware\settings\impl\accessor\BranchPropertyAccessorImpl.java</td>
-<td><a href="./xref/de/axnsoftware/settings/impl/accessor/BranchPropertyAccessorImpl.html#37">37</a></td></tr>
-<tr class="a"><td colspan='2'>
-<div>
-<pre>        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Object getValue(final Object settingsRoot) {
-        Object result = super.getValue(settingsRoot);
-        if (null == result) {
-            try {
-                result = this.getType().newInstance();
-                this.setValue(result, settingsRoot);
-            } catch (InstantiationException | IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return result;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
-        for (IAccessor childAccessor : this.getChildAccessors()) {
-            ((IPropertyAccessor) childAccessor).readFromProperties(properties, settingsRoot);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {
-        for (IAccessor childAccessor : this.getChildAccessors()) {
-            ((IPropertyAccessor) childAccessor).writeToProperties(properties, settingsRoot);
-        }
-    }
-}</pre></div></td></tr></table>
-<table border="0" class="bodyTable">
-<tr class="b">
-<th>File</th>
-<th>Line</th></tr>
-<tr class="a">
-<td>de\axnsoftware\settings\impl\accessor\LeafArrayItemAccessorImpl.java</td>
-<td><a href="./xref/de/axnsoftware/settings/impl/accessor/LeafArrayItemAccessorImpl.html#30">30</a></td></tr>
-<tr class="b">
-<td>de\axnsoftware\settings\impl\accessor\LeafListItemAccessorImpl.java</td>
-<td><a href="./xref/de/axnsoftware/settings/impl/accessor/LeafListItemAccessorImpl.html#30">30</a></td></tr>
-<tr class="a">
-<td>de\axnsoftware\settings\impl\accessor\LeafMapItemAccessorImpl.java</td>
-<td><a href="./xref/de/axnsoftware/settings/impl/accessor/LeafMapItemAccessorImpl.html#30">30</a></td></tr>
-<tr class="b"><td colspan='2'>
-<div>
-<pre>public final class LeafArrayItemAccessorImpl extends AbstractArrayItemAccessorImpl {
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void copyValue(final Object source, final Object target) {
-        Map&lt;Class&lt;?&gt;, ITypeMapper&gt; typeMappings = this.getTypeMappings();
-        Object copy = typeMappings.get(this.getType()).copyOf(this.getValue(source));
-        this.setValue(copy, target);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
-        final Class&lt;?&gt; type = this.getType();
-        final Object value = this.getTypeMappings().get(type).valueOf(properties.getProperty(this.getQualifiedKey()), type);
-        this.setValue(value, settingsRoot);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void writeToProperties(final IBackingStore properties, final Object settingsRoot) {</pre></div></td></tr></table>
-<table border="0" class="bodyTable">
-<tr class="a">
-<th>File</th>
-<th>Line</th></tr>
-<tr class="b">
-<td>de\axnsoftware\settings\impl\accessor\ArrayPropertyAccessorImpl.java</td>
-<td><a href="./xref/de/axnsoftware/settings/impl/accessor/ArrayPropertyAccessorImpl.html#51">51</a></td></tr>
-<tr class="a">
-<td>de\axnsoftware\settings\impl\accessor\ListPropertyAccessorImpl.java</td>
-<td><a href="./xref/de/axnsoftware/settings/impl/accessor/ListPropertyAccessorImpl.html#64">64</a></td></tr>
-<tr class="b"><td colspan='2'>
-<div>
-<pre>    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void readFromProperties(final IBackingStore properties, final Object settingsRoot) {
-        final String key = this.getQualifiedKey();
-        final List&lt;String&gt; itemKeys = new ArrayList&lt;&gt;();
-        final List&lt;String&gt; sortedPropertyNames = new ArrayList&lt;&gt;();
-        try {
-            sortedPropertyNames.addAll(properties.keySet());
-            Collections.sort(sortedPropertyNames);
-            int nextProvableItemKey = 0;
-            String provableKey = key + &quot;.&quot; + nextProvableItemKey;
-            for (String propertyName : sortedPropertyNames) {
-                if (propertyName.startsWith(provableKey)) {
-                    itemKeys.add(provableKey);
-                    nextProvableItemKey++;
-                    provableKey = key + &quot;.&quot; + nextProvableItemKey;
-                }
-            }
-            final Object items = this.getType().cast(Array.newInstance(this.getItemAccessorTemplate().getType(), nextProvableItemKey));</pre></div></td></tr></table></div>
+    public void readFromBackingStore(final IBackingStore properties, final Object settingsRoot) {</pre></div></td></tr></table></div>
       </div>
     </div>
     <div class="clear">

@@ -64,7 +64,7 @@
 <a class="jxr_linenumber" name="54" href="#54">54</a>  <em class="jxr_javadoccomment">     * {@inheritDoc}</em>
 <a class="jxr_linenumber" name="55" href="#55">55</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="56" href="#56">56</a>      @Override
-<a class="jxr_linenumber" name="57" href="#57">57</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> readFromProperties(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/IBackingStore.html">IBackingStore</a> properties, <strong class="jxr_keyword">final</strong> Object settingsRoot) {
+<a class="jxr_linenumber" name="57" href="#57">57</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> readFromBackingStore(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/IBackingStore.html">IBackingStore</a> properties, <strong class="jxr_keyword">final</strong> Object settingsRoot) {
 <a class="jxr_linenumber" name="58" href="#58">58</a>          <strong class="jxr_keyword">final</strong> String key = <strong class="jxr_keyword">this</strong>.getQualifiedKey();
 <a class="jxr_linenumber" name="59" href="#59">59</a>          <strong class="jxr_keyword">final</strong> List&lt;String&gt; itemKeys = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
 <a class="jxr_linenumber" name="60" href="#60">60</a>          <strong class="jxr_keyword">final</strong> List&lt;String&gt; sortedPropertyNames = <strong class="jxr_keyword">new</strong> ArrayList&lt;&gt;();
@@ -85,7 +85,7 @@
 <a class="jxr_linenumber" name="75" href="#75">75</a>              <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> index = 0; index &lt; itemKeys.size(); index++) {
 <a class="jxr_linenumber" name="76" href="#76">76</a>                  <a href="../../../../../de/axnsoftware/settings/impl/accessor/IContainerItemAccessor.html">IContainerItemAccessor</a> accessor = (IContainerItemAccessor) <strong class="jxr_keyword">this</strong>.getItemAccessorTemplate().clone();
 <a class="jxr_linenumber" name="77" href="#77">77</a>                  accessor.setItemKey(index);
-<a class="jxr_linenumber" name="78" href="#78">78</a>                  accessor.readFromProperties(properties, settingsRoot);
+<a class="jxr_linenumber" name="78" href="#78">78</a>                  accessor.readFromBackingStore(properties, settingsRoot);
 <a class="jxr_linenumber" name="79" href="#79">79</a>              }
 <a class="jxr_linenumber" name="80" href="#80">80</a>          } <strong class="jxr_keyword">catch</strong> (BackingStoreException e) {
 <a class="jxr_linenumber" name="81" href="#81">81</a>              <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> RuntimeException(e);
@@ -96,12 +96,12 @@
 <a class="jxr_linenumber" name="86" href="#86">86</a>  <em class="jxr_javadoccomment">     * {@inheritDoc}</em>
 <a class="jxr_linenumber" name="87" href="#87">87</a>  <em class="jxr_javadoccomment">     */</em>
 <a class="jxr_linenumber" name="88" href="#88">88</a>      @Override
-<a class="jxr_linenumber" name="89" href="#89">89</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeToProperties(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/IBackingStore.html">IBackingStore</a> properties, <strong class="jxr_keyword">final</strong> Object settingsRoot) {
+<a class="jxr_linenumber" name="89" href="#89">89</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> writeToBackingStore(<strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/IBackingStore.html">IBackingStore</a> properties, <strong class="jxr_keyword">final</strong> Object settingsRoot) {
 <a class="jxr_linenumber" name="90" href="#90">90</a>          <strong class="jxr_keyword">final</strong> Object[] items = (Object[]) <strong class="jxr_keyword">this</strong>.getValue(settingsRoot);
 <a class="jxr_linenumber" name="91" href="#91">91</a>          <strong class="jxr_keyword">for</strong> (<strong class="jxr_keyword">int</strong> index = 0; index &lt; items.length; index++) {
 <a class="jxr_linenumber" name="92" href="#92">92</a>              <a href="../../../../../de/axnsoftware/settings/impl/accessor/IContainerItemAccessor.html">IContainerItemAccessor</a> accessor = (IContainerItemAccessor) <strong class="jxr_keyword">this</strong>.getItemAccessorTemplate().clone();
 <a class="jxr_linenumber" name="93" href="#93">93</a>              accessor.setItemKey(index);
-<a class="jxr_linenumber" name="94" href="#94">94</a>              accessor.writeToProperties(properties, settingsRoot);
+<a class="jxr_linenumber" name="94" href="#94">94</a>              accessor.writeToBackingStore(properties, settingsRoot);
 <a class="jxr_linenumber" name="95" href="#95">95</a>          }
 <a class="jxr_linenumber" name="96" href="#96">96</a>      }
 <a class="jxr_linenumber" name="97" href="#97">97</a>  }

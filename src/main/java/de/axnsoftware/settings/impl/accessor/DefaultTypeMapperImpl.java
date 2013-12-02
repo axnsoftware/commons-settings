@@ -55,16 +55,10 @@ public final class DefaultTypeMapperImpl implements ITypeMapper {
     @Override
     public Object readFromBackingStore(final IBackingStore backingStore, final String key, final Class<?> type) {
         Object result = null;
-        if (BigDecimal.class.equals(type)) {
-            final String value = backingStore.getString(key);
-            if (null != value) {
-                result = new BigDecimal(value);
-            }
-        } else if (BigInteger.class.equals(type)) {
-            final String value = backingStore.getString(key);
-            if (null != value) {
-                result = new BigInteger(value);
-            }
+        if (BigDecimal.class.equals(type) || BigInteger.class.equals(type)
+                || type.isEnum() || String.class.equals(type)
+                || UUID.class.equals(type)) {
+            return this.valueOf(backingStore.getString(key), type);
         } else if (Boolean.class.equals(type)) {
             result = backingStore.getBoolean(key);
         } else if (Byte.class.equals(type)) {
@@ -73,11 +67,6 @@ public final class DefaultTypeMapperImpl implements ITypeMapper {
             result = backingStore.getCharacter(key);
         } else if (Double.class.equals(type)) {
             result = backingStore.getDouble(key);
-        } else if (type.isEnum()) {
-            final String value = backingStore.getString(key);
-            if (null != value) {
-                result = Enum.valueOf((Class<? extends Enum>) type, value);
-            }
         } else if (Float.class.equals(type)) {
             result = backingStore.getFloat(key);
         } else if (Integer.class.equals(type)) {
@@ -86,13 +75,6 @@ public final class DefaultTypeMapperImpl implements ITypeMapper {
             result = backingStore.getLong(key);
         } else if (Short.class.equals(type)) {
             result = backingStore.getShort(key);
-        } else if (String.class.equals(type)) {
-            result = backingStore.getString(key);
-        } else if (UUID.class.equals(type)) {
-            final String value = backingStore.getString(key);
-            if (null != value) {
-                result = UUID.fromString(value);
-            }
         } else {
             throw new IllegalArgumentException("unsupported type " + type.getName());
         }
@@ -146,9 +128,9 @@ public final class DefaultTypeMapperImpl implements ITypeMapper {
     public void writeToBackingStore(final IBackingStore backingStore, final String key, final Object value) {
         if (value != null) {
             final Class<?> type = value.getClass();
-            if (BigDecimal.class.equals(type)) {
-                backingStore.setString(key, value.toString());
-            } else if (BigInteger.class.equals(type)) {
+            if (BigDecimal.class.equals(type) || BigInteger.class.equals(type)
+                    || type.isEnum() || String.class.equals(type)
+                    || UUID.class.equals(type)) {
                 backingStore.setString(key, value.toString());
             } else if (Boolean.class.equals(type)) {
                 backingStore.setBoolean(key, value);
@@ -158,8 +140,6 @@ public final class DefaultTypeMapperImpl implements ITypeMapper {
                 backingStore.setCharacter(key, (Character) value);
             } else if (Double.class.equals(type)) {
                 backingStore.setDouble(key, (Double) value);
-            } else if (type.isEnum()) {
-                backingStore.setString(key, value.toString());
             } else if (Float.class.equals(type)) {
                 backingStore.setFloat(key, (Float) value);
             } else if (Integer.class.equals(type)) {
@@ -168,8 +148,6 @@ public final class DefaultTypeMapperImpl implements ITypeMapper {
                 backingStore.setLong(key, (Long) value);
             } else if (Short.class.equals(type)) {
                 backingStore.setShort(key, (Short) value);
-            } else if (UUID.class.equals(type)) {
-                backingStore.setString(key, value.toString());
             } else {
                 throw new IllegalArgumentException("unsupported type " + type.getName());
             }

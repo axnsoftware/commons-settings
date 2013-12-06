@@ -1,6 +1,311 @@
-<head>
+<!DOCTYPE html>
 <html>
-<body>
-Not much here right now, see the <a href="./maven/">generated maven site</a> for more information.
-</body>
+  <head>
+    <meta content="text/html; charset=windows-1252" http-equiv="content-type">
+    <link rel="stylesheet" href="./css/foundation.css">
+    <link rel="stylesheet" href="./css/prettify.css">
+    <link rel="stylesheet" href="./css/sons-of-obsidian.css">
+    <style type="text/css">
+      body, p, li, dt, dd {
+        font-size: 10pt;
+      }
+      section[role="main"],
+      section[role="main"] #top-bar-fixed {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 80%;
+        width: 80%;
+        min-width: 320px;
+        left: inherit;
+      }
+      section[role="main"] .fixed .top-bar,
+      section[role="main"] .top-bar.expanded,
+      section[role="main"] .top-bar.expanded .title-area {
+        background-color: rgb(0, 80, 126);
+        filter: alpha(opacity=95);
+        opacity: 0.95;
+      }
+      section[role="main"] .fixed .top-bar section ul li a,
+      section[role="main"] .top-bar.expanded section ul li a {
+        background-color: rgb(0, 80, 126);
+      }
+      section[role="main"] .fixed .top-bar section ul li a:hover,
+      section[role="main"] .top-bar.expanded section ul li a:hover {
+        background-color: rgb(0, 100, 146);
+      }
+      .top-bar .title-area {
+        word-break:keep-all;
+      }
+      pre.prettyprinted {
+        border-radius: 8px;
+        white-space: pre-wrap;
+        word-break: break-all;
+        display: none;
+        margin-bottom: 2em;
+      }
+      pre.prettyprinted ol li {
+        font-size: 8pt;
+        font-family: sans-serif;
+        letter-spacing: 0.06em;
+      }
+      .top-bar {
+        margin-bottom: 2em;
+      }
+      h2 {
+        font-size: 1.6em;
+      }
+      h3 {
+        font-size: 1.4em;
+      }
+      button.toggleSource {
+        font-size: 10pt;
+        padding: .3em 0.5em;
+        border-radius: 12px;
+      }
+      .row {
+        margin: 0px;
+      }
+      .row div {
+        padding-left: 1.2rem;
+        padding-right: 1.2rem;
+      }
+      .row div:first-child {
+        padding-left: 0px;
+      }
+      .row div:last-child {
+        padding-right: 0px;
+      }
+    </style>
+    <script src="./js/prettify/prettify.js"></script>
+    <script src="./js/custom.modernizr.js"></script>
+    <script type="text/javascript">
+      function toggleSource(button, id) {
+        var self = $(button);
+        var source = $('#' + id);
+        var topbar = $('#top-bar-fixed');
+        source.slideToggle(100, null, new function () {
+          $('html,body').animate({scrollTop: self.offset().top - topbar.outerHeight()}, 100);
+          var text = 'Hide Source';
+          if (source.css('display') != 'none') {
+            text = 'Show Source';
+          }
+          self.text(text);
+          self.blur();
+        });
+      }
+    </script>
+  </head>
+  <body>
+    <section role="main">
+      <div id="top-bar-fixed" class="fixed">
+        <nav class="top-bar" data-topbar="">
+          <ul class="title-area">
+            <li class="name">
+              <h1><a href="#">commons-settings</a></h1>
+            </li>
+            <li class="toggle-topbar menu-icon"><a href=""><span></span></a><br>
+            </li>
+          </ul>
+          <section class="top-bar-section">
+            <ul class="right">
+              <li><a href="./maven">Maven Site</a></li>
+              <li><a href="https://github.com/axnsoftware/commons-settings">Github</a></li>
+            </ul>
+          </section>
+        </nav>
+      </div>
+      <h2>Introduction</h2>
+      <p>commons-settings is a simple API that allows you to model your
+        application settings as standard Java POJOs.</p>
+      <a href="./maven/project-reports.html">
+        <p class="alert-box">Please note that the API is currently in its alpha
+          state and any production use is heavily discouraged. Click here for detailed project reports.</p>
+      </a>
+      <h3>Motivation</h3>
+      <div class="row">
+        <div class="small-6 columns">
+          <p>The main motivation for developing the API was the fact that none
+            of the existing APIs for managing application settings leverage the
+            overhead of having to maintain the keys by which individual items in
+            the configuration are accessed.</p>
+          <p>And all of the available APIs reviewed so far require the user to
+            define string constants and to keep manual track of the usage of
+            these string constants, making refactoring of these keys and the
+            datatypes associated with these keys rather problematic.</p>
+        </div>
+        <div class="small-6 columns">
+          <p>Not to mention keeping the documentation in sync with the
+            implementation.</p>
+          <p>One of the major problems though, is that the code for serializing
+            custom types often spread across the code base and was seldomly
+            refactored, and most of the times, very similar code was
+            reimplemented over and over again, for each custom type, for every
+            application.</p>
+        </div>
+      </div>
+      <h3>Goals</h3>
+      <p>Having identified these problems, the initial set of goals became
+        rather clear.</p>
+      <ul>
+        <li> Get rid of most of the string constants and the associated classes
+          or interfaces representing constant pools and consolidate them into a
+          few, reusable model classes. </li>
+        <li> Get rid of all the helper code used for reading from and writing to
+          the settings file and consolidate these into a few reusable objects. </li>
+        <li> Allow one to define annotated standard POJOs which serve both as a
+          blueprint specification and a model for maintaining the application
+          settings during runtime. </li>
+        <li> Support arbitrary backing stores modelled around a
+          java.util.Properties derived interface, similar to what
+          java.util.prefs.Preferences provides. </li>
+      </ul>
+      <h2>Features</h2>
+      <h3>Automatic Type Mapping</h3>
+      <p>commons-settings introduces automatic type mapping, which allows the
+        system to both read and write instances of objects from and to the
+        underlying backing stores. Consequently, you can provide your own type
+        mappings for your custom types, and you can override existing default
+        type mappings.</p>
+      <p>The system provides default mappings for the following standard
+        classes:</p>
+      <ul>
+        <li>java.lang.Byte</li>
+        <li>java.lang.Character</li>
+        <li>java.lang.Double</li>
+        <li>java.lang.Float</li>
+        <li>java.lang.Integer</li>
+        <li>java.lang.Long</li>
+        <li>java.lang.Short</li>
+        <li>java.lang.String</li>
+        <li>java.math.BigDecimal</li>
+        <li>java.math.BigInteger</li>
+        <li>java.util.UUID</li>
+      </ul>
+      <p>Furthermore, properties can be specified as either Arrays, Lists or
+        Maps.</p>
+      <h3>Pluggable Backing Stores</h3>
+      <p>The default backing store uses standard Java Properties, which allows
+        you to store your application settings in both XML format and plain text
+        format.</p>
+      <p>By providing custom backing stores, you can easily integrate other
+        storage backends, for example SQL or NOSQL based databases.</p>
+      <h3>Limitations</h3>
+      <p>It is not possible to have nested Arrays, Lists or Maps. While it is
+        absolutely possible to implement such a behaviour, the benefit arising
+        from that is only minimal. Especially when considering custom
+        PropertyClasses, which again can have properties that are Arrays or
+        Lists.</p>
+      <p>PropertyClasses cannot inherit from each other. While absolutely
+        possible, we currently have no use case where we would require such
+        behaviour.</p>
+      <p>Arrays, Lists and Maps must be based on either PropertyClasses or types
+        for which there are type mappings available, and they cannot be declared
+        so that they may contain arbitrary types. While it is absolutely
+        possible to store additional type information along with the
+        configuration data, similar to plists, we currently have no requirement
+        for that either.</p>
+      <h2>Sample Usage</h2>
+      <p>The following example shows you how to make use of the API in your
+        application. Additional examples can be found in the <a href="https://github.com/axnsoftware/commons-settings/tree/master/src/examples">repository</a>.</p>
+      <p class="alert-box">Please note that the provided examples are a work in
+        progress and may or may not compile or even work as expected.</p>
+      <p>Here is how we would integrate the API into our application. In this
+        example, we refer to a yet to be implemented AppSettings class, which
+        serves as both the blueprint and the model on which we operate when
+        accessing our application settings. We will define this class in a
+        second step below.</p>
+      <button class="toggleSource" onclick="toggleSource(this, 'code-sample-integration');">Show
+        Source</button>
+      <pre id="code-sample-integration" class="prettyprint lang-java linenums">import de.axnsoftware.settings.ISettings;
+import de.axnsoftware.settings.ISettingsStore;
+import de.axnsoftware.settings.SettingsStoreFactory;
+
+public class AppSettingsTest {
+  public static void main(String... args) {    
+    ISettingsStore settingsStore = SettingsStoreFactory.newInstance()
+      .createNewSettingsFileStore(
+      "/tmp/appsettings.properties", AppSettings.class);
+    ISettings settings = settingsStore.loadSettings();
+    AppSettings appSettings = (AppSettings) settings.getProperties();    
+    appSettings.setUsername("foobar");    
+    appSettings.getPersonalInfo().setName("foo");
+    appSettings.getPersonalInfo().setLastname("bar");    
+    settings.setProperties(appSettings);    
+    if (settings.getHasPendingChanges()) {      
+      settings.finalizeChanges();
+      settings.getStore().storeSettings();
+    }
+  }
+}</pre>
+      <p>Now we will implement the AppSettings class. This class serves as the
+        root object by which we will access our application's configuration.
+        Note the use of the two annotations @PropertyClass and @Property.</p>
+      <button class="toggleSource" onclick="toggleSource(this, 'code-sample-app-settings');">Show
+        Source</button>
+      <pre id="code-sample-app-settings" class="prettyprint lang-java linenums">import de.axnsoftware.settings.PropertyClass;
+import de.axnsoftware.settings.Property;
+
+@PropertyClass
+public class AppSettings {
+  @Property
+  private String username;  
+
+  @Property(key = "userinfo")
+  private PersonalInfo personalInfo;  
+
+  public String getUsername() {    
+    return this.username;
+  } 
+
+  public PersonalInfo getPersonalInfo() {    
+    return this.personalInfo;
+  } 
+
+  public void setUsername(final String username) {    
+    this.username = username;
+  } 
+
+  public void setPersonalInfo(final PersonalInfo personalInfo) {
+    this.personalInfo = personalInfo;
+  }
+}</pre>
+      <p>And, finally, we implement the PersonalInfo PropertyClass.</p>
+      <button class="toggleSource" onclick="toggleSource(this, 'code-sample-personal-info')">Show
+        Source</button>
+      <pre id="code-sample-personal-info" class="prettyprint lang-java linenums">import de.axnsoftware.settings.PropertyClass;
+import de.axnsoftware.settings.Property;
+
+@PropertyClass
+public class PersonalInfo { 
+  @Property 
+  private String name;
+
+  @Property  
+  private String lastname;
+
+  public String getUsername() {    
+    return this.username;  
+  }
+
+  public String getLastname() {    
+    return this.lastname;  
+  }
+
+  public void setUsername(final String username) {    
+    this.username = username; 
+  }  
+
+  public void setLastname(final String lastname) {    
+    this.lastname = lastname;  
+  }
+}</pre>
+    </section>
+    <script src="./js/vendor/jquery.js"></script>
+    <script src="./js/foundation/foundation.js"></script>
+    <script src="./js/foundation/foundation.topbar.js"></script>
+    <script>
+      $(document).foundation();
+      $(document).ready(new function() {prettyPrint()});
+    </script>
+  </body>
 </html>

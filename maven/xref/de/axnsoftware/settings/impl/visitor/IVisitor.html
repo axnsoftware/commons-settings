@@ -34,25 +34,26 @@
 <a class="jxr_linenumber" name="24" href="#24">24</a>  <em class="jxr_javadoccomment"> * @author Carsten Klein "cklein" &lt;carsten.klein@axn-software.de&gt;</em>
 <a class="jxr_linenumber" name="25" href="#25">25</a>  <em class="jxr_javadoccomment"> * @since 1.0.0</em>
 <a class="jxr_linenumber" name="26" href="#26">26</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="27" href="#27">27</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> IVisitor&lt;T&gt; {
-<a class="jxr_linenumber" name="28" href="#28">28</a>  
-<a class="jxr_linenumber" name="29" href="#29">29</a>      <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="30" href="#30">30</a>  <em class="jxr_javadoccomment">     * Returns true whether visitor can visit the specified {@code visitee}.</em>
-<a class="jxr_linenumber" name="31" href="#31">31</a>  <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="32" href="#32">32</a>  <em class="jxr_javadoccomment">     * @param visitee</em>
-<a class="jxr_linenumber" name="33" href="#33">33</a>  <em class="jxr_javadoccomment">     * @return true whether the visitee can be visited, false otherwise</em>
-<a class="jxr_linenumber" name="34" href="#34">34</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="35" href="#35">35</a>      <strong class="jxr_keyword">public</strong> Boolean canVisit(<strong class="jxr_keyword">final</strong> T visitee);
-<a class="jxr_linenumber" name="36" href="#36">36</a>  
-<a class="jxr_linenumber" name="37" href="#37">37</a>      <em class="jxr_javadoccomment">/**</em>
-<a class="jxr_linenumber" name="38" href="#38">38</a>  <em class="jxr_javadoccomment">     * Visits the specified {@code visited} and contributes the specified</em>
-<a class="jxr_linenumber" name="39" href="#39">39</a>  <em class="jxr_javadoccomment">     * {@code parentAccessor} while doing so.</em>
-<a class="jxr_linenumber" name="40" href="#40">40</a>  <em class="jxr_javadoccomment">     *</em>
-<a class="jxr_linenumber" name="41" href="#41">41</a>  <em class="jxr_javadoccomment">     * @param visitee</em>
-<a class="jxr_linenumber" name="42" href="#42">42</a>  <em class="jxr_javadoccomment">     * @param parentAccessor</em>
-<a class="jxr_linenumber" name="43" href="#43">43</a>  <em class="jxr_javadoccomment">     */</em>
-<a class="jxr_linenumber" name="44" href="#44">44</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> visit(<strong class="jxr_keyword">final</strong> T visitee, <strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/impl/accessor/IAccessor.html">IAccessor</a> parentAccessor);
-<a class="jxr_linenumber" name="45" href="#45">45</a>  }
+<a class="jxr_linenumber" name="27" href="#27">27</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">interface</strong> IVisitor&lt;T&gt;
+<a class="jxr_linenumber" name="28" href="#28">28</a>  {
+<a class="jxr_linenumber" name="29" href="#29">29</a>  
+<a class="jxr_linenumber" name="30" href="#30">30</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="31" href="#31">31</a>  <em class="jxr_javadoccomment">     * Returns true whether visitor can visit the specified {@code visitee}.</em>
+<a class="jxr_linenumber" name="32" href="#32">32</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="33" href="#33">33</a>  <em class="jxr_javadoccomment">     * @param visitee</em>
+<a class="jxr_linenumber" name="34" href="#34">34</a>  <em class="jxr_javadoccomment">     * @return true whether the visitee can be visited, false otherwise</em>
+<a class="jxr_linenumber" name="35" href="#35">35</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="36" href="#36">36</a>      Boolean canVisit(<strong class="jxr_keyword">final</strong> T visitee);
+<a class="jxr_linenumber" name="37" href="#37">37</a>  
+<a class="jxr_linenumber" name="38" href="#38">38</a>      <em class="jxr_javadoccomment">/**</em>
+<a class="jxr_linenumber" name="39" href="#39">39</a>  <em class="jxr_javadoccomment">     * Visits the specified {@code visited} and contributes the specified</em>
+<a class="jxr_linenumber" name="40" href="#40">40</a>  <em class="jxr_javadoccomment">     * {@code parentAccessor} while doing so.</em>
+<a class="jxr_linenumber" name="41" href="#41">41</a>  <em class="jxr_javadoccomment">     *</em>
+<a class="jxr_linenumber" name="42" href="#42">42</a>  <em class="jxr_javadoccomment">     * @param visitee</em>
+<a class="jxr_linenumber" name="43" href="#43">43</a>  <em class="jxr_javadoccomment">     * @param parentAccessor</em>
+<a class="jxr_linenumber" name="44" href="#44">44</a>  <em class="jxr_javadoccomment">     */</em>
+<a class="jxr_linenumber" name="45" href="#45">45</a>      <strong class="jxr_keyword">void</strong> visit(<strong class="jxr_keyword">final</strong> T visitee, <strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/impl/accessor/IAccessor.html">IAccessor</a> parentAccessor);
+<a class="jxr_linenumber" name="46" href="#46">46</a>  }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

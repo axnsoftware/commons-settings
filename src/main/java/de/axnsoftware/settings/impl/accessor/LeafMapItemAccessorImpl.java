@@ -27,15 +27,19 @@ import java.util.Map;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class LeafMapItemAccessorImpl extends AbstractMapItemAccessorImpl {
+public final class LeafMapItemAccessorImpl
+        extends AbstractMapItemAccessorImpl
+{
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void copyValue(final Object source, final Object target) {
+    public void copyValue(final Object source, final Object target)
+    {
         Map<Class<?>, ITypeMapper> typeMappings = this.getTypeMappings();
-        Object copy = typeMappings.get(this.getType()).copyOf(this.getValue(source));
+        Object copy = typeMappings.get(this.getType()).copyOf(this.getValue(
+                source));
         this.setValue(copy, target);
     }
 
@@ -43,9 +47,13 @@ public final class LeafMapItemAccessorImpl extends AbstractMapItemAccessorImpl {
      * {@inheritDoc}
      */
     @Override
-    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
+    public void readFromBackingStore(final IBackingStore backingStore,
+                                     final Object settingsRoot)
+    {
         final Class<?> type = this.getType();
-        final Object value = this.getTypeMappings().get(type).readFromBackingStore(backingStore, this.getQualifiedKey(), type);
+        final Object value = this.getTypeMappings().get(type)
+                .readFromBackingStore(backingStore, this.getQualifiedKey(),
+                                      type);
         this.setValue(value, settingsRoot);
     }
 
@@ -53,7 +61,11 @@ public final class LeafMapItemAccessorImpl extends AbstractMapItemAccessorImpl {
      * {@inheritDoc}
      */
     @Override
-    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
-        this.getTypeMappings().get(this.getType()).writeToBackingStore(backingStore, this.getQualifiedKey(), this.getValue(settingsRoot));
+    public void writeToBackingStore(final IBackingStore backingStore,
+                                    final Object settingsRoot)
+    {
+        this.getTypeMappings().get(this.getType()).writeToBackingStore(
+                backingStore, this.getQualifiedKey(), this
+                .getValue(settingsRoot));
     }
 }

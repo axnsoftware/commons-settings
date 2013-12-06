@@ -25,15 +25,20 @@ import de.axnsoftware.settings.IBackingStore;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class BranchListItemAccessorImpl extends AbstractListItemAccessorImpl {
+public final class BranchListItemAccessorImpl
+        extends AbstractListItemAccessorImpl
+{
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void copyValue(final Object source, final Object target) {
-        if (null != this.getValue(source)) {
-            for (IAccessor childAccessor : this.getChildAccessors()) {
+    public void copyValue(final Object source, final Object target)
+    {
+        if (null != this.getValue(source))
+        {
+            for (IAccessor childAccessor : this.getChildAccessors())
+            {
                 ((IPropertyAccessor) childAccessor).copyValue(source, target);
             }
         }
@@ -43,13 +48,18 @@ public final class BranchListItemAccessorImpl extends AbstractListItemAccessorIm
      * {@inheritDoc}
      */
     @Override
-    public Object getValue(final Object settingsRoot) {
+    public Object getValue(final Object settingsRoot)
+    {
         Object result = super.getValue(settingsRoot);
-        if (null == result) {
-            try {
+        if (null == result)
+        {
+            try
+            {
                 result = this.getType().newInstance();
                 this.setValue(result, settingsRoot);
-            } catch (InstantiationException | IllegalAccessException e) {
+            }
+            catch (InstantiationException | IllegalAccessException e)
+            {
                 throw new RuntimeException(e);
             }
         }
@@ -60,9 +70,13 @@ public final class BranchListItemAccessorImpl extends AbstractListItemAccessorIm
      * {@inheritDoc}
      */
     @Override
-    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
-        for (IAccessor childAccessor : this.getChildAccessors()) {
-            ((IPropertyAccessor) childAccessor).readFromBackingStore(backingStore, settingsRoot);
+    public void readFromBackingStore(final IBackingStore backingStore,
+                                     final Object settingsRoot)
+    {
+        for (IAccessor childAccessor : this.getChildAccessors())
+        {
+            ((IPropertyAccessor) childAccessor).readFromBackingStore(
+                    backingStore, settingsRoot);
         }
     }
 
@@ -70,9 +84,13 @@ public final class BranchListItemAccessorImpl extends AbstractListItemAccessorIm
      * {@inheritDoc}
      */
     @Override
-    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
-        for (IAccessor childAccessor : this.getChildAccessors()) {
-            ((IPropertyAccessor) childAccessor).writeToBackingStore(backingStore, settingsRoot);
+    public void writeToBackingStore(final IBackingStore backingStore,
+                                    final Object settingsRoot)
+    {
+        for (IAccessor childAccessor : this.getChildAccessors())
+        {
+            ((IPropertyAccessor) childAccessor)
+                    .writeToBackingStore(backingStore, settingsRoot);
         }
     }
 }

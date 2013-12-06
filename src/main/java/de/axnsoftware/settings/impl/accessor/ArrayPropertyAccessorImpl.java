@@ -16,12 +16,10 @@
 package de.axnsoftware.settings.impl.accessor;
 
 import de.axnsoftware.settings.IBackingStore;
-import de.axnsoftware.settings.ITypeMapper;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.prefs.BackingStoreException;
 
 /**
@@ -32,19 +30,24 @@ import java.util.prefs.BackingStoreException;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class ArrayPropertyAccessorImpl extends AbstractContainerPropertyAccessorImpl {
+public final class ArrayPropertyAccessorImpl
+        extends AbstractContainerPropertyAccessorImpl
+{
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void copyValue(final Object source, final Object target) {
+    public void copyValue(final Object source, final Object target)
+    {
         final Object[] sourceArray = (Object[]) this.getValue(source);
-        final Object targetArray = this.getType().cast(Array.newInstance(this.getItemAccessorTemplate().getType(), sourceArray.length));
+        final Object targetArray = this.getType().cast(Array.newInstance(this
+                .getItemAccessorTemplate().getType(), sourceArray.length));
         this.setValue(targetArray, target);
-        final Map<Class<?>, ITypeMapper> typeMappings = this.getTypeMappings();
-        for (int index = 0; index < sourceArray.length; index++) {
-            IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();
+        for (int index = 0; index < sourceArray.length; index++)
+        {
+            IContainerItemAccessor accessor = (IContainerItemAccessor) this
+                    .getItemAccessorTemplate().clone();
             accessor.setItemKey(Integer.valueOf(index));
             accessor.copyValue(source, target);
         }
@@ -54,30 +57,40 @@ public final class ArrayPropertyAccessorImpl extends AbstractContainerPropertyAc
      * {@inheritDoc}
      */
     @Override
-    public void readFromBackingStore(final IBackingStore properties, final Object settingsRoot) {
+    public void readFromBackingStore(final IBackingStore properties,
+                                     final Object settingsRoot)
+    {
         final String key = this.getQualifiedKey();
         final List<String> itemKeys = new ArrayList<>();
         final List<String> sortedPropertyNames = new ArrayList<>();
-        try {
+        try
+        {
             sortedPropertyNames.addAll(properties.keySet());
             Collections.sort(sortedPropertyNames);
             int nextProvableItemKey = 0;
             String provableKey = key + "." + nextProvableItemKey;
-            for (String propertyName : sortedPropertyNames) {
-                if (propertyName.startsWith(provableKey)) {
+            for (String propertyName : sortedPropertyNames)
+            {
+                if (propertyName.startsWith(provableKey))
+                {
                     itemKeys.add(provableKey);
                     nextProvableItemKey++;
                     provableKey = key + "." + nextProvableItemKey;
                 }
             }
-            final Object items = this.getType().cast(Array.newInstance(this.getItemAccessorTemplate().getType(), nextProvableItemKey));
+            final Object items = this.getType().cast(Array.newInstance(this
+                    .getItemAccessorTemplate().getType(), nextProvableItemKey));
             this.setValue(items, settingsRoot);
-            for (int index = 0; index < itemKeys.size(); index++) {
-                IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();
+            for (int index = 0; index < itemKeys.size(); index++)
+            {
+                IContainerItemAccessor accessor = (IContainerItemAccessor) this
+                        .getItemAccessorTemplate().clone();
                 accessor.setItemKey(index);
                 accessor.readFromBackingStore(properties, settingsRoot);
             }
-        } catch (BackingStoreException e) {
+        }
+        catch (BackingStoreException e)
+        {
             throw new RuntimeException(e);
         }
     }
@@ -86,10 +99,14 @@ public final class ArrayPropertyAccessorImpl extends AbstractContainerPropertyAc
      * {@inheritDoc}
      */
     @Override
-    public void writeToBackingStore(final IBackingStore properties, final Object settingsRoot) {
+    public void writeToBackingStore(final IBackingStore properties,
+                                    final Object settingsRoot)
+    {
         final Object[] items = (Object[]) this.getValue(settingsRoot);
-        for (int index = 0; index < items.length; index++) {
-            IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();
+        for (int index = 0; index < items.length; index++)
+        {
+            IContainerItemAccessor accessor = (IContainerItemAccessor) this
+                    .getItemAccessorTemplate().clone();
             accessor.setItemKey(index);
             accessor.writeToBackingStore(properties, settingsRoot);
         }

@@ -28,7 +28,9 @@ import java.util.Map;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public abstract class AbstractAccessorImpl implements IAccessor {
+public abstract class AbstractAccessorImpl
+        implements IAccessor
+{
 
     private List<IAccessor> childAccessors;
     private String key;
@@ -37,29 +39,37 @@ public abstract class AbstractAccessorImpl implements IAccessor {
     private transient IAccessor cachedRootAccessor;
     private Class<?> type;
 
-    protected AbstractAccessorImpl() {
+    protected AbstractAccessorImpl()
+    {
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Object clone() {
+    public Object clone()
+    {
         IAccessor result = null;
-        try {
+        try
+        {
             result = (IAccessor) super.clone();
             ((AbstractAccessorImpl) result).cachedQualifiedKey = null;
             ((AbstractAccessorImpl) result).cachedRootAccessor = null;
-            if (null != this.getChildAccessors()) {
+            if (null != this.getChildAccessors())
+            {
                 List<IAccessor> newChildAccessors = new ArrayList<>();
-                for (final IAccessor childAccessor : this.getChildAccessors()) {
-                    final IAccessor newChildAccessor = (IAccessor) childAccessor.clone();
+                for (final IAccessor childAccessor : this.getChildAccessors())
+                {
+                    final IAccessor newChildAccessor = (IAccessor) childAccessor
+                            .clone();
                     newChildAccessor.setParentAccessor(result);
                     newChildAccessors.add(newChildAccessor);
                 }
                 result.setChildAccessors(newChildAccessors);
             }
-        } catch (CloneNotSupportedException e) {
+        }
+        catch (CloneNotSupportedException e)
+        {
             throw new RuntimeException("TODO:must never happen.", e);
         }
         return result;
@@ -69,7 +79,8 @@ public abstract class AbstractAccessorImpl implements IAccessor {
      * {@inheritDoc}
      */
     @Override
-    public List<IAccessor> getChildAccessors() {
+    public final List<IAccessor> getChildAccessors()
+    {
         return childAccessors;
     }
 
@@ -77,7 +88,8 @@ public abstract class AbstractAccessorImpl implements IAccessor {
      * {@inheritDoc}
      */
     @Override
-    public String getKey() {
+    public String getKey()
+    {
         return this.key;
     }
 
@@ -85,7 +97,8 @@ public abstract class AbstractAccessorImpl implements IAccessor {
      * {@inheritDoc}
      */
     @Override
-    public IAccessor getParentAccessor() {
+    public IAccessor getParentAccessor()
+    {
         return this.parentAccessor;
     }
 
@@ -93,12 +106,18 @@ public abstract class AbstractAccessorImpl implements IAccessor {
      * {@inheritDoc}
      */
     @Override
-    public String getQualifiedKey() {
-        if (null == this.cachedQualifiedKey) {
+    public final String getQualifiedKey()
+    {
+        if (null == this.cachedQualifiedKey)
+        {
             IAccessor accessor = this.getParentAccessor();
-            if (null != accessor && !"".equals(accessor.getKey())) {
-                this.cachedQualifiedKey = accessor.getQualifiedKey() + "." + this.getKey();
-            } else {
+            if (null != accessor && !"".equals(accessor.getKey()))
+            {
+                this.cachedQualifiedKey = accessor.getQualifiedKey() + "."
+                                          + this.getKey();
+            }
+            else
+            {
                 this.cachedQualifiedKey = this.getKey();
             }
         }
@@ -109,10 +128,13 @@ public abstract class AbstractAccessorImpl implements IAccessor {
      * {@inheritDoc}
      */
     @Override
-    public IAccessor getRootAccessor() {
-        if (null == this.cachedRootAccessor) {
+    public IAccessor getRootAccessor()
+    {
+        if (null == this.cachedRootAccessor)
+        {
             IAccessor current = this;
-            while (null != current.getParentAccessor()) {
+            while (null != current.getParentAccessor())
+            {
                 current = current.getParentAccessor();
             }
             this.cachedRootAccessor = current;
@@ -124,7 +146,8 @@ public abstract class AbstractAccessorImpl implements IAccessor {
      * {@inheritDoc}
      */
     @Override
-    public Map<Class<?>, ITypeMapper> getTypeMappings() {
+    public Map<Class<?>, ITypeMapper> getTypeMappings()
+    {
         return this.getRootAccessor().getTypeMappings();
     }
 
@@ -132,7 +155,8 @@ public abstract class AbstractAccessorImpl implements IAccessor {
      * {@inheritDoc}
      */
     @Override
-    public Class<?> getType() {
+    public final Class<?> getType()
+    {
         return this.type;
     }
 
@@ -140,7 +164,8 @@ public abstract class AbstractAccessorImpl implements IAccessor {
      * {@inheritDoc}
      */
     @Override
-    public void setChildAccessors(final List<IAccessor> childAccessors) {
+    public final void setChildAccessors(final List<IAccessor> childAccessors)
+    {
         this.childAccessors = childAccessors;
     }
 
@@ -148,7 +173,8 @@ public abstract class AbstractAccessorImpl implements IAccessor {
      * {@inheritDoc}
      */
     @Override
-    public void setKey(final String key) {
+    public final void setKey(final String key)
+    {
         this.key = key;
     }
 
@@ -156,7 +182,8 @@ public abstract class AbstractAccessorImpl implements IAccessor {
      * {@inheritDoc}
      */
     @Override
-    public void setParentAccessor(final IAccessor parentAccessor) {
+    public final void setParentAccessor(final IAccessor parentAccessor)
+    {
         this.parentAccessor = parentAccessor;
     }
 
@@ -164,7 +191,8 @@ public abstract class AbstractAccessorImpl implements IAccessor {
      * {@inheritDoc}
      */
     @Override
-    public void setType(final Class<?> type) {
+    public final void setType(final Class<?> type)
+    {
         this.type = type;
     }
 }

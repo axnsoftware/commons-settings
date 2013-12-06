@@ -16,18 +16,18 @@
         </goals>
     </action>
     <action>
-            <actionName>CUSTOM-javadoc</actionName>
-            <displayName>javadoc</displayName>
-            <recursive>false</recursive>
-            <goals>
-                <goal>javadoc:javadoc</goal>
-            </goals>
-        </action>
+        <actionName>CUSTOM-javadoc</actionName>
+        <displayName>javadoc</displayName>
+        <recursive>false</recursive>
+        <goals>
+            <goal>javadoc:javadoc</goal>
+        </goals>
+    </action>
     <action>
-            <actionName>CUSTOM-site:site</actionName>
-            <displayName>site:site</displayName>
-            <goals>
-                <goal>site:site</goal>
-            </goals>
-        </action>
+        <actionName>CUSTOM-site:site</actionName>
+        <displayName>site:site</displayName>
+        <goals>
+            <goal>site:site</goal>
+        </goals>
+    </action>
 </actions>

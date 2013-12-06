@@ -26,9 +26,12 @@ import java.util.Map;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public abstract class AbstractMapItemAccessorImpl extends AbstractContainerItemAccessorImpl<String> {
+public abstract class AbstractMapItemAccessorImpl
+        extends AbstractContainerItemAccessorImpl<String>
+{
 
-    protected AbstractMapItemAccessorImpl() {
+    protected AbstractMapItemAccessorImpl()
+    {
         super();
     }
 
@@ -36,8 +39,10 @@ public abstract class AbstractMapItemAccessorImpl extends AbstractContainerItemA
      * {@inheritDoc}
      */
     @Override
-    public Object getValue(final Object settingsRoot) {
-        Map<String, Object> container = (Map<String, Object>) this.getParentAccessor().getValue(settingsRoot);
+    public Object getValue(final Object settingsRoot)
+    {
+        Map<String, Object> container = (Map<String, Object>) this
+                .getParentAccessor().getValue(settingsRoot);
         return container.get(this.getItemKey());
     }
 
@@ -45,8 +50,10 @@ public abstract class AbstractMapItemAccessorImpl extends AbstractContainerItemA
      * {@inheritDoc}
      */
     @Override
-    public void setValue(final Object value, final Object settingsRoot) {
-        Map<String, Object> container = (Map<String, Object>) this.getParentAccessor().getValue(settingsRoot);
+    public final void setValue(final Object value, final Object settingsRoot)
+    {
+        Map<String, Object> container = (Map<String, Object>) this
+                .getParentAccessor().getValue(settingsRoot);
         container.put(this.getItemKey(), value);
     }
 }

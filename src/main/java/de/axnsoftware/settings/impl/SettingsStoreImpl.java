@@ -30,13 +30,17 @@ import java.util.prefs.BackingStoreException;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class SettingsStoreImpl implements ISettingsStore {
+public final class SettingsStoreImpl
+        implements ISettingsStore
+{
 
     private final Class<?> type;
     private IBackingStore backingStoreWrapper;
     private final IAccessor rootAccessor;
 
-    public SettingsStoreImpl(final IBackingStore backingStoreWrapper, final IAccessor rootAccessor, final Class<?> type) {
+    public SettingsStoreImpl(final IBackingStore backingStoreWrapper,
+                             final IAccessor rootAccessor, final Class<?> type)
+    {
         this.backingStoreWrapper = backingStoreWrapper;
         this.rootAccessor = rootAccessor;
         this.type = type;
@@ -46,7 +50,8 @@ public final class SettingsStoreImpl implements ISettingsStore {
      * {@inheritDoc}
      */
     @Override
-    public Class<?> getType() {
+    public Class<?> getType()
+    {
         return this.type;
     }
 
@@ -54,15 +59,21 @@ public final class SettingsStoreImpl implements ISettingsStore {
      * {@inheritDoc}
      */
     @Override
-    public ISettings loadSettings() throws BackingStoreException {
+    public ISettings loadSettings() throws BackingStoreException
+    {
         ISettings result = null;
-        try {
+        try
+        {
             Object settingsRoot = this.type.newInstance();
             this.backingStoreWrapper.loadProperties();
-            this.rootAccessor.readFromBackingStore(this.backingStoreWrapper, settingsRoot);
+            this.rootAccessor.readFromBackingStore(this.backingStoreWrapper,
+                                                   settingsRoot);
             result = new SettingsImpl(settingsRoot, this.rootAccessor, this);
-        } catch (InstantiationException | IllegalAccessException e) {
-            Logger.getLogger(SettingsStoreImpl.class.getName()).log(Level.SEVERE, null, e);
+        }
+        catch (InstantiationException | IllegalAccessException e)
+        {
+            Logger.getLogger(SettingsStoreImpl.class.getName())
+                    .log(Level.SEVERE, null, e);
             throw new RuntimeException(e);
         }
         return result;
@@ -72,9 +83,12 @@ public final class SettingsStoreImpl implements ISettingsStore {
      * {@inheritDoc}
      */
     @Override
-    public void deleteSettings() throws BackingStoreException {
-        if (null == this.backingStoreWrapper) {
-            throw new IllegalStateException("TODO:backing store has not been loaded.");
+    public void deleteSettings() throws BackingStoreException
+    {
+        if (null == this.backingStoreWrapper)
+        {
+            throw new IllegalStateException(
+                    "TODO:backing store has not been loaded.");
         }
         this.backingStoreWrapper.deleteProperties();
     }
@@ -83,11 +97,16 @@ public final class SettingsStoreImpl implements ISettingsStore {
      * {@inheritDoc}
      */
     @Override
-    public void storeSettings(final ISettings settings) throws BackingStoreException {
-        if (null == this.backingStoreWrapper) {
-            throw new IllegalStateException("TODO:backing store has not been loaded.");
+    public void storeSettings(final ISettings settings) throws
+            BackingStoreException
+    {
+        if (null == this.backingStoreWrapper)
+        {
+            throw new IllegalStateException(
+                    "TODO:backing store has not been loaded.");
         }
-        this.rootAccessor.writeToBackingStore(this.backingStoreWrapper, settings.getProperties());
+        this.rootAccessor.writeToBackingStore(this.backingStoreWrapper, settings
+                .getProperties());
         this.backingStoreWrapper.storeProperties();
     }
 
@@ -95,9 +114,12 @@ public final class SettingsStoreImpl implements ISettingsStore {
      * {@inheritDoc}
      */
     @Override
-    public IBackingStore getBackingStoreWrapper() {
-        if (null == this.backingStoreWrapper) {
-            throw new IllegalStateException("TODO:backing store has not been loaded.");
+    public IBackingStore getBackingStoreWrapper()
+    {
+        if (null == this.backingStoreWrapper)
+        {
+            throw new IllegalStateException(
+                    "TODO:backing store has not been loaded.");
         }
         return this.backingStoreWrapper;
     }

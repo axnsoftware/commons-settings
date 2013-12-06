@@ -28,14 +28,23 @@ import java.io.File;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class SettingsStoreFactory {
+public final class SettingsStoreFactory
+{
+
+    /**
+     * Private default constructor.
+     */
+    private SettingsStoreFactory()
+    {
+    }
 
     /**
      * Returns a new instance of this.
      *
      * @return the instance
      */
-    public static SettingsStoreFactory newInstance() {
+    public static SettingsStoreFactory newInstance()
+    {
         return new SettingsStoreFactory();
     }
 
@@ -51,8 +60,12 @@ public final class SettingsStoreFactory {
      * @param type
      * @return the settings store
      */
-    public ISettingsStore newFileStore(final File storagePath, final Class<?> type) {
-        final IBackingStore backingStoreWrapper = new PropertiesFileBackingStoreWrapperImpl(EFileFormat.FILE_FORMAT_PLAIN_TEXT, storagePath);
+    public ISettingsStore newFileStore(final File storagePath,
+                                       final Class<?> type)
+    {
+        final IBackingStore backingStoreWrapper =
+                            new PropertiesFileBackingStoreWrapperImpl(
+                EFileFormat.FILE_FORMAT_PLAIN_TEXT, storagePath);
         return this.createNewStore(backingStoreWrapper, type);
     }
 
@@ -68,8 +81,12 @@ public final class SettingsStoreFactory {
      * @param type
      * @return the settings store
      */
-    public ISettingsStore newXMLFileStore(final File storagePath, final Class<?> type) {
-        final IBackingStore backingStoreWrapper = new PropertiesFileBackingStoreWrapperImpl(EFileFormat.FILE_FORMAT_XML, storagePath);
+    public ISettingsStore newXMLFileStore(final File storagePath,
+                                          final Class<?> type)
+    {
+        final IBackingStore backingStoreWrapper =
+                            new PropertiesFileBackingStoreWrapperImpl(
+                EFileFormat.FILE_FORMAT_XML, storagePath);
         return this.createNewStore(backingStoreWrapper, type);
     }
 
@@ -83,8 +100,12 @@ public final class SettingsStoreFactory {
      * @param type
      * @return the settings store
      */
-    public ISettingsStore createNewStore(final IBackingStore backingStoreWrapper, final Class<?> type) {
-        IAccessor rootAccessor = RootAccessorFactory.newInstance().buildRootAccessor(type);
+    public ISettingsStore createNewStore(
+            final IBackingStore backingStoreWrapper,
+            final Class<?> type)
+    {
+        IAccessor rootAccessor = RootAccessorFactory.newInstance()
+                .buildRootAccessor(type);
         return new SettingsStoreImpl(backingStoreWrapper, rootAccessor, type);
     }
 }

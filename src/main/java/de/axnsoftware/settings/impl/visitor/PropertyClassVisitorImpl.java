@@ -30,13 +30,17 @@ import java.util.List;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class PropertyClassVisitorImpl implements IVisitor<Class<?>> {
+public final class PropertyClassVisitorImpl
+        implements IVisitor<Class<?>>
+{
 
     private List<IVisitor<Field>> fieldVisitors;
 
-    public PropertyClassVisitorImpl() {
+    public PropertyClassVisitorImpl()
+    {
         this.fieldVisitors = new ArrayList<>();
-        this.fieldVisitors.addAll(Arrays.asList(SimpleTypeFieldVisitorImpl.getPreparedSimpleTypeFieldVisitors()));
+        this.fieldVisitors.addAll(Arrays.asList(SimpleTypeFieldVisitorImpl
+                .getPreparedSimpleTypeFieldVisitors()));
         this.fieldVisitors.add(new ArrayFieldVisitorImpl(this));
         this.fieldVisitors.add(new ListFieldVisitorImpl(this));
         this.fieldVisitors.add(new MapFieldVisitorImpl(this));
@@ -48,7 +52,8 @@ public final class PropertyClassVisitorImpl implements IVisitor<Class<?>> {
      * {@inheritDoc}
      */
     @Override
-    public Boolean canVisit(final Class<?> visitee) {
+    public Boolean canVisit(final Class<?> visitee)
+    {
         return visitee.isAnnotationPresent(PropertyClass.class);
     }
 
@@ -56,13 +61,18 @@ public final class PropertyClassVisitorImpl implements IVisitor<Class<?>> {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final Class<?> visitee, final IAccessor parentAccessor) {
-        if (null == parentAccessor.getChildAccessors()) {
+    public void visit(final Class<?> visitee, final IAccessor parentAccessor)
+    {
+        if (null == parentAccessor.getChildAccessors())
+        {
             parentAccessor.setChildAccessors(new ArrayList<IAccessor>());
         }
-        for (Field field : visitee.getDeclaredFields()) {
-            for (IVisitor visitor : this.fieldVisitors) {
-                if (visitor.canVisit(field)) {
+        for (Field field : visitee.getDeclaredFields())
+        {
+            for (IVisitor visitor : this.fieldVisitors)
+            {
+                if (visitor.canVisit(field))
+                {
                     visitor.visit(field, parentAccessor);
                     break;
                 }

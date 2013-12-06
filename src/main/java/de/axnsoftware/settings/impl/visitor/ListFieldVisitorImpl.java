@@ -35,16 +35,20 @@ import java.util.List;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class ListFieldVisitorImpl extends AbstractFieldVisitorImpl {
+public final class ListFieldVisitorImpl
+        extends AbstractFieldVisitorImpl
+{
 
     private final List<IVisitor> visitors;
     private Class<?> itemType;
     private IVisitor<Class<?>> itemVisitor;
 
-    public ListFieldVisitorImpl(final IVisitor propertyClassVisitor) {
+    public ListFieldVisitorImpl(final IVisitor propertyClassVisitor)
+    {
         this.visitors = new ArrayList<>();
         this.visitors.add(propertyClassVisitor);
-        this.visitors.addAll(Arrays.asList(SimpleTypeVisitorImpl.getPreparedSimpleTypeVisitors()));
+        this.visitors.addAll(Arrays.asList(SimpleTypeVisitorImpl
+                .getPreparedSimpleTypeVisitors()));
         this.visitors.add(new FailFastVisitorImpl<Class<?>>());
     }
 
@@ -52,19 +56,29 @@ public final class ListFieldVisitorImpl extends AbstractFieldVisitorImpl {
      * {@inheritDoc}
      */
     @Override
-    protected Boolean canVisitImpl(final Field visitee) {
+    protected Boolean canVisitImpl(final Field visitee)
+    {
         Boolean result = Boolean.FALSE;
         final Class<?> type = visitee.getType();
         this.itemType = null;
-        if (List.class.isAssignableFrom(type)) {
-            ParameterizedType parameterizedType = (ParameterizedType) visitee.getGenericType();
-            this.itemType = (Class<?>) parameterizedType.getActualTypeArguments()[0];
-            if (this.itemVisitor != null && this.itemVisitor.canVisit(this.itemType)) {
+        if (List.class.isAssignableFrom(type))
+        {
+            ParameterizedType parameterizedType = (ParameterizedType) visitee
+                    .getGenericType();
+            this.itemType = (Class<?>) parameterizedType
+                    .getActualTypeArguments()[0];
+            if (this.itemVisitor != null && this.itemVisitor.canVisit(
+                    this.itemType))
+            {
                 result = Boolean.TRUE;
-            } else {
+            }
+            else
+            {
                 this.itemVisitor = null;
-                for (final IVisitor visitor : this.visitors) {
-                    if (visitor.canVisit(this.itemType)) {
+                for (final IVisitor visitor : this.visitors)
+                {
+                    if (visitor.canVisit(this.itemType))
+                    {
                         this.itemVisitor = visitor;
                         result = Boolean.TRUE;
                         break;
@@ -79,13 +93,17 @@ public final class ListFieldVisitorImpl extends AbstractFieldVisitorImpl {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final Field visitee, final IAccessor parentAccessor) {
+    public void visit(final Field visitee, final IAccessor parentAccessor)
+    {
         IContainerPropertyAccessor accessor = new ListPropertyAccessorImpl();
         this.configureAccessor(accessor, parentAccessor, visitee);
         IContainerItemAccessor itemAccessorTemplate;
-        if (this.itemVisitor instanceof SimpleTypeVisitorImpl) {
+        if (this.itemVisitor instanceof SimpleTypeVisitorImpl)
+        {
             itemAccessorTemplate = new LeafListItemAccessorImpl();
-        } else {
+        }
+        else
+        {
             itemAccessorTemplate = new BranchListItemAccessorImpl();
         }
         itemAccessorTemplate.setParentAccessor(accessor);

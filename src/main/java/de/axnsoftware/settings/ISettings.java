@@ -24,26 +24,27 @@ package de.axnsoftware.settings;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public interface ISettings {
+public interface ISettings
+{
 
     /**
      * Returns the type registered with the underlying {@code ISettingsStore}.
      *
      * @return
      */
-    public Class<?> getType();
+    Class<?> getType();
 
     /**
      * Discards all pending changes.
      */
-    public void discardChanges();
+    void discardChanges();
 
     /**
      * Finalizes all pending changes but does not store them permanently. In
      * order for the settings to be permanently stored, one must call
      * {@code ISettingsStore#storeProperties()}.
      */
-    public void finalizeChanges();
+    void finalizeChanges();
 
     /**
      * Returns whether there are any pending changes which either need to be
@@ -51,21 +52,21 @@ public interface ISettings {
      *
      * @return true whether there are any pending changes
      */
-    public Boolean getHasPendingChanges();
+    Boolean getHasPendingChanges();
 
     /**
      * Returns an instance of the registered type.
      *
      * @return the properties
      */
-    public Object getProperties();
+    Object getProperties();
 
     /**
      * Gets the underlying store.
      *
      * @return the underlying store
      */
-    public ISettingsStore getStore();
+    ISettingsStore getStore();
 
     /**
      * Sets the properties but does not finalize them. {@code properties} must
@@ -73,5 +74,5 @@ public interface ISettings {
      *
      * @param properties
      */
-    public void setProperties(final Object properties);
+    void setProperties(final Object properties);
 }

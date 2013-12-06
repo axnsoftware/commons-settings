@@ -16,7 +16,6 @@
 package de.axnsoftware.settings.impl.accessor;
 
 import de.axnsoftware.settings.IBackingStore;
-import de.axnsoftware.settings.ITypeMapper;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -32,19 +31,24 @@ import java.util.prefs.BackingStoreException;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class MapPropertyAccessorImpl extends AbstractContainerPropertyAccessorImpl {
+public final class MapPropertyAccessorImpl
+        extends AbstractContainerPropertyAccessorImpl
+{
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void copyValue(final Object source, final Object target) {
-        final Map<String, Object> sourceMap = (Map<String, Object>) this.getValue(source);
+    public void copyValue(final Object source, final Object target)
+    {
+        final Map<String, Object> sourceMap = (Map<String, Object>) this
+                .getValue(source);
         final Map<String, Object> targetMap = new HashMap<>();
         this.setValue(targetMap, target);
-        final Map<Class<?>, ITypeMapper> typeMappings = this.getTypeMappings();
-        for (final Map.Entry<String, Object> entry : sourceMap.entrySet()) {
-            IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();
+        for (final Map.Entry<String, Object> entry : sourceMap.entrySet())
+        {
+            IContainerItemAccessor accessor = (IContainerItemAccessor) this
+                    .getItemAccessorTemplate().clone();
             accessor.setItemKey(entry.getKey());
             accessor.copyValue(source, target);
         }
@@ -54,9 +58,11 @@ public final class MapPropertyAccessorImpl extends AbstractContainerPropertyAcce
      * {@inheritDoc}
      */
     @Override
-    public Object getValue(final Object settingsRoot) {
+    public Object getValue(final Object settingsRoot)
+    {
         Object result = super.getValue(settingsRoot);
-        if (null == result) {
+        if (null == result)
+        {
             result = new HashMap<>();
             this.setValue(result, settingsRoot);
         }
@@ -67,35 +73,50 @@ public final class MapPropertyAccessorImpl extends AbstractContainerPropertyAcce
      * {@inheritDoc}
      */
     @Override
-    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
+    public void readFromBackingStore(final IBackingStore backingStore,
+                                     final Object settingsRoot)
+    {
         final String key = this.getQualifiedKey();
         final List<String> itemKeys = new ArrayList<>();
         final List<String> sortedPropertyNames = new ArrayList<>();
-        try {
+        try
+        {
             sortedPropertyNames.addAll(backingStore.keySet());
             Collections.sort(sortedPropertyNames);
             String currentKey = null;
-            for (String propertyName : sortedPropertyNames) {
-                if (null != currentKey && propertyName.startsWith(currentKey)) {
+            for (String propertyName : sortedPropertyNames)
+            {
+                if (null != currentKey && propertyName.startsWith(currentKey))
+                {
                     continue;
                 }
-                if (propertyName.startsWith(key)) {
-                    int dotPosition = propertyName.indexOf('.', key.length() + 1);
-                    if (-1 == dotPosition) {
+                if (propertyName.startsWith(key))
+                {
+                    int dotPosition = propertyName
+                            .indexOf('.', key.length() + 1);
+                    if (-1 == dotPosition)
+                    {
                         currentKey = propertyName;
-                    } else {
+                    }
+                    else
+                    {
                         currentKey = propertyName.substring(0, dotPosition);
                     }
                     itemKeys.add(currentKey.replace(key + ".", ""));
                 }
             }
-            this.setValue(this.getType().cast(new HashMap<String, Object>()), settingsRoot);
-            for (final String itemKey : itemKeys) {
-                IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();
+            this.setValue(this.getType().cast(new HashMap<String, Object>()),
+                          settingsRoot);
+            for (final String itemKey : itemKeys)
+            {
+                IContainerItemAccessor accessor = (IContainerItemAccessor) this
+                        .getItemAccessorTemplate().clone();
                 accessor.setItemKey(itemKey);
                 accessor.readFromBackingStore(backingStore, settingsRoot);
             }
-        } catch (BackingStoreException e) {
+        }
+        catch (BackingStoreException e)
+        {
             throw new RuntimeException(e);
         }
     }
@@ -104,10 +125,15 @@ public final class MapPropertyAccessorImpl extends AbstractContainerPropertyAcce
      * {@inheritDoc}
      */
     @Override
-    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
-        final Map<String, Object> items = (Map<String, Object>) this.getValue(settingsRoot);
-        for (final String itemKey : items.keySet()) {
-            IContainerItemAccessor accessor = (IContainerItemAccessor) this.getItemAccessorTemplate().clone();
+    public void writeToBackingStore(final IBackingStore backingStore,
+                                    final Object settingsRoot)
+    {
+        final Map<String, Object> items = (Map<String, Object>) this.getValue(
+                settingsRoot);
+        for (final String itemKey : items.keySet())
+        {
+            IContainerItemAccessor accessor = (IContainerItemAccessor) this
+                    .getItemAccessorTemplate().clone();
             accessor.setItemKey(itemKey);
             accessor.writeToBackingStore(backingStore, settingsRoot);
         }

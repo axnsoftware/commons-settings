@@ -24,28 +24,30 @@ import java.lang.reflect.Method;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public interface IPropertyAccessor extends IAccessor {
+public interface IPropertyAccessor
+        extends IAccessor
+{
 
     /**
      * Gets the default value holder.
      *
      * @return the default value holder or null
      */
-    public DefaultValueHolder getDefaultValueHolder();
+    DefaultValueHolder getDefaultValueHolder();
 
     /**
      * Gets the getter.
      *
      * @return the getter
      */
-    public Method getGetter();
+    Method getGetter();
 
     /**
      * Gets the setter.
      *
      * @return the setter
      */
-    public Method getSetter();
+    Method getSetter();
 
     /**
      * Replaces the existing default value holder with the specified
@@ -53,21 +55,21 @@ public interface IPropertyAccessor extends IAccessor {
      *
      * @param defaultValueHolder
      */
-    public void setDefaultValueHolder(final DefaultValueHolder defaultValueHolder);
+    void setDefaultValueHolder(final DefaultValueHolder defaultValueHolder);
 
     /**
      * Replaces the existing getter with the specified {@code getter}.
      *
      * @param getter
      */
-    public void setGetter(final Method getter);
+    void setGetter(final Method getter);
 
     /**
      * Replaces the existing setter with the specified {@code setter}.
      *
      * @param setter
      */
-    public void setSetter(final Method setter);
+    void setSetter(final Method setter);
 
     /**
      * Sets the value of the property represented by this to the specified
@@ -76,5 +78,5 @@ public interface IPropertyAccessor extends IAccessor {
      * @param value
      * @param settingsRoot
      */
-    public void setValue(final Object value, final Object settingsRoot);
+    void setValue(final Object value, final Object settingsRoot);
 }

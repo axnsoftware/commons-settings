@@ -24,7 +24,8 @@ import de.axnsoftware.settings.ITypeMapper;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class DefaultValueHolder {
+public final class DefaultValueHolder
+{
 
     private Object cachedValue;
     private String defaultValue;
@@ -32,7 +33,9 @@ public class DefaultValueHolder {
     private Class<?> type;
     private ITypeMapper typeMapper;
 
-    public DefaultValueHolder(final String defaultValue, final Class<?> type, final ITypeMapper typeMapper) {
+    public DefaultValueHolder(final String defaultValue, final Class<?> type,
+                              final ITypeMapper typeMapper)
+    {
         this.defaultValue = defaultValue;
         this.doNotCacheAgain = Boolean.FALSE;
         this.type = type;
@@ -44,10 +47,15 @@ public class DefaultValueHolder {
      *
      * @return the mapped default value or null
      */
-    public Object getValue() {
-        if (this.cachedValue == null && !this.doNotCacheAgain) {
-            this.cachedValue = this.typeMapper.valueOf(this.defaultValue, this.type);
-            if (this.cachedValue == null || this.defaultValue.equals(this.cachedValue)) {
+    public Object getValue()
+    {
+        if (this.cachedValue == null && !this.doNotCacheAgain)
+        {
+            this.cachedValue = this.typeMapper.valueOf(this.defaultValue,
+                                                       this.type);
+            if (this.cachedValue == null || this.defaultValue.equals(
+                    this.cachedValue))
+            {
                 this.doNotCacheAgain = Boolean.TRUE;
             }
         }

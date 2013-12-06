@@ -31,14 +31,16 @@ import java.util.Map;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class RootAccessorFactory {
+public final class RootAccessorFactory
+{
 
     /**
      * Returns a new instance of this.
      *
      * @return the instance
      */
-    public static RootAccessorFactory newInstance() {
+    public static RootAccessorFactory newInstance()
+    {
         return new RootAccessorFactory();
     }
 
@@ -50,18 +52,24 @@ public final class RootAccessorFactory {
      * @param type
      * @return the root accessor
      */
-    public IAccessor buildRootAccessor(final Class<?> type) {
+    public IAccessor buildRootAccessor(final Class<?> type)
+    {
         final IAccessor result = new RootAccessorImpl();
         final List<IAccessor> childAccessors = new ArrayList<>();
         result.setChildAccessors(childAccessors);
         result.setKey("");
         result.setType(type);
-        final Map<Class<?>, ITypeMapper> typeMappings = result.getTypeMappings();
-        typeMappings.putAll(DefaultTypeMapperImpl.getPreparedDefaultTypeMappings());
+        final Map<Class<?>, ITypeMapper> typeMappings;
+        typeMappings = result.getTypeMappings();
+        typeMappings.putAll(DefaultTypeMapperImpl
+                .getPreparedDefaultTypeMappings());
         IVisitor visitor = new PropertyClassVisitorImpl();
-        if (visitor.canVisit(type)) {
+        if (visitor.canVisit(type))
+        {
             visitor.visit(type, result);
-        } else {
+        }
+        else
+        {
             throw new RuntimeException("TODO:unable to process type: " + type);
         }
         return result;

@@ -24,9 +24,12 @@ package de.axnsoftware.settings.impl.accessor;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public abstract class AbstractArrayItemAccessorImpl extends AbstractContainerItemAccessorImpl<Integer> {
+public abstract class AbstractArrayItemAccessorImpl
+        extends AbstractContainerItemAccessorImpl<Integer>
+{
 
-    protected AbstractArrayItemAccessorImpl() {
+    protected AbstractArrayItemAccessorImpl()
+    {
         super();
     }
 
@@ -34,8 +37,10 @@ public abstract class AbstractArrayItemAccessorImpl extends AbstractContainerIte
      * {@inheritDoc}
      */
     @Override
-    public Object getValue(final Object settingsRoot) {
-        Object[] container = (Object[]) this.getParentAccessor().getValue(settingsRoot);
+    public Object getValue(final Object settingsRoot)
+    {
+        Object[] container = (Object[]) this.getParentAccessor().getValue(
+                settingsRoot);
         return container[this.getItemKey()];
     }
 
@@ -43,8 +48,10 @@ public abstract class AbstractArrayItemAccessorImpl extends AbstractContainerIte
      * {@inheritDoc}
      */
     @Override
-    public void setValue(final Object value, final Object settingsRoot) {
-        Object[] container = (Object[]) this.getParentAccessor().getValue(settingsRoot);
+    public final void setValue(final Object value, final Object settingsRoot)
+    {
+        Object[] container = (Object[]) this.getParentAccessor().getValue(
+                settingsRoot);
         container[this.getItemKey()] = value;
     }
 }

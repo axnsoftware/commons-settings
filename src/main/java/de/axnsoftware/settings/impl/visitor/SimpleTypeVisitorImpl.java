@@ -28,12 +28,15 @@ import java.util.UUID;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class SimpleTypeVisitorImpl implements IVisitor<Class<?>> {
+public final class SimpleTypeVisitorImpl
+        implements IVisitor<Class<?>>
+{
 
     private static IVisitor<Class<?>>[] preparedSimpleTypeVisitors;
     private final Class<?> valueType;
 
-    public SimpleTypeVisitorImpl(final Class<?> valueType) {
+    public SimpleTypeVisitorImpl(final Class<?> valueType)
+    {
         this.valueType = valueType;
     }
 
@@ -41,7 +44,8 @@ public final class SimpleTypeVisitorImpl implements IVisitor<Class<?>> {
      * {@inheritDoc}
      */
     @Override
-    public final Boolean canVisit(final Class<?> visitee) {
+    public Boolean canVisit(final Class<?> visitee)
+    {
         return this.valueType.equals(visitee);
     }
 
@@ -49,12 +53,16 @@ public final class SimpleTypeVisitorImpl implements IVisitor<Class<?>> {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final Class<?> visitee, final IAccessor parentAccessor) {
+    public void visit(final Class<?> visitee, final IAccessor parentAccessor)
+    {
     }
 
-    public static IVisitor<Class<?>>[] getPreparedSimpleTypeVisitors() {
-        if (null == preparedSimpleTypeVisitors) {
-            preparedSimpleTypeVisitors = new IVisitor[]{
+    public static IVisitor<Class<?>>[] getPreparedSimpleTypeVisitors()
+    {
+        if (null == preparedSimpleTypeVisitors)
+        {
+            preparedSimpleTypeVisitors = new IVisitor[]
+            {
                 new SimpleTypeVisitorImpl(BigDecimal.class),
                 new SimpleTypeVisitorImpl(BigInteger.class),
                 new SimpleTypeVisitorImpl(Boolean.class),
@@ -66,8 +74,9 @@ public final class SimpleTypeVisitorImpl implements IVisitor<Class<?>> {
                 new SimpleTypeVisitorImpl(Long.class),
                 new SimpleTypeVisitorImpl(Short.class),
                 new SimpleTypeVisitorImpl(String.class),
-                new SimpleTypeVisitorImpl(UUID.class)};
+                new SimpleTypeVisitorImpl(UUID.class)
+            };
         }
-        return preparedSimpleTypeVisitors;
+        return preparedSimpleTypeVisitors.clone();
     }
 }

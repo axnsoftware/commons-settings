@@ -26,14 +26,18 @@ import de.axnsoftware.settings.ISettingsStore;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class SettingsImpl implements ISettings {
+public final class SettingsImpl
+        implements ISettings
+{
 
     private Object dirtyProperties;
     private Object properties;
     private final IAccessor rootAccessor;
     private final ISettingsStore settingsStore;
 
-    public SettingsImpl(final Object properties, final IAccessor rootAccessor, final ISettingsStore settingsStore) {
+    public SettingsImpl(final Object properties, final IAccessor rootAccessor,
+                        final ISettingsStore settingsStore)
+    {
         this.properties = properties;
         this.rootAccessor = rootAccessor;
         this.settingsStore = settingsStore;
@@ -43,7 +47,8 @@ public final class SettingsImpl implements ISettings {
      * {@inheritDoc}
      */
     @Override
-    public void discardChanges() {
+    public void discardChanges()
+    {
         this.dirtyProperties = null;
     }
 
@@ -51,8 +56,10 @@ public final class SettingsImpl implements ISettings {
      * {@inheritDoc}
      */
     @Override
-    public void finalizeChanges() {
-        if (this.getHasPendingChanges()) {
+    public void finalizeChanges()
+    {
+        if (this.getHasPendingChanges())
+        {
             this.properties = this.dirtyProperties;
             this.dirtyProperties = null;
         }
@@ -62,7 +69,8 @@ public final class SettingsImpl implements ISettings {
      * {@inheritDoc}
      */
     @Override
-    public Boolean getHasPendingChanges() {
+    public Boolean getHasPendingChanges()
+    {
         return this.dirtyProperties != null;
     }
 
@@ -70,9 +78,11 @@ public final class SettingsImpl implements ISettings {
      * {@inheritDoc}
      */
     @Override
-    public Object getProperties() {
+    public Object getProperties()
+    {
         Object source = this.properties;
-        if (this.getHasPendingChanges()) {
+        if (this.getHasPendingChanges())
+        {
             source = this.dirtyProperties;
         }
         return this.copyProperties(source);
@@ -82,7 +92,8 @@ public final class SettingsImpl implements ISettings {
      * {@inheritDoc}
      */
     @Override
-    public ISettingsStore getStore() {
+    public ISettingsStore getStore()
+    {
         return this.settingsStore;
     }
 
@@ -90,7 +101,8 @@ public final class SettingsImpl implements ISettings {
      * {@inheritDoc}
      */
     @Override
-    public Class<?> getType() {
+    public Class<?> getType()
+    {
         return this.getStore().getType();
     }
 
@@ -98,7 +110,8 @@ public final class SettingsImpl implements ISettings {
      * {@inheritDoc}
      */
     @Override
-    public void setProperties(final Object properties) {
+    public void setProperties(final Object properties)
+    {
         this.dirtyProperties = this.copyProperties(properties);
     }
 
@@ -108,12 +121,16 @@ public final class SettingsImpl implements ISettings {
      * @param source
      * @return the copied object
      */
-    private Object copyProperties(final Object source) {
+    private Object copyProperties(final Object source)
+    {
         Object result = null;
-        try {
+        try
+        {
             result = this.getStore().getType().newInstance();
             this.rootAccessor.copyValue(source, result);
-        } catch (InstantiationException | IllegalAccessException e) {
+        }
+        catch (InstantiationException | IllegalAccessException e)
+        {
             throw new RuntimeException(e);
         }
         return result;

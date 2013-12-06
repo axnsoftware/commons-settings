@@ -23,11 +23,15 @@ package de.axnsoftware.settings.impl.accessor;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public abstract class AbstractContainerPropertyAccessorImpl extends AbstractPropertyAccessorImpl implements IContainerPropertyAccessor {
+public abstract class AbstractContainerPropertyAccessorImpl
+        extends AbstractPropertyAccessorImpl
+        implements IContainerPropertyAccessor
+{
 
-    protected IAccessor itemAccessorTemplate;
+    private IAccessor itemAccessorTemplate;
 
-    protected AbstractContainerPropertyAccessorImpl() {
+    protected AbstractContainerPropertyAccessorImpl()
+    {
         super();
     }
 
@@ -35,9 +39,12 @@ public abstract class AbstractContainerPropertyAccessorImpl extends AbstractProp
      * {@inheritDoc}
      */
     @Override
-    public Object clone() {
-        AbstractContainerPropertyAccessorImpl result = (AbstractContainerPropertyAccessorImpl) super.clone();
-        IAccessor accessorTemplate = (IAccessor) this.getItemAccessorTemplate().clone();
+    public final Object clone()
+    {
+        AbstractContainerPropertyAccessorImpl result;
+        result = (AbstractContainerPropertyAccessorImpl) super.clone();
+        IAccessor accessorTemplate = (IAccessor) this.getItemAccessorTemplate()
+                .clone();
         accessorTemplate.setParentAccessor(result);
         result.setItemAccessorTemplate(accessorTemplate);
         return result;
@@ -47,7 +54,8 @@ public abstract class AbstractContainerPropertyAccessorImpl extends AbstractProp
      * {@inheritDoc}
      */
     @Override
-    public IAccessor getItemAccessorTemplate() {
+    public final IAccessor getItemAccessorTemplate()
+    {
         return this.itemAccessorTemplate;
     }
 
@@ -55,7 +63,9 @@ public abstract class AbstractContainerPropertyAccessorImpl extends AbstractProp
      * {@inheritDoc}
      */
     @Override
-    public void setItemAccessorTemplate(final IAccessor itemAccessorTemplate) {
+    public final void setItemAccessorTemplate(
+            final IAccessor itemAccessorTemplate)
+    {
         this.itemAccessorTemplate = itemAccessorTemplate;
     }
 }

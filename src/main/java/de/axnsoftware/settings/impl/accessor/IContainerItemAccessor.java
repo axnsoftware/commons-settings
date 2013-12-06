@@ -22,19 +22,21 @@ package de.axnsoftware.settings.impl.accessor;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public interface IContainerItemAccessor<T> extends IPropertyAccessor {
+public interface IContainerItemAccessor<T>
+        extends IPropertyAccessor
+{
 
     /**
      * Replaces the existing item key with the specified {@code itemKey}.
      *
      * @param itemKey
      */
-    public void setItemKey(final T itemKey);
+    void setItemKey(final T itemKey);
 
     /**
      * Gets the assigned itemKey.
      *
      * @return the assigned itemKey or null
      */
-    public T getItemKey();
+    T getItemKey();
 }

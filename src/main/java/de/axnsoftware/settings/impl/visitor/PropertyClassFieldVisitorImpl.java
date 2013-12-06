@@ -29,11 +29,14 @@ import java.lang.reflect.Field;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class PropertyClassFieldVisitorImpl extends AbstractFieldVisitorImpl {
+public final class PropertyClassFieldVisitorImpl
+        extends AbstractFieldVisitorImpl
+{
 
     private IVisitor propertyClassVisitor;
 
-    public PropertyClassFieldVisitorImpl(final IVisitor propertyClassVisitor) {
+    public PropertyClassFieldVisitorImpl(final IVisitor propertyClassVisitor)
+    {
         this.propertyClassVisitor = propertyClassVisitor;
     }
 
@@ -41,7 +44,8 @@ public final class PropertyClassFieldVisitorImpl extends AbstractFieldVisitorImp
      * {@inheritDoc}
      */
     @Override
-    protected Boolean canVisitImpl(final Field visitee) {
+    protected Boolean canVisitImpl(final Field visitee)
+    {
         return this.propertyClassVisitor.canVisit(visitee.getType());
     }
 
@@ -49,7 +53,8 @@ public final class PropertyClassFieldVisitorImpl extends AbstractFieldVisitorImp
      * {@inheritDoc}
      */
     @Override
-    public void visit(final Field visitee, final IAccessor parentAccessor) {
+    public void visit(final Field visitee, final IAccessor parentAccessor)
+    {
         final IPropertyAccessor accessor = new BranchPropertyAccessorImpl();
         this.configureAccessor(accessor, parentAccessor, visitee);
         this.propertyClassVisitor.visit(visitee.getType(), accessor);

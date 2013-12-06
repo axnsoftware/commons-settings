@@ -26,15 +26,19 @@ import de.axnsoftware.settings.ITypeMapper;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class LeafPropertyAccessorImpl extends AbstractPropertyAccessorImpl {
+public final class LeafPropertyAccessorImpl
+        extends AbstractPropertyAccessorImpl
+{
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void copyValue(final Object source, final Object target) {
+    public void copyValue(final Object source, final Object target)
+    {
         Object value = this.getValue(source);
-        if (value != null) {
+        if (value != null)
+        {
             ITypeMapper mapper = this.getTypeMappings().get(value.getClass());
             Object copy = mapper.copyOf(value);
             this.setValue(copy, target);
@@ -45,9 +49,14 @@ public final class LeafPropertyAccessorImpl extends AbstractPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
-    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
-        Object value = this.getTypeMappings().get(this.getType()).readFromBackingStore(backingStore, this.getQualifiedKey(), this.getType());
-        if (value != null) {
+    public void readFromBackingStore(final IBackingStore backingStore,
+                                     final Object settingsRoot)
+    {
+        Object value = this.getTypeMappings().get(this.getType())
+                .readFromBackingStore(backingStore, this.getQualifiedKey(), this
+                .getType());
+        if (value != null)
+        {
             this.setValue(value, settingsRoot);
         }
     }
@@ -56,10 +65,14 @@ public final class LeafPropertyAccessorImpl extends AbstractPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
-    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
+    public void writeToBackingStore(final IBackingStore backingStore,
+                                    final Object settingsRoot)
+    {
         Object value = this.getValue(settingsRoot);
-        if (value != null) {
-            this.getTypeMappings().get(this.getType()).writeToBackingStore(backingStore, this.getQualifiedKey(), value);
+        if (value != null)
+        {
+            this.getTypeMappings().get(this.getType()).writeToBackingStore(
+                    backingStore, this.getQualifiedKey(), value);
         }
     }
 }

@@ -23,11 +23,15 @@ package de.axnsoftware.settings.impl.accessor;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public abstract class AbstractContainerItemAccessorImpl<T> extends AbstractPropertyAccessorImpl implements IContainerItemAccessor<T> {
+public abstract class AbstractContainerItemAccessorImpl<T>
+        extends AbstractPropertyAccessorImpl
+        implements IContainerItemAccessor<T>
+{
 
     private T itemKey;
 
-    protected AbstractContainerItemAccessorImpl() {
+    protected AbstractContainerItemAccessorImpl()
+    {
         super();
     }
 
@@ -35,7 +39,8 @@ public abstract class AbstractContainerItemAccessorImpl<T> extends AbstractPrope
      * {@inheritDoc}
      */
     @Override
-    public T getItemKey() {
+    public final T getItemKey()
+    {
         return this.itemKey;
     }
 
@@ -43,7 +48,8 @@ public abstract class AbstractContainerItemAccessorImpl<T> extends AbstractPrope
      * {@inheritDoc}
      */
     @Override
-    public String getKey() {
+    public final String getKey()
+    {
         return this.getItemKey().toString();
     }
 
@@ -51,7 +57,8 @@ public abstract class AbstractContainerItemAccessorImpl<T> extends AbstractPrope
      * {@inheritDoc}
      */
     @Override
-    public void setItemKey(final T itemKey) {
+    public final void setItemKey(final T itemKey)
+    {
         this.itemKey = itemKey;
     }
 }

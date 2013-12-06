@@ -26,13 +26,17 @@ import java.lang.reflect.Method;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl implements IPropertyAccessor {
+public abstract class AbstractPropertyAccessorImpl
+        extends AbstractAccessorImpl
+        implements IPropertyAccessor
+{
 
     private DefaultValueHolder defaultValueHolder;
     private Method getter;
     private Method setter;
 
-    protected AbstractPropertyAccessorImpl() {
+    protected AbstractPropertyAccessorImpl()
+    {
         super();
     }
 
@@ -40,7 +44,8 @@ public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl 
      * {@inheritDoc}
      */
     @Override
-    public DefaultValueHolder getDefaultValueHolder() {
+    public final DefaultValueHolder getDefaultValueHolder()
+    {
         return this.defaultValueHolder;
     }
 
@@ -48,7 +53,8 @@ public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl 
      * {@inheritDoc}
      */
     @Override
-    public Method getGetter() {
+    public final Method getGetter()
+    {
         return this.getter;
     }
 
@@ -56,7 +62,8 @@ public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl 
      * {@inheritDoc}
      */
     @Override
-    public Method getSetter() {
+    public final Method getSetter()
+    {
         return this.setter;
     }
 
@@ -64,24 +71,33 @@ public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl 
      * {@inheritDoc}
      */
     @Override
-    public Object getValue(final Object settingsRoot) {
+    public Object getValue(final Object settingsRoot)
+    {
         Object result = null;
         Object valueHolder = settingsRoot;
         IAccessor parentAccessor = this.getParentAccessor();
-        if (parentAccessor != null) {
+        if (parentAccessor != null)
+        {
             valueHolder = parentAccessor.getValue(settingsRoot);
         }
         final Method get = this.getGetter();
-        if (!get.getDeclaringClass().equals(valueHolder.getClass())) {
-            throw new IllegalStateException("TODO:unexpected class of valueHolder");
+        if (!get.getDeclaringClass().equals(valueHolder.getClass()))
+        {
+            throw new IllegalStateException(
+                    "TODO:unexpected class of valueHolder");
         }
-        try {
+        try
+        {
             result = get.invoke(valueHolder);
             DefaultValueHolder holder = this.getDefaultValueHolder();
-            if (null == result && null != holder) {
+            if (null == result && null != holder)
+            {
                 result = holder.getValue();
             }
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        }
+        catch (IllegalAccessException | IllegalArgumentException |
+               InvocationTargetException e)
+        {
             throw new RuntimeException(e);
         }
 
@@ -92,7 +108,9 @@ public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl 
      * {@inheritDoc}
      */
     @Override
-    public void setDefaultValueHolder(DefaultValueHolder defaultValueHolder) {
+    public final void setDefaultValueHolder(
+            final DefaultValueHolder defaultValueHolder)
+    {
         this.defaultValueHolder = defaultValueHolder;
     }
 
@@ -100,7 +118,8 @@ public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl 
      * {@inheritDoc}
      */
     @Override
-    public void setGetter(final Method getter) {
+    public final void setGetter(final Method getter)
+    {
         this.getter = getter;
     }
 
@@ -108,7 +127,8 @@ public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl 
      * {@inheritDoc}
      */
     @Override
-    public void setSetter(final Method setter) {
+    public final void setSetter(final Method setter)
+    {
         this.setter = setter;
     }
 
@@ -116,19 +136,27 @@ public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl 
      * {@inheritDoc}
      */
     @Override
-    public void setValue(final Object value, final Object settingsRoot) {
+    public void setValue(final Object value, final Object settingsRoot)
+    {
         Object valueHolder = settingsRoot;
         IAccessor parentAccessor = this.getParentAccessor();
-        if (parentAccessor != null) {
+        if (parentAccessor != null)
+        {
             valueHolder = parentAccessor.getValue(settingsRoot);
         }
         final Method set = this.getSetter();
-        if (!set.getDeclaringClass().equals(valueHolder.getClass())) {
-            throw new IllegalStateException("TODO:unexpected class of valueHolder");
+        if (!set.getDeclaringClass().equals(valueHolder.getClass()))
+        {
+            throw new IllegalStateException(
+                    "TODO:unexpected class of valueHolder");
         }
-        try {
+        try
+        {
             set.invoke(valueHolder, value);
-        } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
+        }
+        catch (IllegalAccessException | IllegalArgumentException |
+               InvocationTargetException e)
+        {
             throw new RuntimeException(e);
         }
     }

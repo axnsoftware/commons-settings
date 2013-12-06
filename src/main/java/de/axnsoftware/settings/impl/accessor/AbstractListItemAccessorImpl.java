@@ -26,9 +26,12 @@ import java.util.List;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public abstract class AbstractListItemAccessorImpl extends AbstractContainerItemAccessorImpl<Integer> {
+public abstract class AbstractListItemAccessorImpl
+        extends AbstractContainerItemAccessorImpl<Integer>
+{
 
-    protected AbstractListItemAccessorImpl() {
+    protected AbstractListItemAccessorImpl()
+    {
         super();
     }
 
@@ -36,11 +39,15 @@ public abstract class AbstractListItemAccessorImpl extends AbstractContainerItem
      * {@inheritDoc}
      */
     @Override
-    public Object getValue(final Object settingsRoot) {
+    public Object getValue(final Object settingsRoot)
+    {
         Object result = null;
-        List<Object> container = (List<Object>) this.getParentAccessor().getValue(settingsRoot);
+        List<Object> container =
+                     (List<Object>) this.getParentAccessor().
+                getValue(settingsRoot);
         Integer itemKey = this.getItemKey();
-        if (itemKey < container.size()) {
+        if (itemKey < container.size())
+        {
             result = container.get(this.getItemKey());
         }
         return result;
@@ -50,11 +57,16 @@ public abstract class AbstractListItemAccessorImpl extends AbstractContainerItem
      * {@inheritDoc}
      */
     @Override
-    public void setValue(final Object value, final Object settingsRoot) {
-        List<Object> container = (List<Object>) this.getParentAccessor().getValue(settingsRoot);
-        if (this.getItemKey() < container.size()) {
+    public final void setValue(final Object value, final Object settingsRoot)
+    {
+        List<Object> container = (List<Object>) this.getParentAccessor()
+                .getValue(settingsRoot);
+        if (this.getItemKey() < container.size())
+        {
             container.set(this.getItemKey(), value);
-        } else {
+        }
+        else
+        {
             container.add(value);
         }
     }

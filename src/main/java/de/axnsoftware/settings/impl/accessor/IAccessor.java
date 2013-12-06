@@ -28,14 +28,16 @@ import java.util.Map;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public interface IAccessor extends Cloneable {
+public interface IAccessor
+        extends Cloneable
+{
 
     /**
      * Creates a deep copy of this.
      *
      * @return the copy
      */
-    public Object clone();
+    Object clone();
 
     /**
      * Copies the value of the property represented by this from the specified
@@ -44,56 +46,56 @@ public interface IAccessor extends Cloneable {
      * @param source
      * @param target
      */
-    public void copyValue(final Object source, final Object target);
+    void copyValue(final Object source, final Object target);
 
     /**
      * Returns the child accessors.
      *
      * @return the child accessors or null
      */
-    public List<IAccessor> getChildAccessors();
+    List<IAccessor> getChildAccessors();
 
     /**
      * Returns the unqualified key of the property represented by this.
      *
      * @return the key
      */
-    public String getKey();
+    String getKey();
 
     /**
      * Returns the parent accessor.
      *
      * @return the parent accessor or null
      */
-    public IAccessor getParentAccessor();
+    IAccessor getParentAccessor();
 
     /**
      * Returns the qualified key of the property, e.g. org.example.timeout.
      *
      * @return the qualified key
      */
-    public String getQualifiedKey();
+    String getQualifiedKey();
 
     /**
      * Gets the root accessor.
      *
      * @return the root accessor or null in case that this is the root accessor
      */
-    public IAccessor getRootAccessor();
+    IAccessor getRootAccessor();
 
     /**
      * Gets the type of the property represented by this.
      *
      * @return the type of the property
      */
-    public Class<?> getType();
+    Class<?> getType();
 
     /**
      * Gets the available type mappings from the root accessor.
      *
      * @return the available type mappings
      */
-    public Map<Class<?>, ITypeMapper> getTypeMappings();
+    Map<Class<?>, ITypeMapper> getTypeMappings();
 
     /**
      * Gets the {@code value} of the property represented by this from the
@@ -102,7 +104,7 @@ public interface IAccessor extends Cloneable {
      * @param settingsRoot
      * @return the value or null
      */
-    public Object getValue(final Object settingsRoot);
+    Object getValue(final Object settingsRoot);
 
     /**
      * Reads the value of the property represented by this from the specified
@@ -111,7 +113,8 @@ public interface IAccessor extends Cloneable {
      * @param backingStore
      * @param settingsRoot
      */
-    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot);
+    void readFromBackingStore(final IBackingStore backingStore,
+                              final Object settingsRoot);
 
     /**
      * Replaces the existing child accessors with the specified
@@ -119,14 +122,14 @@ public interface IAccessor extends Cloneable {
      *
      * @param childAccessors
      */
-    public void setChildAccessors(final List<IAccessor> childAccessors);
+    void setChildAccessors(final List<IAccessor> childAccessors);
 
     /**
      * Replaces the existing key with the specified {@code key}.
      *
      * @param key
      */
-    public void setKey(final String key);
+    void setKey(final String key);
 
     /**
      * Replaces the existing parent accessor with the specified
@@ -134,14 +137,14 @@ public interface IAccessor extends Cloneable {
      *
      * @param parentAccessor
      */
-    public void setParentAccessor(final IAccessor parentAccessor);
+    void setParentAccessor(final IAccessor parentAccessor);
 
     /**
      * Replaces the existing type with the specified {@code type}.
      *
      * @param type
      */
-    public void setType(final Class<?> type);
+    void setType(final Class<?> type);
 
     /**
      * Gets the value of the property represented by this from the specified
@@ -150,5 +153,6 @@ public interface IAccessor extends Cloneable {
      * @param backingStore
      * @param settingsRoot
      */
-    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot);
+    void writeToBackingStore(final IBackingStore backingStore,
+                             final Object settingsRoot);
 }

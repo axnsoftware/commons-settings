@@ -37,13 +37,18 @@ import java.util.prefs.BackingStoreException;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStore {
+public final class PropertiesFileBackingStoreWrapperImpl
+        implements
+        IBackingStore
+{
 
     private final EFileFormat fileFormat;
     private final File storagePath;
     private Properties properties;
 
-    public PropertiesFileBackingStoreWrapperImpl(final EFileFormat fileFormat, final File storagePath) {
+    public PropertiesFileBackingStoreWrapperImpl(final EFileFormat fileFormat,
+                                                 final File storagePath)
+    {
         this.fileFormat = fileFormat;
         this.storagePath = storagePath;
     }
@@ -52,11 +57,16 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void deleteProperties() throws BackingStoreException {
-        try {
-            Path path = FileSystems.getDefault().getPath(this.storagePath.getAbsolutePath());
+    public void deleteProperties() throws BackingStoreException
+    {
+        try
+        {
+            Path path = FileSystems.getDefault().getPath(this.storagePath
+                    .getAbsolutePath());
             Files.delete(path);
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new BackingStoreException(e);
         }
     }
@@ -65,10 +75,12 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public Boolean getBoolean(String key) {
+    public Boolean getBoolean(final String key)
+    {
         Boolean result = null;
         String value = this.getString(key);
-        if (null != value) {
+        if (null != value)
+        {
             result = Boolean.valueOf(value);
         }
         return result;
@@ -78,10 +90,12 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public Byte getByte(String key) {
+    public Byte getByte(final String key)
+    {
         Byte result = null;
         String value = this.getString(key);
-        if (null != value) {
+        if (null != value)
+        {
             result = Byte.valueOf(value);
         }
         return result;
@@ -91,10 +105,12 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public Character getCharacter(String key) {
+    public Character getCharacter(final String key)
+    {
         Character result = null;
         String value = this.getString(key);
-        if (null != value) {
+        if (null != value)
+        {
             result = Character.valueOf(value.charAt(0));
         }
         return result;
@@ -104,10 +120,12 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public Double getDouble(String key) {
+    public Double getDouble(final String key)
+    {
         Double result = null;
         String value = this.getString(key);
-        if (null != value) {
+        if (null != value)
+        {
             result = Double.valueOf(value);
         }
         return result;
@@ -117,10 +135,12 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public Float getFloat(String key) {
+    public Float getFloat(final String key)
+    {
         Float result = null;
         String value = this.getString(key);
-        if (null != value) {
+        if (null != value)
+        {
             result = Float.valueOf(value);
         }
         return result;
@@ -130,10 +150,12 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public Integer getInteger(String key) {
+    public Integer getInteger(final String key)
+    {
         Integer result = null;
         String value = this.getString(key);
-        if (null != value) {
+        if (null != value)
+        {
             result = Integer.valueOf(value);
         }
         return result;
@@ -143,10 +165,12 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public Long getLong(String key) {
+    public Long getLong(final String key)
+    {
         Long result = null;
         String value = this.getString(key);
-        if (null != value) {
+        if (null != value)
+        {
             result = Long.valueOf(value);
         }
         return result;
@@ -156,9 +180,12 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public Object getProperties() {
-        if (null == this.properties) {
-            throw new IllegalStateException("TODO:properties have not been loaded.");
+    public Object getProperties()
+    {
+        if (null == this.properties)
+        {
+            throw new IllegalStateException(
+                    "TODO:properties have not been loaded.");
         }
         return (Properties) this.properties.clone();
     }
@@ -167,10 +194,12 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public Short getShort(String key) {
+    public Short getShort(final String key)
+    {
         Short result = null;
         String value = this.getString(key);
-        if (null != value) {
+        if (null != value)
+        {
             result = Short.valueOf(value);
         }
         return result;
@@ -180,7 +209,8 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public String getString(String key) {
+    public String getString(final String key)
+    {
         return this.properties.getProperty(key);
     }
 
@@ -188,9 +218,12 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public Set<String> keySet() throws BackingStoreException {
-        if (null == this.properties) {
-            throw new IllegalStateException("TODO:properties have not been loaded.");
+    public Set<String> keySet() throws BackingStoreException
+    {
+        if (null == this.properties)
+        {
+            throw new IllegalStateException(
+                    "TODO:properties have not been loaded.");
         }
         return this.properties.stringPropertyNames();
     }
@@ -199,27 +232,45 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void loadProperties() throws BackingStoreException {
-        if (this.storagePath.exists()) {
+    public void loadProperties() throws BackingStoreException
+    {
+        if (this.storagePath.exists())
+        {
             this.properties = new Properties();
-            try {
-                final InputStream inputStream = new FileInputStream(this.storagePath);
-                try {
-                    if (this.fileFormat.equals(EFileFormat.FILE_FORMAT_PLAIN_TEXT)) {
+            try
+            {
+                final InputStream inputStream = new FileInputStream(
+                        this.storagePath);
+                try
+                {
+                    if (this.fileFormat.equals(
+                            EFileFormat.FILE_FORMAT_PLAIN_TEXT))
+                    {
                         this.properties.load(inputStream);
-                    } else {
+                    }
+                    else
+                    {
                         this.properties.loadFromXML(inputStream);
                     }
-                } catch (IOException e) {
+                }
+                catch (IOException e)
+                {
                     throw new BackingStoreException(e);
-                } finally {
-                    try {
+                }
+                finally
+                {
+                    try
+                    {
                         inputStream.close();
-                    } catch (IOException e) {
+                    }
+                    catch (IOException e)
+                    {
                         throw new BackingStoreException(e);
                     }
                 }
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 throw new BackingStoreException(e);
             }
         }
@@ -229,7 +280,8 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void setBoolean(String key, Object value) {
+    public void setBoolean(final String key, final Object value)
+    {
         this.setString(key, value.toString());
     }
 
@@ -237,7 +289,8 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void setByte(String key, Byte value) {
+    public void setByte(final String key, final Byte value)
+    {
         this.setString(key, value.toString());
     }
 
@@ -245,7 +298,8 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void setCharacter(String key, Character value) {
+    public void setCharacter(final String key, final Character value)
+    {
         this.setString(key, value.toString());
     }
 
@@ -253,7 +307,8 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void setDouble(String key, Double value) {
+    public void setDouble(final String key, final Double value)
+    {
         this.setString(key, value.toString());
     }
 
@@ -261,7 +316,8 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void setFloat(String key, Float value) {
+    public void setFloat(final String key, final Float value)
+    {
         this.setString(key, value.toString());
     }
 
@@ -269,7 +325,8 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void setInteger(String key, Integer value) {
+    public void setInteger(final String key, final Integer value)
+    {
         this.setString(key, value.toString());
     }
 
@@ -277,7 +334,8 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void setLong(String key, Long value) {
+    public void setLong(final String key, final Long value)
+    {
         this.setString(key, value.toString());
     }
 
@@ -285,7 +343,8 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void setShort(String key, Short value) {
+    public void setShort(final String key, final Short value)
+    {
         this.setString(key, value.toString());
     }
 
@@ -293,7 +352,8 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void setString(String key, String value) {
+    public void setString(final String key, final String value)
+    {
         this.properties.setProperty(key, value.toString());
     }
 
@@ -301,28 +361,46 @@ public final class PropertiesFileBackingStoreWrapperImpl implements IBackingStor
      * {@inheritDoc}
      */
     @Override
-    public void storeProperties() throws BackingStoreException {
-        if (null == this.properties) {
-            throw new IllegalStateException("TODO:properties have not been loaded.");
+    public void storeProperties() throws BackingStoreException
+    {
+        if (null == this.properties)
+        {
+            throw new IllegalStateException(
+                    "TODO:properties have not been loaded.");
         }
-        try {
-            final OutputStream outputStream = new FileOutputStream(this.storagePath);
-            try {
-                if (this.fileFormat.equals(EFileFormat.FILE_FORMAT_PLAIN_TEXT)) {
+        try
+        {
+            final OutputStream outputStream = new FileOutputStream(
+                    this.storagePath);
+            try
+            {
+                if (this.fileFormat.equals(EFileFormat.FILE_FORMAT_PLAIN_TEXT))
+                {
                     this.properties.store(outputStream, null);
-                } else {
+                }
+                else
+                {
                     this.properties.storeToXML(outputStream, null, "utf-8");
                 }
-            } catch (IOException e) {
+            }
+            catch (IOException e)
+            {
                 throw new BackingStoreException(e);
-            } finally {
-                try {
+            }
+            finally
+            {
+                try
+                {
                     outputStream.close();
-                } catch (IOException e) {
+                }
+                catch (IOException e)
+                {
                     throw new BackingStoreException(e);
                 }
             }
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             throw new BackingStoreException(e);
         }
     }

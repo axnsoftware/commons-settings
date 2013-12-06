@@ -33,15 +33,19 @@ import java.util.Map;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public abstract class AbstractFieldVisitorImpl implements IVisitor<Field> {
+public abstract class AbstractFieldVisitorImpl
+        implements IVisitor<Field>
+{
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public final Boolean canVisit(final Field visitee) {
+    public final Boolean canVisit(final Field visitee)
+    {
         Boolean result = Boolean.FALSE;
-        if (visitee.isAnnotationPresent(Property.class)) {
+        if (visitee.isAnnotationPresent(Property.class))
+        {
             result = this.canVisitImpl(visitee);
         }
         return result;
@@ -64,15 +68,20 @@ public abstract class AbstractFieldVisitorImpl implements IVisitor<Field> {
      * @param parentAccessor
      * @param visitee
      */
-    protected void configureAccessor(final IPropertyAccessor accessor, final IAccessor parentAccessor, final Field visitee) {
+    protected final void configureAccessor(final IPropertyAccessor accessor,
+                                           final IAccessor parentAccessor,
+                                           final Field visitee)
+    {
         final Class<?> type = visitee.getType();
         final Property annotation = visitee.getAnnotation(Property.class);
         final String fieldName = visitee.getName();
-        final String capitalizedFieldName = fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+        final String capitalizedFieldName = fieldName.substring(0, 1)
+                .toUpperCase() + fieldName.substring(1);
         final String getterName = "get" + capitalizedFieldName;
         final String setterName = "set" + capitalizedFieldName;
         String key = fieldName;
-        if (!"".equals(annotation.key())) {
+        if (!"".equals(annotation.key()))
+        {
             key = annotation.key();
         }
         accessor.setKey(key);
@@ -80,7 +89,8 @@ public abstract class AbstractFieldVisitorImpl implements IVisitor<Field> {
         accessor.setGetter(this.getMethod(visitee, getterName));
         accessor.setSetter(this.getMethod(visitee, setterName, type));
         accessor.setType(type);
-        if (null == parentAccessor.getChildAccessors()) {
+        if (null == parentAccessor.getChildAccessors())
+        {
             parentAccessor.setChildAccessors(new ArrayList<IAccessor>());
         }
         parentAccessor.getChildAccessors().add(accessor);
@@ -96,26 +106,45 @@ public abstract class AbstractFieldVisitorImpl implements IVisitor<Field> {
      * @param typeMappings
      * @return instance of the type mapper
      */
-    protected ITypeMapper getAndRegisterTypeMapper(final Class<?> type, final String typeMapperTypename, final Map<Class<?>, ITypeMapper> typeMappings) {
+    protected final ITypeMapper getAndRegisterTypeMapper(
+            final Class<?> type,
+            final String typeMapperTypename,
+            final Map<Class<?>, ITypeMapper> typeMappings)
+    {
         ITypeMapper result = typeMappings.get(type);
-        if (null == result) {
-            if (!"".equals(typeMapperTypename)) {
-                try {
-                    final Class<? extends ITypeMapper> typeMapperType = (Class<? extends ITypeMapper>) Class.forName(typeMapperTypename);
-                    for (ITypeMapper typeMapper : typeMappings.values()) {
-                        if (typeMapperType.equals(typeMapper.getClass())) {
+        if (null == result)
+        {
+            if (!"".equals(typeMapperTypename))
+            {
+                try
+                {
+                    final Class<? extends ITypeMapper> typeMapperType;
+                    typeMapperType = (Class<? extends ITypeMapper>) Class
+                            .forName(typeMapperTypename);
+                    for (ITypeMapper typeMapper : typeMappings.values())
+                    {
+                        if (typeMapperType.equals(typeMapper.getClass()))
+                        {
                             result = typeMapper;
                             break;
                         }
                     }
-                    if (null == result) {
+                    if (null == result)
+                    {
                         result = typeMapperType.newInstance();
                     }
                     typeMappings.put(type, result);
-                } catch (ClassNotFoundException | InstantiationException | IllegalAccessException e) {
-                    throw new RuntimeException("TODO: type mapper could not be instantiated: " + typeMapperTypename, e);
                 }
-            } else if (type.isEnum()) {
+                catch (ClassNotFoundException | InstantiationException |
+                       IllegalAccessException e)
+                {
+                    throw new RuntimeException(
+                            "TODO: type mapper could not be instantiated: "
+                            + typeMapperTypename, e);
+                }
+            }
+            else if (type.isEnum())
+            {
                 result = typeMappings.get(Enum.class);
             }
         }
@@ -132,12 +161,20 @@ public abstract class AbstractFieldVisitorImpl implements IVisitor<Field> {
      * @param parameterTypes
      * @return the method
      */
-    protected Method getMethod(final Field visitee, final String methodName, final Class<?>... parameterTypes) {
+    protected final Method getMethod(final Field visitee,
+                                     final String methodName,
+                                     final Class<?>... parameterTypes)
+    {
         Method result = null;
-        try {
-            result = visitee.getDeclaringClass().getMethod(methodName, parameterTypes);
-        } catch (NoSuchMethodException | SecurityException e) {
-            throw new RuntimeException("unable to access method " + methodName + " for field:" + visitee.toString(), e);
+        try
+        {
+            result = visitee.getDeclaringClass().getMethod(methodName,
+                                                           parameterTypes);
+        }
+        catch (NoSuchMethodException | SecurityException e)
+        {
+            throw new RuntimeException("unable to access method " + methodName
+                                       + " for field:" + visitee.toString(), e);
         }
         return result;
     }

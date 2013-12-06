@@ -31,8 +31,12 @@ import java.lang.annotation.Target;
  */
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.TYPE})
-public @interface Property {
+@Target(
+        {
+    ElementType.FIELD, ElementType.TYPE
+})
+public @interface Property
+{
 
     /**
      * The key specifies the relative key by which the property is addressed in
@@ -46,7 +50,7 @@ public @interface Property {
      *
      * @return the specified key or the empty string
      */
-    public String key() default "";
+    String key() default "";
 
     /**
      * For simple types, e.g. Integer or String, and custom types for which
@@ -56,7 +60,7 @@ public @interface Property {
      *
      * @return the default value as a string or the empty string
      */
-    public String defaultValue() default "";
+    String defaultValue() default "";
 
     /**
      * For custom types, which have not been annotated by the
@@ -66,5 +70,6 @@ public @interface Property {
      *
      * @return the fully qualified class name of the type mapper implementation
      */
-    public String typeMapper() default "de.axnsoftware.settings.impl.DefaultTypeMapperImpl";
+    String typeMapper()
+            default "de.axnsoftware.settings.impl.DefaultTypeMapperImpl";
 }

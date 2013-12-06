@@ -25,7 +25,8 @@ import java.util.prefs.BackingStoreException;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public interface IBackingStore {
+public interface IBackingStore
+{
 
     /**
      * Returns a copy of the loaded properties.
@@ -36,7 +37,7 @@ public interface IBackingStore {
      * @return the properties
      * @throws IllegalStateException
      */
-    public Object getProperties();
+    Object getProperties();
 
     /**
      * Deletes the properties. Depending on the implementation this could mean
@@ -140,7 +141,7 @@ public interface IBackingStore {
      * @param key
      * @param value
      */
-    public void setBoolean(String key, Object value);
+    void setBoolean(String key, Object value);
 
     /**
      * Gets the value of the property identified by the specified {@code key}.

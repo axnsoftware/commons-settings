@@ -34,12 +34,15 @@ import java.util.UUID;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class SimpleTypeFieldVisitorImpl extends AbstractFieldVisitorImpl {
+public final class SimpleTypeFieldVisitorImpl
+        extends AbstractFieldVisitorImpl
+{
 
     private static IVisitor<Field>[] preparedSimpleTypeFieldVisitors;
     private final Class<?> valueType;
 
-    public SimpleTypeFieldVisitorImpl(final Class<?> valueType) {
+    public SimpleTypeFieldVisitorImpl(final Class<?> valueType)
+    {
         this.valueType = valueType;
     }
 
@@ -47,7 +50,8 @@ public final class SimpleTypeFieldVisitorImpl extends AbstractFieldVisitorImpl {
      * {@inheritDoc}
      */
     @Override
-    protected final Boolean canVisitImpl(final Field visitee) {
+    protected Boolean canVisitImpl(final Field visitee)
+    {
         return this.valueType.isAssignableFrom(visitee.getType());
     }
 
@@ -55,19 +59,25 @@ public final class SimpleTypeFieldVisitorImpl extends AbstractFieldVisitorImpl {
      * {@inheritDoc}
      */
     @Override
-    public void visit(Field visitee, IAccessor parentAccessor) {
+    public void visit(final Field visitee, final IAccessor parentAccessor)
+    {
         Class<?> type = visitee.getType();
         IPropertyAccessor accessor = new LeafPropertyAccessorImpl();
         Property annotation = visitee.getAnnotation(Property.class);
-        ITypeMapper typeMapper = this.getAndRegisterTypeMapper(type, annotation.typeMapper(), parentAccessor.getTypeMappings());
-        DefaultValueHolder defaultValueHolder = new DefaultValueHolder(annotation.defaultValue(), type, typeMapper);
+        ITypeMapper typeMapper = this.getAndRegisterTypeMapper(type, annotation
+                .typeMapper(), parentAccessor.getTypeMappings());
+        DefaultValueHolder defaultValueHolder = new DefaultValueHolder(
+                annotation.defaultValue(), type, typeMapper);
         accessor.setDefaultValueHolder(defaultValueHolder);
         this.configureAccessor(accessor, parentAccessor, visitee);
     }
 
-    public static IVisitor<Field>[] getPreparedSimpleTypeFieldVisitors() {
-        if (null == preparedSimpleTypeFieldVisitors) {
-            preparedSimpleTypeFieldVisitors = new IVisitor[]{
+    public static IVisitor<Field>[] getPreparedSimpleTypeFieldVisitors()
+    {
+        if (null == preparedSimpleTypeFieldVisitors)
+        {
+            preparedSimpleTypeFieldVisitors = new IVisitor[]
+            {
                 new SimpleTypeFieldVisitorImpl(BigDecimal.class),
                 new SimpleTypeFieldVisitorImpl(BigInteger.class),
                 new SimpleTypeFieldVisitorImpl(Boolean.class),
@@ -79,8 +89,9 @@ public final class SimpleTypeFieldVisitorImpl extends AbstractFieldVisitorImpl {
                 new SimpleTypeFieldVisitorImpl(Long.class),
                 new SimpleTypeFieldVisitorImpl(Short.class),
                 new SimpleTypeFieldVisitorImpl(String.class),
-                new SimpleTypeFieldVisitorImpl(UUID.class)};
+                new SimpleTypeFieldVisitorImpl(UUID.class)
+            };
         }
-        return preparedSimpleTypeFieldVisitors;
+        return preparedSimpleTypeFieldVisitors.clone();
     }
 }

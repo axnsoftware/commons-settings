@@ -20,7 +20,17 @@ package de.axnsoftware.settings;
  * or written out by implementations of the {@code IBackingStoreWrapper}
  * interface.
  */
-public enum EFileFormat {
+public enum EFileFormat
+{
 
-    FILE_FORMAT_XML, FILE_FORMAT_PLAIN_TEXT
+    /**
+     * All configuration files are in XML format. The actual format is subject
+     * to the backing store implementation.
+     */
+    FILE_FORMAT_XML,
+    /**
+     * All configuration files are in plain text format. The actual format is
+     * subject to the backing store implementation.
+     */
+    FILE_FORMAT_PLAIN_TEXT
 }

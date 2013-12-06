@@ -25,21 +25,33 @@ import de.axnsoftware.settings.impl.accessor.IAccessor;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class FailFastVisitorImpl<T> implements IVisitor<T> {
+public final class FailFastVisitorImpl<T>
+        implements IVisitor<T>
+{
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Boolean canVisit(final T visitee) {
-        throw new RuntimeException("Unsupported type for field: " + visitee.toString() + ". Did you forget to annotate the class with the PropertyClass annotation or provide a type mapper?");
+    public Boolean canVisit(final T visitee)
+    {
+        throw new RuntimeException(String.format(
+                "Unsupported type for field: %s."
+                + "Did you forget to annotate the class with the "
+                + "PropertyClass annotation or provide a type mapper?", visitee
+                .toString()));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void visit(final T visitee, final IAccessor parentAccessor) {
-        throw new RuntimeException("Unsupported type for field: " + visitee.toString() + ". Did you forget to annotate the class with the PropertyClass annotation or provide a type mapper?");
+    public void visit(final T visitee, final IAccessor parentAccessor)
+    {
+        throw new RuntimeException(String.format(
+                "Unsupported type for field: %s."
+                + "Did you forget to annotate the class with the "
+                + "PropertyClass annotation or provide a type mapper?", visitee
+                .toString()));
     }
 }

@@ -25,7 +25,8 @@ import java.util.prefs.BackingStoreException;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public interface ISettingsStore {
+public interface ISettingsStore
+{
 
     /**
      * Returns a wrapper for the underlying backing store.
@@ -37,7 +38,7 @@ public interface ISettingsStore {
      * @throws IllegalStateException
      * @see IBackingStore
      */
-    public IBackingStore getBackingStoreWrapper();
+    IBackingStore getBackingStoreWrapper();
 
     /**
      * Returns the type representing the root {@link PropertyClass}, that was
@@ -45,7 +46,7 @@ public interface ISettingsStore {
      *
      * @return the type of the root {@code PropertyClass}
      */
-    public Class<?> getType();
+    Class<?> getType();
 
     /**
      * Returns the settings loaded from the backing store.
@@ -53,14 +54,14 @@ public interface ISettingsStore {
      * @return the settings
      * @throws BackingStoreException
      */
-    public ISettings loadSettings() throws BackingStoreException;
+    ISettings loadSettings() throws BackingStoreException;
 
     /**
      * Deletes the settings from the underlying backing store.
      *
      * @throws BackingStoreException
      */
-    public void deleteSettings() throws BackingStoreException;
+    void deleteSettings() throws BackingStoreException;
 
     /**
      * Stores the specified {@code settings} in the underlying backing store.
@@ -68,5 +69,5 @@ public interface ISettingsStore {
      * @param settings
      * @throws BackingStoreException
      */
-    public void storeSettings(final ISettings settings) throws BackingStoreException;
+    void storeSettings(final ISettings settings) throws BackingStoreException;
 }

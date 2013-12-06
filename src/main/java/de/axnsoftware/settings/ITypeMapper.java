@@ -30,7 +30,8 @@ package de.axnsoftware.settings;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public interface ITypeMapper {
+public interface ITypeMapper
+{
 
     /**
      * Returns a copy of the specified {@code value}.
@@ -39,7 +40,7 @@ public interface ITypeMapper {
      * @return a copy of the specified value or null
      * @throws IllegalArgumentException
      */
-    public Object copyOf(final Object value);
+    Object copyOf(final Object value);
 
     /**
      * Returns an instance of the specified {@code key} and {@code type} which
@@ -51,7 +52,8 @@ public interface ITypeMapper {
      * @return the instance or null
      * @throws IllegalArgumentException
      */
-    public Object readFromBackingStore(final IBackingStore backingStore, final String key, final Class<?> type);
+    Object readFromBackingStore(final IBackingStore backingStore,
+                                final String key, final Class<?> type);
 
     /**
      * Returns an instance of the specified {@code type} for the specified
@@ -62,7 +64,7 @@ public interface ITypeMapper {
      * @return instance of type or null
      * @throws IllegalArgumentException
      */
-    public Object valueOf(final String value, final Class<?> type);
+    Object valueOf(final String value, final Class<?> type);
 
     /**
      * Writes the specified {@code value} to the specified {@code backingStore}.
@@ -71,5 +73,6 @@ public interface ITypeMapper {
      * @param value
      * @throws IllegalArgumentException
      */
-    public void writeToBackingStore(final IBackingStore backingStore, final String key, final Object value);
+    void writeToBackingStore(final IBackingStore backingStore, final String key,
+                             final Object value);
 }

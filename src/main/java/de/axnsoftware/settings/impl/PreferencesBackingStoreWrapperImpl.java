@@ -31,12 +31,15 @@ import java.util.prefs.Preferences;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
+public final class PreferencesBackingStoreWrapperImpl
+        implements IBackingStore
+{
 
     private final String storagePath;
     private Preferences preferences;
 
-    public PreferencesBackingStoreWrapperImpl(final String storagePath) {
+    public PreferencesBackingStoreWrapperImpl(final String storagePath)
+    {
         this.storagePath = storagePath;
     }
 
@@ -44,9 +47,12 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public void deleteProperties() throws BackingStoreException {
-        if (null == this.preferences) {
-            throw new IllegalStateException("TODO:preferences have not been loaded.");
+    public void deleteProperties() throws BackingStoreException
+    {
+        if (null == this.preferences)
+        {
+            throw new IllegalStateException(
+                    "TODO:preferences have not been loaded.");
         }
         this.preferences.clear();
     }
@@ -55,7 +61,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public Boolean getBoolean(String key) {
+    public Boolean getBoolean(final String key)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -63,7 +70,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public Byte getByte(String key) {
+    public Byte getByte(final String key)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -71,7 +79,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public Character getCharacter(String key) {
+    public Character getCharacter(final String key)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -79,7 +88,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public Double getDouble(String key) {
+    public Double getDouble(final String key)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -87,7 +97,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public Float getFloat(String key) {
+    public Float getFloat(final String key)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -95,7 +106,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public Integer getInteger(String key) {
+    public Integer getInteger(final String key)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -103,7 +115,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public Long getLong(String key) {
+    public Long getLong(final String key)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -111,9 +124,12 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public Object getProperties() {
-        if (null == this.preferences) {
-            throw new IllegalStateException("TODO:preferences have not been loaded.");
+    public Object getProperties()
+    {
+        if (null == this.preferences)
+        {
+            throw new IllegalStateException(
+                    "TODO:preferences have not been loaded.");
         }
         return this.preferences;
     }
@@ -122,7 +138,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public Short getShort(String key) {
+    public Short getShort(final String key)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -130,7 +147,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public String getString(String key) {
+    public String getString(final String key)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -138,9 +156,12 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public Set<String> keySet() throws BackingStoreException {
-        if (null == this.preferences) {
-            throw new IllegalStateException("TODO:preferences have not been loaded.");
+    public Set<String> keySet() throws BackingStoreException
+    {
+        if (null == this.preferences)
+        {
+            throw new IllegalStateException(
+                    "TODO:preferences have not been loaded.");
         }
         Set<String> result = new HashSet<>();
         result.addAll(Arrays.asList(this.preferences.keys()));
@@ -151,7 +172,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public void loadProperties() throws BackingStoreException {
+    public void loadProperties() throws BackingStoreException
+    {
         this.preferences = Preferences.userRoot().node(this.storagePath);
     }
 
@@ -159,7 +181,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public void setBoolean(String key, Object value) {
+    public void setBoolean(final String key, final Object value)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -167,7 +190,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public void setByte(String key, Byte value) {
+    public void setByte(final String key, final Byte value)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -175,7 +199,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public void setCharacter(String key, Character value) {
+    public void setCharacter(final String key, final Character value)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -183,7 +208,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public void setDouble(String key, Double value) {
+    public void setDouble(final String key, final Double value)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -191,7 +217,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public void setFloat(String key, Float value) {
+    public void setFloat(final String key, final Float value)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -199,7 +226,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public void setInteger(String key, Integer value) {
+    public void setInteger(final String key, final Integer value)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -207,7 +235,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public void setLong(String key, Long value) {
+    public void setLong(final String key, final Long value)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -215,7 +244,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public void setShort(String key, Short value) {
+    public void setShort(final String key, final Short value)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -223,7 +253,8 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public void setString(String key, String value) {
+    public void setString(final String key, final String value)
+    {
         throw new UnsupportedOperationException("not implemented yet.");
     }
 
@@ -231,9 +262,12 @@ public class PreferencesBackingStoreWrapperImpl implements IBackingStore {
      * {@inheritDoc}
      */
     @Override
-    public void storeProperties() throws BackingStoreException {
-        if (null == this.preferences) {
-            throw new IllegalStateException("TODO:preferences have not been loaded.");
+    public void storeProperties() throws BackingStoreException
+    {
+        if (null == this.preferences)
+        {
+            throw new IllegalStateException(
+                    "TODO:preferences have not been loaded.");
         }
         this.preferences.sync();
     }

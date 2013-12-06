@@ -24,7 +24,8 @@ import de.axnsoftware.settings.impl.accessor.IAccessor;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public interface IVisitor<T> {
+public interface IVisitor<T>
+{
 
     /**
      * Returns true whether visitor can visit the specified {@code visitee}.
@@ -32,7 +33,7 @@ public interface IVisitor<T> {
      * @param visitee
      * @return true whether the visitee can be visited, false otherwise
      */
-    public Boolean canVisit(final T visitee);
+    Boolean canVisit(final T visitee);
 
     /**
      * Visits the specified {@code visited} and contributes the specified
@@ -41,5 +42,5 @@ public interface IVisitor<T> {
      * @param visitee
      * @param parentAccessor
      */
-    public void visit(final T visitee, final IAccessor parentAccessor);
+    void visit(final T visitee, final IAccessor parentAccessor);
 }

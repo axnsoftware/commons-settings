@@ -22,7 +22,9 @@ package de.axnsoftware.settings.impl.accessor;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public interface IContainerPropertyAccessor extends IPropertyAccessor {
+public interface IContainerPropertyAccessor
+        extends IPropertyAccessor
+{
 
     /**
      * Returns the item accessor acting as a template for accessing individual
@@ -30,12 +32,12 @@ public interface IContainerPropertyAccessor extends IPropertyAccessor {
      *
      * @return the item accessor template
      */
-    public IAccessor getItemAccessorTemplate();
+    IAccessor getItemAccessorTemplate();
 
     /**
      * Sets the item accessor template.
      *
      * @param itemAccessorTemplate
      */
-    public void setItemAccessorTemplate(final IAccessor itemAccessorTemplate);
+    void setItemAccessorTemplate(final IAccessor itemAccessorTemplate);
 }

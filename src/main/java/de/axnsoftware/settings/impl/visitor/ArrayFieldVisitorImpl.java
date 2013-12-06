@@ -34,16 +34,20 @@ import java.util.List;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class ArrayFieldVisitorImpl extends AbstractFieldVisitorImpl {
+public final class ArrayFieldVisitorImpl
+        extends AbstractFieldVisitorImpl
+{
 
     private final List<IVisitor> visitors;
     private Class<?> itemType;
     private IVisitor<Class<?>> itemVisitor;
 
-    public ArrayFieldVisitorImpl(final IVisitor propertyClassVisitor) {
+    public ArrayFieldVisitorImpl(final IVisitor propertyClassVisitor)
+    {
         this.visitors = new ArrayList<>();
         this.visitors.add(propertyClassVisitor);
-        this.visitors.addAll(Arrays.asList(SimpleTypeVisitorImpl.getPreparedSimpleTypeVisitors()));
+        this.visitors.addAll(Arrays.asList(SimpleTypeVisitorImpl
+                .getPreparedSimpleTypeVisitors()));
         this.visitors.add(new FailFastVisitorImpl<Class<?>>());
     }
 
@@ -51,18 +55,26 @@ public final class ArrayFieldVisitorImpl extends AbstractFieldVisitorImpl {
      * {@inheritDoc}
      */
     @Override
-    protected Boolean canVisitImpl(final Field visitee) {
+    protected Boolean canVisitImpl(final Field visitee)
+    {
         Boolean result = Boolean.FALSE;
         final Class<?> type = visitee.getType();
         this.itemType = null;
-        if (type.isArray()) {
+        if (type.isArray())
+        {
             this.itemType = type.getComponentType();
-            if (this.itemVisitor != null && this.itemVisitor.canVisit(this.itemType)) {
+            if (this.itemVisitor != null && this.itemVisitor.canVisit(
+                    this.itemType))
+            {
                 result = Boolean.TRUE;
-            } else {
+            }
+            else
+            {
                 this.itemVisitor = null;
-                for (final IVisitor visitor : this.visitors) {
-                    if (visitor.canVisit(this.itemType)) {
+                for (final IVisitor visitor : this.visitors)
+                {
+                    if (visitor.canVisit(this.itemType))
+                    {
                         this.itemVisitor = visitor;
                         result = Boolean.TRUE;
                         break;
@@ -77,13 +89,17 @@ public final class ArrayFieldVisitorImpl extends AbstractFieldVisitorImpl {
      * {@inheritDoc}
      */
     @Override
-    public void visit(final Field visitee, final IAccessor parentAccessor) {
+    public void visit(final Field visitee, final IAccessor parentAccessor)
+    {
         IContainerPropertyAccessor accessor = new ArrayPropertyAccessorImpl();
         this.configureAccessor(accessor, parentAccessor, visitee);
         IContainerItemAccessor itemAccessorTemplate;
-        if (this.itemVisitor instanceof SimpleTypeVisitorImpl) {
+        if (this.itemVisitor instanceof SimpleTypeVisitorImpl)
+        {
             itemAccessorTemplate = new LeafArrayItemAccessorImpl();
-        } else {
+        }
+        else
+        {
             itemAccessorTemplate = new BranchArrayItemAccessorImpl();
         }
         itemAccessorTemplate.setParentAccessor(accessor);

@@ -28,11 +28,14 @@ import java.util.Map;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class RootAccessorImpl extends AbstractAccessorImpl {
+public final class RootAccessorImpl
+        extends AbstractAccessorImpl
+{
 
     private final Map<Class<?>, ITypeMapper> typeMappings;
 
-    public RootAccessorImpl() {
+    public RootAccessorImpl()
+    {
         super();
         this.typeMappings = new HashMap<>();
     }
@@ -41,8 +44,10 @@ public final class RootAccessorImpl extends AbstractAccessorImpl {
      * {@inheritDoc}
      */
     @Override
-    public void copyValue(final Object source, final Object target) {
-        for (IAccessor childAccessor : this.getChildAccessors()) {
+    public void copyValue(final Object source, final Object target)
+    {
+        for (IAccessor childAccessor : this.getChildAccessors())
+        {
             ((IPropertyAccessor) childAccessor).copyValue(source, target);
         }
     }
@@ -51,7 +56,8 @@ public final class RootAccessorImpl extends AbstractAccessorImpl {
      * {@inheritDoc}
      */
     @Override
-    public Object getValue(Object settingsRoot) {
+    public Object getValue(final Object settingsRoot)
+    {
         return settingsRoot;
     }
 
@@ -59,7 +65,8 @@ public final class RootAccessorImpl extends AbstractAccessorImpl {
      * {@inheritDoc}
      */
     @Override
-    public IAccessor getParentAccessor() {
+    public IAccessor getParentAccessor()
+    {
         return null;
     }
 
@@ -67,7 +74,8 @@ public final class RootAccessorImpl extends AbstractAccessorImpl {
      * {@inheritDoc}
      */
     @Override
-    public IAccessor getRootAccessor() {
+    public IAccessor getRootAccessor()
+    {
         return this;
     }
 
@@ -75,7 +83,8 @@ public final class RootAccessorImpl extends AbstractAccessorImpl {
      * {@inheritDoc}
      */
     @Override
-    public Map<Class<?>, ITypeMapper> getTypeMappings() {
+    public Map<Class<?>, ITypeMapper> getTypeMappings()
+    {
         return this.typeMappings;
     }
 
@@ -83,9 +92,13 @@ public final class RootAccessorImpl extends AbstractAccessorImpl {
      * {@inheritDoc}
      */
     @Override
-    public void readFromBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
-        for (IAccessor childAccessor : this.getChildAccessors()) {
-            ((IPropertyAccessor) childAccessor).readFromBackingStore(backingStore, settingsRoot);
+    public void readFromBackingStore(final IBackingStore backingStore,
+                                     final Object settingsRoot)
+    {
+        for (IAccessor childAccessor : this.getChildAccessors())
+        {
+            ((IPropertyAccessor) childAccessor).readFromBackingStore(
+                    backingStore, settingsRoot);
         }
     }
 
@@ -93,9 +106,13 @@ public final class RootAccessorImpl extends AbstractAccessorImpl {
      * {@inheritDoc}
      */
     @Override
-    public void writeToBackingStore(final IBackingStore backingStore, final Object settingsRoot) {
-        for (IAccessor childAccessor : this.getChildAccessors()) {
-            ((IPropertyAccessor) childAccessor).writeToBackingStore(backingStore, settingsRoot);
+    public void writeToBackingStore(final IBackingStore backingStore,
+                                    final Object settingsRoot)
+    {
+        for (IAccessor childAccessor : this.getChildAccessors())
+        {
+            ((IPropertyAccessor) childAccessor)
+                    .writeToBackingStore(backingStore, settingsRoot);
         }
     }
 }

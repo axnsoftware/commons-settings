@@ -31,13 +31,13 @@ import java.util.Set;
 import java.util.prefs.BackingStoreException;
 
 /**
- * The final class PropertiesFileBackingStoreWrapperImpl models a concrete
+ * The final class PropertiesBackingStoreImpl models a concrete
  * implementation of the {@code IBackingStoreWrapper} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class PropertiesFileBackingStoreWrapperImpl
+public final class PropertiesBackingStoreImpl
         implements
         IBackingStore
 {
@@ -46,7 +46,7 @@ public final class PropertiesFileBackingStoreWrapperImpl
     private final File storagePath;
     private Properties properties;
 
-    public PropertiesFileBackingStoreWrapperImpl(final EFileFormat fileFormat,
+    public PropertiesBackingStoreImpl(final EFileFormat fileFormat,
                                                  final File storagePath)
     {
         this.fileFormat = fileFormat;

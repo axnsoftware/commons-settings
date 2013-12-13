@@ -137,10 +137,10 @@
           <p>All of the available APIs reviewed so far require the user to
             manually keep track of the usage of key string constants and their
             value datatypes, making them rather problematic to deal with.</p>
-          <p>Not to mention keeping the documentation in sync with the
-            implementation.</p>
         </div>
         <div class="small-6 columns">
+          <p>Not to mention keeping the documentation in sync with the
+            implementation.</p>
           <p>One of the major problems though, is that the code for serializing
             custom types often spreads across the code base and is seldomly
             refactored. And most of the times, very similar code is implemented 
@@ -150,19 +150,27 @@
       <h3>Goals</h3>
       <p>Having identified these problems, the initial set of goals became
         rather clear.</p>
-      <ul>
-        <li>Get rid of most of the string constants and the associated classes
-          or interfaces representing constant pools and consolidate them into a
-          few, reusable model classes. </li>
-        <li>Get rid of all the helper code used for reading from and writing to
-          the settings file and consolidate these into a few reusable objects. </li>
+      <div class="row">
+        <div class="small-6 columns">
+          <ul>
+            <li>Get rid of most of the string constants and the associated classes
+              or interfaces representing constant pools and consolidate them into a
+              few, reusable model classes. </li>
+            <li>Get rid of all the helper code used for reading from and writing to
+               the settings file and consolidate these into a few reusable objects. </li>
+	  </ul>
+	</div>
+        <div class="small-6 columns">
+          <ul>
         <li>Allow one to define annotated standard POJOs which serve both as a
           blueprint specification and a model for maintaining the application
           settings during runtime. </li>
         <li>Support arbitrary backing stores modelled around a
           java.util.Properties derived interface, similar to what
           java.util.prefs.Preferences provides. </li>
-      </ul>
+        </ul>
+	</div>
+      </div>
       <h2>Features</h2>
       <h3>Automatic Type Mapping</h3>
       <p>commons-settings introduces automatic type mapping, which allows the
@@ -170,22 +178,31 @@
         underlying backing stores. Consequently, you can provide your own type
         mappings for your custom types, and you can override existing default
         type mappings.</p>
-      <p>The system supports the following datatypes out of the box.</p>
+      <p>The system has inherent support for the following datatypes.</p>
+      <div class="row">
+        <div class="small-6 columns">
       <ul>
+        <li>Arrays</li>
         <li>java.lang.Byte</li>
         <li>java.lang.Character</li>
         <li>java.lang.Double</li>
         <li>java.lang.Float</li>
         <li>java.lang.Integer</li>
         <li>java.lang.Long</li>
+        </ul>
+	</div>
+        <div class="small-6 columns">
+      <ul>
         <li>java.lang.Short</li>
         <li>java.lang.String</li>
         <li>java.math.BigDecimal</li>
         <li>java.math.BigInteger</li>
+	<li>java.util.List</li>
+	<li>java.util.Map</li>
         <li>java.util.UUID</li>
-      </ul>
-      <p>In addition, properties can be specified as either Arrays, Lists or
-        Maps.</p>
+        </ul>
+	</div>
+      </div>
       <h3>Pluggable Backing Stores</h3>
       <p>The default backing store is based on Java Properties, which allows
         you to store your application settings in both XML format and plain text
@@ -207,6 +224,7 @@
         possible to store additional type information along with the
         configuration data, similar to plists, we currently have no requirement
         for that either.</p>
+      <p>When using the default backing store, properties will not be written out in alphanumeric order.</p>
       <h2>Sample Usage</h2>
       <p>The following example shows you how to make use of the API in your
         application. Additional examples can be found in the <a href="https://github.com/axnsoftware/commons-settings/tree/master/src/examples">repository</a>.</p>

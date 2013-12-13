@@ -26,28 +26,41 @@ import java.io.OutputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Collections;
+import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.prefs.BackingStoreException;
 
 /**
- * The final class PropertiesFileBackingStoreWrapperImpl models a concrete
- * implementation of the {@code IBackingStoreWrapper} interface.
+ * The final class PropertiesBackingStoreImpl models a concrete implementation
+ * of the {@code IBackingStoreWrapper} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class PropertiesFileBackingStoreWrapperImpl
+public final class PropertiesBackingStoreImpl
         implements
         IBackingStore
 {
 
+    private static class OrderedProperties
+            extends Properties
+    {
+
+        @Override
+        public synchronized Enumeration<Object> keys()
+        {
+            return Collections.enumeration(new TreeSet<>(super.keySet()));
+        }
+    }
     private final EFileFormat fileFormat;
     private final File storagePath;
     private Properties properties;
 
-    public PropertiesFileBackingStoreWrapperImpl(final EFileFormat fileFormat,
-                                                 final File storagePath)
+    public PropertiesBackingStoreImpl(final EFileFormat fileFormat,
+                                      final File storagePath)
     {
         this.fileFormat = fileFormat;
         this.storagePath = storagePath;
@@ -374,13 +387,15 @@ public final class PropertiesFileBackingStoreWrapperImpl
                     this.storagePath);
             try
             {
+                OrderedProperties orderedProperties = new OrderedProperties();
+                orderedProperties.putAll(this.properties);
                 if (this.fileFormat.equals(EFileFormat.FILE_FORMAT_PLAIN_TEXT))
                 {
-                    this.properties.store(outputStream, null);
+                    orderedProperties.store(outputStream, null);
                 }
                 else
                 {
-                    this.properties.storeToXML(outputStream, null, "utf-8");
+                    orderedProperties.storeToXML(outputStream, null, "utf-8");
                 }
             }
             catch (IOException e)

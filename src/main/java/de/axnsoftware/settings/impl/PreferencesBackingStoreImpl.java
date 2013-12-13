@@ -31,14 +31,14 @@ import java.util.prefs.Preferences;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class PreferencesBackingStoreWrapperImpl
+public final class PreferencesBackingStoreImpl
         implements IBackingStore
 {
 
     private final String storagePath;
     private Preferences preferences;
 
-    public PreferencesBackingStoreWrapperImpl(final String storagePath)
+    public PreferencesBackingStoreImpl(final String storagePath)
     {
         this.storagePath = storagePath;
     }

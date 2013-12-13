@@ -17,7 +17,7 @@ package de.axnsoftware.settings;
 
 import de.axnsoftware.settings.impl.SettingsStoreImpl;
 import de.axnsoftware.settings.impl.accessor.IAccessor;
-import de.axnsoftware.settings.impl.PropertiesFileBackingStoreWrapperImpl;
+import de.axnsoftware.settings.impl.PropertiesBackingStoreImpl;
 import de.axnsoftware.settings.impl.accessor.RootAccessorFactory;
 import java.io.File;
 
@@ -64,7 +64,7 @@ public final class SettingsStoreFactory
                                        final Class<?> type)
     {
         final IBackingStore backingStoreWrapper =
-                            new PropertiesFileBackingStoreWrapperImpl(
+                            new PropertiesBackingStoreImpl(
                 EFileFormat.FILE_FORMAT_PLAIN_TEXT, storagePath);
         return this.createNewStore(backingStoreWrapper, type);
     }
@@ -85,7 +85,7 @@ public final class SettingsStoreFactory
                                           final Class<?> type)
     {
         final IBackingStore backingStoreWrapper =
-                            new PropertiesFileBackingStoreWrapperImpl(
+                            new PropertiesBackingStoreImpl(
                 EFileFormat.FILE_FORMAT_XML, storagePath);
         return this.createNewStore(backingStoreWrapper, type);
     }

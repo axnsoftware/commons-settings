@@ -118,7 +118,9 @@
         <module name="AvoidStarImport"/>
         <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
         <module name="RedundantImport"/>
-        <module name="UnusedImports"/>
+        <module name="UnusedImports">
+            <property name="severity" value="warning"/>
+        </module>
 
 
         <!-- Checks for Size Violations.                    -->

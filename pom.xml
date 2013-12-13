@@ -76,16 +76,10 @@
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>${org.apache.maven.plugins.maven-pmd-plugin.version}</version>
             </plugin>
-            <plugin>
+            <!--            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.11</version>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                    <encoding>UTF-8</encoding>
-                    <consoleOutput>true</consoleOutput>
-                    <linkXRef>true</linkXRef>
-                </configuration>
                 <executions>
                     <execution>
                         <id>validate</id>
@@ -93,9 +87,17 @@
                         <goals>
                             <goal>check</goal>
                         </goals>
+                        <configuration>
+                            <configLocation>checkstyle.xml</configLocation>
+                            <encoding>UTF-8</encoding>
+                            <consoleOutput>true</consoleOutput>
+                            <linkXRef>true</linkXRef>
+                            <failOnViolation>false</failOnViolation>
+                            <failsOnError>true</failsOnError>
+                        </configuration>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>findbugs-maven-plugin</artifactId>
@@ -169,8 +171,10 @@
                             <configuration>
                                 <configLocation>checkstyle.xml</configLocation>
                                 <encoding>UTF-8</encoding>
-                                <consoleOutput>false</consoleOutput>
+                                <consoleOutput>true</consoleOutput>
                                 <linkXRef>true</linkXRef>
+                                <failOnViolation>false</failOnViolation>
+                                <failsOnError>false</failsOnError>
                             </configuration>
                         </plugin>
                         <plugin>

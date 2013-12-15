@@ -25,9 +25,9 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2013 axn software UG</copyright>
     <item>
-      <title>File: 48,
-             Errors: 0,
-             Warnings: 176,
+      <title>File: 47,
+             Errors: 4,
+             Warnings: 195,
              Infos: 0
       </title>
             <link>http://axnsoftware.github.com/commons-settings/checkstyle.html</link>
@@ -97,7 +97,7 @@ under the License.
                   4
                 </td>
                 <td>
-                  0
+                  2
                 </td>
               </tr>
                           <tr>
@@ -192,7 +192,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  32
+                  51
                 </td>
                 <td>
                   0
@@ -360,21 +360,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  5
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.PreferencesBackingStoreImpl.java">de/axnsoftware/settings/impl/PreferencesBackingStoreImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  6
+                  7
                 </td>
                 <td>
                   0
@@ -545,7 +531,7 @@ under the License.
                   6
                 </td>
                 <td>
-                  0
+                  2
                 </td>
               </tr>
                           <tr>
@@ -584,7 +570,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  11
+                  13
                 </td>
                 <td>
                   0
@@ -682,7 +668,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  9
+                  11
                 </td>
                 <td>
                   0

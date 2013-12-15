@@ -38,7 +38,7 @@ public interface ISettingsStore
      * @throws IllegalStateException
      * @see IBackingStore
      */
-    IBackingStore getBackingStoreWrapper();
+    IBackingStore getBackingStore();
 
     /**
      * Returns the type representing the root {@link PropertyClass}, that was

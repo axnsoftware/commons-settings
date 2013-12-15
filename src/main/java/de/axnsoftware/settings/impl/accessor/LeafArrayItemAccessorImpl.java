@@ -18,6 +18,7 @@ package de.axnsoftware.settings.impl.accessor;
 import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
 import java.util.Map;
+import java.util.prefs.BackingStoreException;
 
 /**
  * The final class LeafArrayItemAccessorImpl models a concrete implementation of
@@ -48,7 +49,8 @@ public final class LeafArrayItemAccessorImpl
      */
     @Override
     public void readFromBackingStore(final IBackingStore backingStore,
-                                     final Object settingsRoot)
+                                     final Object settingsRoot) throws
+            BackingStoreException
     {
         final Class<?> type = this.getType();
         final Object value = this.getTypeMappings().get(type)
@@ -62,7 +64,8 @@ public final class LeafArrayItemAccessorImpl
      */
     @Override
     public void writeToBackingStore(final IBackingStore backingStore,
-                                    final Object settingsRoot)
+                                    final Object settingsRoot) throws
+            BackingStoreException
     {
         this.getTypeMappings().get(this.getType()).writeToBackingStore(
                 backingStore, this.getQualifiedKey(), this

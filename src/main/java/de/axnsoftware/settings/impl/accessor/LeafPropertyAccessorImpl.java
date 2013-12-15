@@ -17,6 +17,7 @@ package de.axnsoftware.settings.impl.accessor;
 
 import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
+import java.util.prefs.BackingStoreException;
 
 /**
  * The final class LeafPropertyAccessorImpl models a concrete implementation of
@@ -50,7 +51,8 @@ public final class LeafPropertyAccessorImpl
      */
     @Override
     public void readFromBackingStore(final IBackingStore backingStore,
-                                     final Object settingsRoot)
+                                     final Object settingsRoot) throws
+            BackingStoreException
     {
         Object value = this.getTypeMappings().get(this.getType())
                 .readFromBackingStore(backingStore, this.getQualifiedKey(), this
@@ -66,7 +68,8 @@ public final class LeafPropertyAccessorImpl
      */
     @Override
     public void writeToBackingStore(final IBackingStore backingStore,
-                                    final Object settingsRoot)
+                                    final Object settingsRoot) throws
+            BackingStoreException
     {
         Object value = this.getValue(settingsRoot);
         if (value != null)

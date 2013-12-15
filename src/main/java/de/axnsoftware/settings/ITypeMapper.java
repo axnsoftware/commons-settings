@@ -15,6 +15,8 @@
  */
 package de.axnsoftware.settings;
 
+import java.util.prefs.BackingStoreException;
+
 /**
  * The interface ITypeMapper models a mapper that is responsible for reading and
  * writing a given object from and to a given backing store. The mapper is
@@ -50,10 +52,11 @@ public interface ITypeMapper
      * @param key
      * @param type
      * @return the instance or null
-     * @throws IllegalArgumentException
+     * @throws BackingStoreException
      */
     Object readFromBackingStore(final IBackingStore backingStore,
-                                final String key, final Class<?> type);
+                                final String key, final Class<?> type) throws
+            BackingStoreException;
 
     /**
      * Returns an instance of the specified {@code type} for the specified
@@ -71,8 +74,8 @@ public interface ITypeMapper
      *
      * @param backingStore
      * @param value
-     * @throws IllegalArgumentException
+     * @throws BackingStoreException
      */
     void writeToBackingStore(final IBackingStore backingStore, final String key,
-                             final Object value);
+                             final Object value) throws BackingStoreException;
 }

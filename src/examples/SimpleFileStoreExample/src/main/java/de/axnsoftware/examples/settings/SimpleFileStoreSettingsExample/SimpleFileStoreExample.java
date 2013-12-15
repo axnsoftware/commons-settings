@@ -119,7 +119,7 @@ public class SimpleFileStoreExample {
         System.out.println("and loading them back again");
         settings = settings.getStore().loadSettings();
 
-        IBackingStore backingStore = settings.getStore().getBackingStoreWrapper();
+        IBackingStore backingStore = settings.getStore().getBackingStore();
         String[] keys = (String[]) backingStore.keySet().toArray(new String[]{});
         Arrays.sort(keys);
         Properties properties = (Properties) backingStore.getProperties();

@@ -6,6 +6,11 @@ settings using standard Java POJOs.
 
 Please visit http://axnsoftware.github.io/commons-settings for more information.
 
+Build Status
+------------
+
+[![Build Status](https://travis-ci.org/axnsoftware/commons-settings.png)](https://travis-ci.org/axnsoftware/commons-settings)
+
 Licensing
 ---------
 

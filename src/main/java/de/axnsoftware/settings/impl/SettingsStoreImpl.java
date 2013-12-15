@@ -19,8 +19,6 @@ import de.axnsoftware.settings.impl.accessor.IAccessor;
 import de.axnsoftware.settings.ISettings;
 import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ISettingsStore;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.prefs.BackingStoreException;
 
 /**
@@ -35,13 +33,25 @@ public final class SettingsStoreImpl
 {
 
     private final Class<?> type;
-    private IBackingStore backingStoreWrapper;
+    private IBackingStore backingStore;
     private final IAccessor rootAccessor;
 
-    public SettingsStoreImpl(final IBackingStore backingStoreWrapper,
+    public SettingsStoreImpl(final IBackingStore backingStore,
                              final IAccessor rootAccessor, final Class<?> type)
     {
-        this.backingStoreWrapper = backingStoreWrapper;
+        if (null == backingStore)
+        {
+            throw new IllegalArgumentException("backingStore must not be null.");
+        }
+        if (null == rootAccessor)
+        {
+            throw new IllegalArgumentException("rootAccessor must not be null.");
+        }
+        if (null == type)
+        {
+            throw new IllegalArgumentException("type must not be null.");
+        }
+        this.backingStore = backingStore;
         this.rootAccessor = rootAccessor;
         this.type = type;
     }
@@ -65,16 +75,14 @@ public final class SettingsStoreImpl
         try
         {
             Object settingsRoot = this.type.newInstance();
-            this.backingStoreWrapper.loadProperties();
-            this.rootAccessor.readFromBackingStore(this.backingStoreWrapper,
+            this.backingStore.loadProperties();
+            this.rootAccessor.readFromBackingStore(this.backingStore,
                                                    settingsRoot);
             result = new SettingsImpl(settingsRoot, this.rootAccessor, this);
         }
         catch (InstantiationException | IllegalAccessException e)
         {
-            Logger.getLogger(SettingsStoreImpl.class.getName())
-                    .log(Level.SEVERE, null, e);
-            throw new RuntimeException(e);
+            throw new BackingStoreException(e);
         }
         return result;
     }
@@ -85,12 +93,7 @@ public final class SettingsStoreImpl
     @Override
     public void deleteSettings() throws BackingStoreException
     {
-        if (null == this.backingStoreWrapper)
-        {
-            throw new IllegalStateException(
-                    "TODO:backing store has not been loaded.");
-        }
-        this.backingStoreWrapper.deleteProperties();
+        this.backingStore.deleteProperties();
     }
 
     /**
@@ -100,27 +103,17 @@ public final class SettingsStoreImpl
     public void storeSettings(final ISettings settings) throws
             BackingStoreException
     {
-        if (null == this.backingStoreWrapper)
-        {
-            throw new IllegalStateException(
-                    "TODO:backing store has not been loaded.");
-        }
-        this.rootAccessor.writeToBackingStore(this.backingStoreWrapper, settings
+        this.rootAccessor.writeToBackingStore(this.backingStore, settings
                 .getProperties());
-        this.backingStoreWrapper.storeProperties();
+        this.backingStore.storeProperties();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public IBackingStore getBackingStoreWrapper()
+    public IBackingStore getBackingStore()
     {
-        if (null == this.backingStoreWrapper)
-        {
-            throw new IllegalStateException(
-                    "TODO:backing store has not been loaded.");
-        }
-        return this.backingStoreWrapper;
+        return this.backingStore;
     }
 }

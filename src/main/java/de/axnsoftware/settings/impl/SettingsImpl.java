@@ -38,6 +38,18 @@ public final class SettingsImpl
     public SettingsImpl(final Object properties, final IAccessor rootAccessor,
                         final ISettingsStore settingsStore)
     {
+        if (null == properties)
+        {
+            throw new IllegalArgumentException("properties must not be null.");
+        }
+        if (null == rootAccessor)
+        {
+            throw new IllegalArgumentException("rootAccessor must not be null.");
+        }
+        if (null == settingsStore)
+        {
+            throw new IllegalArgumentException("settingsStore must not be null.");
+        }
         this.properties = properties;
         this.rootAccessor = rootAccessor;
         this.settingsStore = settingsStore;

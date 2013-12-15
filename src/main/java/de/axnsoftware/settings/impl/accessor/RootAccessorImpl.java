@@ -19,6 +19,7 @@ import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.prefs.BackingStoreException;
 
 /**
  * The final class RootAccessorImpl models a concrete implementation of the
@@ -93,7 +94,8 @@ public final class RootAccessorImpl
      */
     @Override
     public void readFromBackingStore(final IBackingStore backingStore,
-                                     final Object settingsRoot)
+                                     final Object settingsRoot) throws
+            BackingStoreException
     {
         for (IAccessor childAccessor : this.getChildAccessors())
         {
@@ -107,7 +109,8 @@ public final class RootAccessorImpl
      */
     @Override
     public void writeToBackingStore(final IBackingStore backingStore,
-                                    final Object settingsRoot)
+                                    final Object settingsRoot) throws
+            BackingStoreException
     {
         for (IAccessor childAccessor : this.getChildAccessors())
         {

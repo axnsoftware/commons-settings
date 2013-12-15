@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.prefs.BackingStoreException;
 
 /**
  * The class DefaultTypeMapperImpl models a concrete implementation of the
@@ -34,7 +35,8 @@ import java.util.UUID;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class DefaultTypeMapperImpl implements ITypeMapper
+public final class DefaultTypeMapperImpl
+        implements ITypeMapper
 {
 
     /**
@@ -57,6 +59,7 @@ public final class DefaultTypeMapperImpl implements ITypeMapper
     @Override
     public Object readFromBackingStore(final IBackingStore backingStore,
                                        final String key, final Class<?> type)
+            throws BackingStoreException
     {
         Object result = null;
         if (BigDecimal.class.equals(type) || BigInteger.class.equals(type)
@@ -180,7 +183,8 @@ public final class DefaultTypeMapperImpl implements ITypeMapper
      */
     @Override
     public void writeToBackingStore(final IBackingStore backingStore,
-                                    final String key, final Object value)
+                                    final String key, final Object value) throws
+            BackingStoreException
     {
         if (value != null)
         {

@@ -16,6 +16,7 @@
 package de.axnsoftware.settings.impl.accessor;
 
 import de.axnsoftware.settings.IBackingStore;
+import java.util.prefs.BackingStoreException;
 
 /**
  * The final class BranchArrayItemAccessorImpl models a concrete implementation
@@ -68,7 +69,8 @@ public final class BranchArrayItemAccessorImpl
      */
     @Override
     public void readFromBackingStore(final IBackingStore backingStore,
-                                     final Object settingsRoot)
+                                     final Object settingsRoot) throws
+            BackingStoreException
     {
         for (IAccessor childAccessor : this.getChildAccessors())
         {
@@ -83,7 +85,8 @@ public final class BranchArrayItemAccessorImpl
      */
     @Override
     public void writeToBackingStore(final IBackingStore backingStore,
-                                    final Object settingsRoot)
+                                    final Object settingsRoot) throws
+            BackingStoreException
     {
         for (IAccessor childAccessor : this.getChildAccessors())
         {

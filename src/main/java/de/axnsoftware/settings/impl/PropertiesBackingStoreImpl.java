@@ -62,6 +62,15 @@ public final class PropertiesBackingStoreImpl
     public PropertiesBackingStoreImpl(final EFileFormat fileFormat,
                                       final File storagePath)
     {
+        if (null == fileFormat)
+        {
+            throw new IllegalArgumentException("fileFormat must not be null.");
+        }
+        if (null == storagePath)
+        {
+            throw new IllegalArgumentException("storagePath must not be null.");
+        }
+
         this.fileFormat = fileFormat;
         this.storagePath = storagePath;
     }
@@ -88,7 +97,7 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public Boolean getBoolean(final String key)
+    public Boolean getBoolean(final String key) throws BackingStoreException
     {
         Boolean result = null;
         String value = this.getString(key);
@@ -103,7 +112,7 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public Byte getByte(final String key)
+    public Byte getByte(final String key) throws BackingStoreException
     {
         Byte result = null;
         String value = this.getString(key);
@@ -118,7 +127,7 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public Character getCharacter(final String key)
+    public Character getCharacter(final String key) throws BackingStoreException
     {
         Character result = null;
         String value = this.getString(key);
@@ -133,7 +142,7 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public Double getDouble(final String key)
+    public Double getDouble(final String key) throws BackingStoreException
     {
         Double result = null;
         String value = this.getString(key);
@@ -148,7 +157,7 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public Float getFloat(final String key)
+    public Float getFloat(final String key) throws BackingStoreException
     {
         Float result = null;
         String value = this.getString(key);
@@ -163,7 +172,7 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public Integer getInteger(final String key)
+    public Integer getInteger(final String key) throws BackingStoreException
     {
         Integer result = null;
         String value = this.getString(key);
@@ -178,7 +187,7 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public Long getLong(final String key)
+    public Long getLong(final String key) throws BackingStoreException
     {
         Long result = null;
         String value = this.getString(key);
@@ -193,21 +202,16 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public Object getProperties()
+    public Object getProperties() throws BackingStoreException
     {
-        if (null == this.properties)
-        {
-            throw new IllegalStateException(
-                    "TODO:properties have not been loaded.");
-        }
-        return (Properties) this.properties.clone();
+        return (Properties) this.getProperties0().clone();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Short getShort(final String key)
+    public Short getShort(final String key) throws BackingStoreException
     {
         Short result = null;
         String value = this.getString(key);
@@ -222,9 +226,9 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public String getString(final String key)
+    public String getString(final String key) throws BackingStoreException
     {
-        return this.properties.getProperty(key);
+        return this.getProperties0().getProperty(key);
     }
 
     /**
@@ -233,12 +237,7 @@ public final class PropertiesBackingStoreImpl
     @Override
     public Set<String> keySet() throws BackingStoreException
     {
-        if (null == this.properties)
-        {
-            throw new IllegalStateException(
-                    "TODO:properties have not been loaded.");
-        }
-        return this.properties.stringPropertyNames();
+        return this.getProperties0().stringPropertyNames();
     }
 
     /**
@@ -293,7 +292,8 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public void setBoolean(final String key, final Object value)
+    public void setBoolean(final String key, final Object value) throws
+            BackingStoreException
     {
         this.setString(key, value.toString());
     }
@@ -302,7 +302,8 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public void setByte(final String key, final Byte value)
+    public void setByte(final String key, final Byte value) throws
+            BackingStoreException
     {
         this.setString(key, value.toString());
     }
@@ -311,7 +312,8 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public void setCharacter(final String key, final Character value)
+    public void setCharacter(final String key, final Character value) throws
+            BackingStoreException
     {
         this.setString(key, value.toString());
     }
@@ -320,7 +322,8 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public void setDouble(final String key, final Double value)
+    public void setDouble(final String key, final Double value) throws
+            BackingStoreException
     {
         this.setString(key, value.toString());
     }
@@ -329,7 +332,8 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public void setFloat(final String key, final Float value)
+    public void setFloat(final String key, final Float value) throws
+            BackingStoreException
     {
         this.setString(key, value.toString());
     }
@@ -338,7 +342,8 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public void setInteger(final String key, final Integer value)
+    public void setInteger(final String key, final Integer value) throws
+            BackingStoreException
     {
         this.setString(key, value.toString());
     }
@@ -347,7 +352,8 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public void setLong(final String key, final Long value)
+    public void setLong(final String key, final Long value) throws
+            BackingStoreException
     {
         this.setString(key, value.toString());
     }
@@ -356,7 +362,8 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public void setShort(final String key, final Short value)
+    public void setShort(final String key, final Short value) throws
+            BackingStoreException
     {
         this.setString(key, value.toString());
     }
@@ -365,9 +372,10 @@ public final class PropertiesBackingStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public void setString(final String key, final String value)
+    public void setString(final String key, final String value) throws
+            BackingStoreException
     {
-        this.properties.setProperty(key, value.toString());
+        this.getProperties0().setProperty(key, value.toString());
     }
 
     /**
@@ -376,11 +384,6 @@ public final class PropertiesBackingStoreImpl
     @Override
     public void storeProperties() throws BackingStoreException
     {
-        if (null == this.properties)
-        {
-            throw new IllegalStateException(
-                    "TODO:properties have not been loaded.");
-        }
         try
         {
             final OutputStream outputStream = new FileOutputStream(
@@ -388,7 +391,7 @@ public final class PropertiesBackingStoreImpl
             try
             {
                 OrderedProperties orderedProperties = new OrderedProperties();
-                orderedProperties.putAll(this.properties);
+                orderedProperties.putAll(this.getProperties0());
                 if (this.fileFormat.equals(EFileFormat.FILE_FORMAT_PLAIN_TEXT))
                 {
                     orderedProperties.store(outputStream, null);
@@ -418,5 +421,14 @@ public final class PropertiesBackingStoreImpl
         {
             throw new BackingStoreException(e);
         }
+    }
+
+    private Properties getProperties0() throws BackingStoreException
+    {
+        if (null == this.properties)
+        {
+            throw new BackingStoreException("properties have not been loaded.");
+        }
+        return this.properties;
     }
 }

@@ -74,7 +74,8 @@ public final class MapPropertyAccessorImpl
      */
     @Override
     public void readFromBackingStore(final IBackingStore backingStore,
-                                     final Object settingsRoot)
+                                     final Object settingsRoot) throws
+            BackingStoreException
     {
         final String key = this.getQualifiedKey();
         final List<String> itemKeys = new ArrayList<>();
@@ -126,7 +127,8 @@ public final class MapPropertyAccessorImpl
      */
     @Override
     public void writeToBackingStore(final IBackingStore backingStore,
-                                    final Object settingsRoot)
+                                    final Object settingsRoot) throws
+            BackingStoreException
     {
         final Map<String, Object> items = (Map<String, Object>) this.getValue(
                 settingsRoot);

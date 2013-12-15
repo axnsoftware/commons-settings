@@ -19,6 +19,7 @@ import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
 import java.util.List;
 import java.util.Map;
+import java.util.prefs.BackingStoreException;
 
 /**
  * The interface IAccessor models the root of a hierarchy of derived interfaces.
@@ -112,9 +113,11 @@ public interface IAccessor
      *
      * @param backingStore
      * @param settingsRoot
+     * @throws BackingStoreException
      */
     void readFromBackingStore(final IBackingStore backingStore,
-                              final Object settingsRoot);
+                              final Object settingsRoot) throws
+            BackingStoreException;
 
     /**
      * Replaces the existing child accessors with the specified
@@ -152,7 +155,9 @@ public interface IAccessor
      *
      * @param backingStore
      * @param settingsRoot
+     * @throws BackingStoreException
      */
     void writeToBackingStore(final IBackingStore backingStore,
-                             final Object settingsRoot);
+                             final Object settingsRoot) throws
+            BackingStoreException;
 }

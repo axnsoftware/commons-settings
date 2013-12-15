@@ -35,9 +35,9 @@ public interface IBackingStore
      * not been loaded.
      *
      * @return the properties
-     * @throws IllegalStateException
+     * @throws BackingStoreException
      */
-    Object getProperties();
+    Object getProperties() throws BackingStoreException;
 
     /**
      * Deletes the properties. Depending on the implementation this could mean
@@ -53,8 +53,9 @@ public interface IBackingStore
      *
      * @param key
      * @return the value or null
+     * @throws BackingStoreException
      */
-    Boolean getBoolean(final String key);
+    Boolean getBoolean(final String key) throws BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
@@ -62,7 +63,25 @@ public interface IBackingStore
      * @param key
      * @return the value or null
      */
-    Byte getByte(final String key);
+    Byte getByte(final String key) throws BackingStoreException;
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     * @throws BackingStoreException
+     */
+    Character getCharacter(final String key) throws BackingStoreException;
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     * @throws BackingStoreException
+     */
+    Double getDouble(final String key) throws BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
@@ -70,7 +89,16 @@ public interface IBackingStore
      * @param key
      * @return the value or null
      */
-    Character getCharacter(final String key);
+    Float getFloat(final String key) throws BackingStoreException;
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     * @throws BackingStoreException
+     */
+    Integer getInteger(final String key) throws BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
@@ -78,7 +106,16 @@ public interface IBackingStore
      * @param key
      * @return the value or null
      */
-    Double getDouble(final String key);
+    Long getLong(final String key) throws BackingStoreException;
+
+    /**
+     * Gets the value of the property identified by the specified {@code key}.
+     *
+     * @param key
+     * @return the value or null
+     * @throws BackingStoreException
+     */
+    Short getShort(final String key) throws BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
@@ -86,39 +123,7 @@ public interface IBackingStore
      * @param key
      * @return the value or null
      */
-    Float getFloat(final String key);
-
-    /**
-     * Gets the value of the property identified by the specified {@code key}.
-     *
-     * @param key
-     * @return the value or null
-     */
-    Integer getInteger(final String key);
-
-    /**
-     * Gets the value of the property identified by the specified {@code key}.
-     *
-     * @param key
-     * @return the value or null
-     */
-    Long getLong(final String key);
-
-    /**
-     * Gets the value of the property identified by the specified {@code key}.
-     *
-     * @param key
-     * @return the value or null
-     */
-    Short getShort(final String key);
-
-    /**
-     * Gets the value of the property identified by the specified {@code key}.
-     *
-     * @param key
-     * @return the value or null
-     */
-    String getString(final String key);
+    String getString(final String key) throws BackingStoreException;
 
     /**
      * Returns all available keys from the underlying properties object.
@@ -140,8 +145,9 @@ public interface IBackingStore
      *
      * @param key
      * @param value
+     * @throws BackingStoreException
      */
-    void setBoolean(String key, Object value);
+    void setBoolean(String key, Object value) throws BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
@@ -149,63 +155,78 @@ public interface IBackingStore
      * @param key
      * @param value
      */
-    void setByte(final String key, final Byte value);
+    void setByte(final String key, final Byte value) throws
+            BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
      *
      * @param key
      * @param value
+     * @throws BackingStoreException
      */
-    void setCharacter(final String key, final Character value);
+    void setCharacter(final String key, final Character value) throws
+            BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
      *
      * @param key
      * @return the value or null
+     * @throws BackingStoreException
      */
-    void setDouble(final String key, final Double value);
+    void setDouble(final String key, final Double value) throws
+            BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
      *
      * @param key
      * @param value
+     * @throws BackingStoreException
      */
-    void setFloat(final String key, final Float value);
+    void setFloat(final String key, final Float value) throws
+            BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
      *
      * @param key
      * @param value
+     * @throws BackingStoreException
      */
-    void setInteger(final String key, final Integer value);
+    void setInteger(final String key, final Integer value) throws
+            BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
      *
      * @param key
      * @param value
+     * @throws BackingStoreException
      */
-    void setLong(final String key, final Long value);
+    void setLong(final String key, final Long value) throws
+            BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
      *
      * @param key
      * @param value
+     * @throws BackingStoreException
      */
-    void setShort(final String key, final Short value);
+    void setShort(final String key, final Short value) throws
+            BackingStoreException;
 
     /**
      * Gets the value of the property identified by the specified {@code key}.
      *
      * @param key
      * @param value
+     * @throws BackingStoreException
      */
-    void setString(final String key, final String value);
+    void setString(final String key, final String value) throws
+            BackingStoreException;
 
     /**
      * Stored the properties and makes them permanent.

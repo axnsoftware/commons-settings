@@ -58,7 +58,8 @@ public final class ArrayPropertyAccessorImpl
      */
     @Override
     public void readFromBackingStore(final IBackingStore properties,
-                                     final Object settingsRoot)
+                                     final Object settingsRoot) throws
+            BackingStoreException
     {
         final String key = this.getQualifiedKey();
         final List<String> itemKeys = new ArrayList<>();
@@ -100,7 +101,8 @@ public final class ArrayPropertyAccessorImpl
      */
     @Override
     public void writeToBackingStore(final IBackingStore properties,
-                                    final Object settingsRoot)
+                                    final Object settingsRoot) throws
+            BackingStoreException
     {
         final Object[] items = (Object[]) this.getValue(settingsRoot);
         for (int index = 0; index < items.length; index++)

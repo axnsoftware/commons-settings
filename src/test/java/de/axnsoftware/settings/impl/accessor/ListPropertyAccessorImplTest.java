@@ -18,51 +18,62 @@ import org.junit.Test;
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  */
-public class ListPropertyAccessorImplTest {
+public class ListPropertyAccessorImplTest
+{
 
     private IAccessor simpleSettingsRootAccessor;
     private IAccessor compoundSettingsRootAccessor;
     private IBackingStore properties;
 
     @PropertyClass
-    public static class SimpleSettingsRoot {
+    public static class SimpleSettingsRoot
+    {
 
         @Property
         private List<Integer> values;
 
-        public List<Integer> getValues() {
+        public List<Integer> getValues()
+        {
             return values;
         }
 
-        public void setValues(List<Integer> values) {
+        public void setValues(List<Integer> values)
+        {
             this.values = values;
         }
     }
 
     @PropertyClass
-    public static class CompoundSettingsRoot {
+    public static class CompoundSettingsRoot
+    {
 
         @Property
         private List<SimpleSettingsRoot> values;
 
-        public List<SimpleSettingsRoot> getValues() {
+        public List<SimpleSettingsRoot> getValues()
+        {
             return values;
         }
 
-        public void setValues(List<SimpleSettingsRoot> values) {
+        public void setValues(List<SimpleSettingsRoot> values)
+        {
             this.values = values;
         }
     }
 
     @Before
-    public void setup() {
-        this.simpleSettingsRootAccessor = RootAccessorFactory.newInstance().buildRootAccessor(SimpleSettingsRoot.class);
-        this.compoundSettingsRootAccessor = RootAccessorFactory.newInstance().buildRootAccessor(CompoundSettingsRoot.class);
-        this.properties = new DummyBackingStoreWrapper();
+    public void setup()
+    {
+        this.simpleSettingsRootAccessor = RootAccessorFactory.newInstance()
+                .buildRootAccessor(SimpleSettingsRoot.class);
+        this.compoundSettingsRootAccessor = RootAccessorFactory.newInstance()
+                .buildRootAccessor(CompoundSettingsRoot.class);
+        this.properties = new DummyBackingStore();
     }
 
     @Test
-    public void copyValueMustPopulateTargetAsExpectedForSimpleSettingsRoot() {
+    public void copyValueMustPopulateTargetAsExpectedForSimpleSettingsRoot()
+    {
         SimpleSettingsRoot source = new SimpleSettingsRoot();
         SimpleSettingsRoot target = new SimpleSettingsRoot();
         source.setValues(new ArrayList<Integer>());
@@ -74,7 +85,8 @@ public class ListPropertyAccessorImplTest {
     }
 
     @Test
-    public void copyValueMustPopulateTargetAsExpectedForCompoundSettingsRoot() {
+    public void copyValueMustPopulateTargetAsExpectedForCompoundSettingsRoot()
+    {
         CompoundSettingsRoot source = new CompoundSettingsRoot();
         CompoundSettingsRoot target = new CompoundSettingsRoot();
         SimpleSettingsRoot v1 = new SimpleSettingsRoot();
@@ -85,17 +97,23 @@ public class ListPropertyAccessorImplTest {
         source.setValues(new ArrayList<SimpleSettingsRoot>());
         source.getValues().add(v1);
         this.compoundSettingsRootAccessor.copyValue(source, target);
-        Assert.assertEquals(source.getValues().size(), target.getValues().size());
-        Assert.assertEquals(source.getValues().get(0).getValues(), target.getValues().get(0).getValues());
+        Assert
+                .assertEquals(source.getValues().size(), target.getValues()
+                .size());
+        Assert.assertEquals(source.getValues().get(0).getValues(), target
+                .getValues().get(0).getValues());
     }
 
     @Test
-    public void readFromPropertiesMustPopulateSimpleSettingsRootAsExpected() {
+    public void readFromPropertiesMustPopulateSimpleSettingsRootAsExpected()
+            throws Exception
+    {
         SimpleSettingsRoot settingsRoot = new SimpleSettingsRoot();
         properties.setString("values.0", "1");
         properties.setString("values.1", "2");
         properties.setString("values.2", "3");
-        this.simpleSettingsRootAccessor.readFromBackingStore(properties, settingsRoot);
+        this.simpleSettingsRootAccessor.readFromBackingStore(properties,
+                                                             settingsRoot);
         List<Integer> expected = new ArrayList<>();
         expected.add(1);
         expected.add(2);
@@ -104,38 +122,50 @@ public class ListPropertyAccessorImplTest {
     }
 
     @Test
-    public void readFromPropertiesMustPopulateCompoundSettingsRootAsExpected() {
+    public void readFromPropertiesMustPopulateCompoundSettingsRootAsExpected()
+            throws Exception
+    {
         CompoundSettingsRoot settingsRoot = new CompoundSettingsRoot();
         properties.setString("values.0.values.0", "1");
         properties.setString("values.0.values.1", "2");
         properties.setString("values.0.values.2", "3");
-        this.compoundSettingsRootAccessor.readFromBackingStore(properties, settingsRoot);
+        this.compoundSettingsRootAccessor.readFromBackingStore(properties,
+                                                               settingsRoot);
         Assert.assertEquals(1, settingsRoot.getValues().size());
         List<Integer> expected = new ArrayList<>();
         expected.add(1);
         expected.add(2);
         expected.add(3);
-        Assert.assertEquals(expected, settingsRoot.getValues().get(0).getValues());
+        Assert.assertEquals(expected, settingsRoot.getValues().get(0)
+                .getValues());
     }
 
     @Test
-    public void writeToPropertiesMustPopulatePropertiesFromSimpleSettingsRootAsExpected() throws Exception {
+    public void writeToPropertiesMustPopulatePropertiesFromSimpleSettingsRootAsExpected()
+            throws Exception
+    {
         SimpleSettingsRoot settingsRoot = new SimpleSettingsRoot();
         settingsRoot.setValues(new ArrayList<Integer>());
         settingsRoot.getValues().add(1);
         settingsRoot.getValues().add(2);
         settingsRoot.getValues().add(3);
-        this.simpleSettingsRootAccessor.writeToBackingStore(properties, settingsRoot);
+        this.simpleSettingsRootAccessor.writeToBackingStore(properties,
+                                                            settingsRoot);
         Object[] sortedKeys = properties.keySet().toArray();
         Arrays.sort(sortedKeys);
-        Assert.assertArrayEquals(new String[]{"values.0", "values.1", "values.2"}, sortedKeys);
+        Assert.assertArrayEquals(new String[]
+        {
+            "values.0", "values.1", "values.2"
+        }, sortedKeys);
         Assert.assertEquals("1", properties.getString("values.0"));
         Assert.assertEquals("2", properties.getString("values.1"));
         Assert.assertEquals("3", properties.getString("values.2"));
     }
 
     @Test
-    public void writeToPropertiesMustPopulatePropertiesFromCompoundSettingsRootAsExpected() throws Exception {
+    public void writeToPropertiesMustPopulatePropertiesFromCompoundSettingsRootAsExpected()
+            throws Exception
+    {
         CompoundSettingsRoot settingsRoot = new CompoundSettingsRoot();
         SimpleSettingsRoot v1 = new SimpleSettingsRoot();
         v1.setValues(new ArrayList<Integer>());
@@ -144,10 +174,14 @@ public class ListPropertyAccessorImplTest {
         v1.getValues().add(3);
         settingsRoot.setValues(new ArrayList<SimpleSettingsRoot>());
         settingsRoot.getValues().add(v1);
-        this.compoundSettingsRootAccessor.writeToBackingStore(properties, settingsRoot);
+        this.compoundSettingsRootAccessor.writeToBackingStore(properties,
+                                                              settingsRoot);
         Object[] sortedKeys = properties.keySet().toArray();
         Arrays.sort(sortedKeys);
-        Assert.assertArrayEquals(new String[]{"values.0.values.0", "values.0.values.1", "values.0.values.2"}, sortedKeys);
+        Assert.assertArrayEquals(new String[]
+        {
+            "values.0.values.0", "values.0.values.1", "values.0.values.2"
+        }, sortedKeys);
         Assert.assertEquals("1", properties.getString("values.0.values.0"));
         Assert.assertEquals("2", properties.getString("values.0.values.1"));
         Assert.assertEquals("3", properties.getString("values.0.values.2"));

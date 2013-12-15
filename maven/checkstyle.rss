@@ -26,8 +26,8 @@ under the License.
     <copyright>&#169;2013 axn software UG</copyright>
     <item>
       <title>File: 47,
-             Errors: 4,
-             Warnings: 195,
+             Errors: 0,
+             Warnings: 199,
              Infos: 0
       </title>
             <link>http://axnsoftware.github.com/commons-settings/checkstyle.html</link>
@@ -94,10 +94,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
+                  6
                 </td>
                 <td>
-                  2
+                  0
                 </td>
               </tr>
                           <tr>
@@ -528,10 +528,10 @@ under the License.
                   0
                 </td>
                 <td>
-                  6
+                  8
                 </td>
                 <td>
-                  2
+                  0
                 </td>
               </tr>
                           <tr>

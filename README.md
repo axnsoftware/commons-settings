@@ -14,7 +14,7 @@ Build Status
 Licensing
 ---------
 
-See https://raw.github.com/axnsoftware/commons-settings/master/LICENSE "License" for more information.
+See [License](https://raw.github.com/axnsoftware/commons-settings/master/LICENSE) for more information.
 
 Usage
 -----

@@ -4,7 +4,7 @@ commons-settings
 commons-settings is a simple API that allows you to model your application
 settings using standard Java POJOs.
 
-Please visit http://axnsoftware.github.io/commons-settings for more information.
+Visit the [project site](http://axnsoftware.github.io/commons-settings) for more information.
 
 Build Status
 ------------
@@ -19,5 +19,5 @@ See [License](https://raw.github.com/axnsoftware/commons-settings/master/LICENSE
 Usage
 -----
 
-See the provided examples in https://github.com/axnsoftware/commons-settings/tree/master/src/examples
-on how to use the API.
+See the provided [examples](https://github.com/axnsoftware/commons-settings/tree/master/src/examples) for more information on how to use the API.
+

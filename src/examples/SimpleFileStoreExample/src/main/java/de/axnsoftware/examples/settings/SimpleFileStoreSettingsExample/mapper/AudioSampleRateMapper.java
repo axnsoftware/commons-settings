@@ -15,10 +15,10 @@
  */
 package de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.mapper;
 
-import de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.pojos.EAudioBitDepth;
 import de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.pojos.EAudioSampleRate;
 import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
+import java.util.prefs.BackingStoreException;
 
 /**
  *
@@ -32,8 +32,16 @@ public class AudioSampleRateMapper implements ITypeMapper {
     }
 
     @Override
-    public Object readFromBackingStore(IBackingStore backingStore, String key, Class<?> type) {
-        return this.valueOf(backingStore.getString(key), type);
+    public Object readFromBackingStore(IBackingStore backingStore, String key, Class<?> type) throws BackingStoreException {
+        Object result = null;
+
+        try {
+            this.valueOf(backingStore.getString(key), type);
+        } catch (IllegalArgumentException e) {
+            throw new BackingStoreException(e);
+        }
+
+        return result;
     }
 
     @Override
@@ -52,7 +60,7 @@ public class AudioSampleRateMapper implements ITypeMapper {
     }
 
     @Override
-    public void writeToBackingStore(IBackingStore backingStore, String key, Object value) {
+    public void writeToBackingStore(IBackingStore backingStore, String key, Object value) throws BackingStoreException {
         String stringValue = "24kHz";
         if (EAudioSampleRate.AUDIO_SAMPLE_RATE_48KHZ.equals(value)) {
             stringValue = "48kHz";

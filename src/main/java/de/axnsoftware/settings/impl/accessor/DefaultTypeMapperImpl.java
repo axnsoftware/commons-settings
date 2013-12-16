@@ -62,6 +62,18 @@ public final class DefaultTypeMapperImpl
             throws BackingStoreException
     {
         Object result = null;
+        if (null == backingStore)
+        {
+            throw new IllegalArgumentException("backingStore must not be null.");
+        }
+        if (null == key)
+        {
+            throw new IllegalArgumentException("key must not be null.");
+        }
+        if (null == type)
+        {
+            throw new IllegalArgumentException("type must not be null.");
+        }
         if (BigDecimal.class.equals(type) || BigInteger.class.equals(type)
             || type.isEnum() || String.class.equals(type)
             || UUID.class.equals(type))
@@ -115,6 +127,10 @@ public final class DefaultTypeMapperImpl
     public Object valueOf(final String value, final Class<?> type)
     {
         Object result = value;
+        if (null == type)
+        {
+            throw new IllegalArgumentException("type must not be null.");
+        }
         if (null != value)
         {
             if (BigDecimal.class.equals(type))
@@ -186,6 +202,14 @@ public final class DefaultTypeMapperImpl
                                     final String key, final Object value) throws
             BackingStoreException
     {
+        if (null == backingStore)
+        {
+            throw new IllegalArgumentException("backingStore must not be null.");
+        }
+        if (null == key)
+        {
+            throw new IllegalArgumentException("key must not be null.");
+        }
         if (value != null)
         {
             final Class<?> type = value.getClass();
@@ -247,8 +271,7 @@ public final class DefaultTypeMapperImpl
         {
             ITypeMapper mapper = new DefaultTypeMapperImpl();
             preparedDefaultTypeMappings = new HashMap<>();
-            preparedDefaultTypeMappings
-                    .put(BigDecimal.class, mapper);
+            preparedDefaultTypeMappings.put(BigDecimal.class, mapper);
             preparedDefaultTypeMappings.put(BigInteger.class, mapper);
             preparedDefaultTypeMappings.put(Boolean.class, mapper);
             preparedDefaultTypeMappings.put(Byte.class, mapper);

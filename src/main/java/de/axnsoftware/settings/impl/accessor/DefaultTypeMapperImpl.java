@@ -155,7 +155,7 @@ public final class DefaultTypeMapperImpl
             }
             else if (Double.class.equals(type))
             {
-                Double.valueOf(value);
+                result = Double.valueOf(value);
             }
             else if (type.isEnum())
             {

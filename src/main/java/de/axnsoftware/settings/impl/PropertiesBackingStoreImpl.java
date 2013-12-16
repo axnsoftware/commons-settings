@@ -15,6 +15,7 @@
  */
 package de.axnsoftware.settings.impl;
 
+import de.axnsoftware.settings.util.OrderedProperties;
 import de.axnsoftware.settings.EFileFormat;
 import de.axnsoftware.settings.IBackingStore;
 import java.io.File;
@@ -26,16 +27,13 @@ import java.io.OutputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Collections;
-import java.util.Enumeration;
 import java.util.Properties;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.prefs.BackingStoreException;
 
 /**
  * The final class PropertiesBackingStoreImpl models a concrete implementation
- * of the {@code IBackingStoreWrapper} interface.
+ * of the {@link IBackingStore} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -45,19 +43,9 @@ public final class PropertiesBackingStoreImpl
         IBackingStore
 {
 
-    private static class OrderedProperties
-            extends Properties
-    {
-
-        @Override
-        public synchronized Enumeration<Object> keys()
-        {
-            return Collections.enumeration(new TreeSet<>(super.keySet()));
-        }
-    }
     private final EFileFormat fileFormat;
     private final File storagePath;
-    private Properties properties;
+    private final Properties properties;
 
     public PropertiesBackingStoreImpl(final EFileFormat fileFormat,
                                       final File storagePath)
@@ -72,6 +60,7 @@ public final class PropertiesBackingStoreImpl
         }
 
         this.fileFormat = fileFormat;
+        this.properties = new Properties();
         this.storagePath = storagePath;
     }
 
@@ -83,6 +72,7 @@ public final class PropertiesBackingStoreImpl
     {
         try
         {
+            this.properties.clear();
             Path path = FileSystems.getDefault().getPath(this.storagePath
                     .getAbsolutePath());
             Files.delete(path);
@@ -204,7 +194,7 @@ public final class PropertiesBackingStoreImpl
     @Override
     public Object getProperties() throws BackingStoreException
     {
-        return (Properties) this.getProperties0().clone();
+        return (Properties) this.properties.clone();
     }
 
     /**
@@ -228,7 +218,7 @@ public final class PropertiesBackingStoreImpl
     @Override
     public String getString(final String key) throws BackingStoreException
     {
-        return this.getProperties0().getProperty(key);
+        return this.properties.getProperty(key);
     }
 
     /**
@@ -237,7 +227,7 @@ public final class PropertiesBackingStoreImpl
     @Override
     public Set<String> keySet() throws BackingStoreException
     {
-        return this.getProperties0().stringPropertyNames();
+        return this.properties.stringPropertyNames();
     }
 
     /**
@@ -246,45 +236,22 @@ public final class PropertiesBackingStoreImpl
     @Override
     public void loadProperties() throws BackingStoreException
     {
-        if (this.storagePath.exists())
+        try (final InputStream inputStream = new FileInputStream(
+                this.storagePath))
         {
-            this.properties = new Properties();
-            try
+            this.properties.clear();
+            if (this.fileFormat.equals(EFileFormat.PLAIN_TEXT))
             {
-                final InputStream inputStream = new FileInputStream(
-                        this.storagePath);
-                try
-                {
-                    if (this.fileFormat.equals(
-                            EFileFormat.FILE_FORMAT_PLAIN_TEXT))
-                    {
-                        this.properties.load(inputStream);
-                    }
-                    else
-                    {
-                        this.properties.loadFromXML(inputStream);
-                    }
-                }
-                catch (IOException e)
-                {
-                    throw new BackingStoreException(e);
-                }
-                finally
-                {
-                    try
-                    {
-                        inputStream.close();
-                    }
-                    catch (IOException e)
-                    {
-                        throw new BackingStoreException(e);
-                    }
-                }
+                this.properties.load(inputStream);
             }
-            catch (IOException e)
+            else
             {
-                throw new BackingStoreException(e);
+                this.properties.loadFromXML(inputStream);
             }
+        }
+        catch (final IOException e)
+        {
+            throw new BackingStoreException(e);
         }
     }
 
@@ -375,7 +342,7 @@ public final class PropertiesBackingStoreImpl
     public void setString(final String key, final String value) throws
             BackingStoreException
     {
-        this.getProperties0().setProperty(key, value.toString());
+        this.properties.setProperty(key, value.toString());
     }
 
     /**
@@ -384,51 +351,23 @@ public final class PropertiesBackingStoreImpl
     @Override
     public void storeProperties() throws BackingStoreException
     {
-        try
+        try (final OutputStream outputStream = new FileOutputStream(
+                this.storagePath))
         {
-            final OutputStream outputStream = new FileOutputStream(
-                    this.storagePath);
-            try
+            final OrderedProperties orderedProperties = new OrderedProperties();
+            orderedProperties.putAll(this.properties);
+            if (this.fileFormat.equals(EFileFormat.PLAIN_TEXT))
             {
-                OrderedProperties orderedProperties = new OrderedProperties();
-                orderedProperties.putAll(this.getProperties0());
-                if (this.fileFormat.equals(EFileFormat.FILE_FORMAT_PLAIN_TEXT))
-                {
-                    orderedProperties.store(outputStream, null);
-                }
-                else
-                {
-                    orderedProperties.storeToXML(outputStream, null, "utf-8");
-                }
+                orderedProperties.store(outputStream, null);
             }
-            catch (IOException e)
+            else
             {
-                throw new BackingStoreException(e);
-            }
-            finally
-            {
-                try
-                {
-                    outputStream.close();
-                }
-                catch (IOException e)
-                {
-                    throw new BackingStoreException(e);
-                }
+                orderedProperties.storeToXML(outputStream, null, "utf-8");
             }
         }
-        catch (IOException e)
+        catch (final IOException e)
         {
             throw new BackingStoreException(e);
         }
-    }
-
-    private Properties getProperties0() throws BackingStoreException
-    {
-        if (null == this.properties)
-        {
-            throw new BackingStoreException("properties have not been loaded.");
-        }
-        return this.properties;
     }
 }

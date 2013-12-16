@@ -25,9 +25,9 @@ import de.axnsoftware.settings.PropertyClass;
 @PropertyClass
 public class GeneralAudioSettings {
 
-    @Property(defaultValue = "16bit", typeMapper = "de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.mapper.AudioBitDepthMapper")
+    @Property(defaultValue = "16bit", typeMapper = "de.axnsoftware.examples.settings.JME3AppSettingsExample.mapper.AudioBitDepthMapper")
     private EAudioBitDepth bitDepth;
-    @Property(defaultValue = "24kHz", typeMapper = "de.axnsoftware.examples.settings.SimpleFileStoreSettingsExample.mapper.AudioSampleRateMapper")
+    @Property(defaultValue = "24kHz", typeMapper = "de.axnsoftware.examples.settings.JME3AppSettingsExample.mapper.AudioSampleRateMapper")
     private EAudioSampleRate sampleRate;
 
     public EAudioSampleRate getSampleRate() {

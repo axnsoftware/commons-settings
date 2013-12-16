@@ -85,9 +85,9 @@
 <a class="jxr_linenumber" name="75" href="#75">75</a>      @Before
 <a class="jxr_linenumber" name="76" href="#76">76</a>      <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">void</strong> setup()
 <a class="jxr_linenumber" name="77" href="#77">77</a>      {
-<a class="jxr_linenumber" name="78" href="#78">78</a>          <strong class="jxr_keyword">this</strong>.simpleSettingsRootAccessor = RootAccessorFactory.newInstance()
+<a class="jxr_linenumber" name="78" href="#78">78</a>          <strong class="jxr_keyword">this</strong>.simpleSettingsRootAccessor = RootAccessorBuilder.newInstance()
 <a class="jxr_linenumber" name="79" href="#79">79</a>                  .buildRootAccessor(SimpleSettingsRoot.<strong class="jxr_keyword">class</strong>);
-<a class="jxr_linenumber" name="80" href="#80">80</a>          <strong class="jxr_keyword">this</strong>.compoundSettingsRootAccessor = RootAccessorFactory.newInstance()
+<a class="jxr_linenumber" name="80" href="#80">80</a>          <strong class="jxr_keyword">this</strong>.compoundSettingsRootAccessor = RootAccessorBuilder.newInstance()
 <a class="jxr_linenumber" name="81" href="#81">81</a>                  .buildRootAccessor(CompoundSettingsRoot.<strong class="jxr_keyword">class</strong>);
 <a class="jxr_linenumber" name="82" href="#82">82</a>          <strong class="jxr_keyword">this</strong>.properties = <strong class="jxr_keyword">new</strong> <a href="../../../../../de/axnsoftware/settings/impl/accessor/DummyBackingStore.html">DummyBackingStore</a>();
 <a class="jxr_linenumber" name="83" href="#83">83</a>      }

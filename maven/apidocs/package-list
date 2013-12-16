@@ -2,3 +2,4 @@ de.axnsoftware.settings
 de.axnsoftware.settings.impl
 de.axnsoftware.settings.impl.accessor
 de.axnsoftware.settings.impl.visitor
+de.axnsoftware.settings.util

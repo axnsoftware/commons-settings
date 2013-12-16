@@ -18,6 +18,7 @@ package de.axnsoftware.examples.settings.JME3AppSettingsExample.mapper;
 import de.axnsoftware.examples.settings.JME3AppSettingsExample.pojos.EAudioBitDepth;
 import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ITypeMapper;
+import java.util.prefs.BackingStoreException;
 
 /**
  *
@@ -31,8 +32,16 @@ public class AudioBitDepthMapper implements ITypeMapper {
     }
 
     @Override
-    public Object readFromBackingStore(IBackingStore backingStore, String key, Class<?> type) {
-        return this.valueOf(backingStore.getString(key), type);
+    public Object readFromBackingStore(IBackingStore backingStore, String key, Class<?> type) throws BackingStoreException {
+        Object result = null;
+
+        try {
+            this.valueOf(backingStore.getString(key), type);
+        } catch (IllegalArgumentException e) {
+            throw new BackingStoreException(e);
+        }
+
+        return result;
     }
 
     @Override
@@ -40,7 +49,7 @@ public class AudioBitDepthMapper implements ITypeMapper {
         Object result = EAudioBitDepth.AUDIO_BIT_DEPTH_16BIT;
 
         if (type != EAudioBitDepth.class) {
-            throw new IllegalArgumentException(type.getName());
+            throw new IllegalArgumentException("unsupported type " + type.getName());
         }
 
         if ("24bit".equals(value)) {
@@ -51,7 +60,7 @@ public class AudioBitDepthMapper implements ITypeMapper {
     }
 
     @Override
-    public void writeToBackingStore(IBackingStore backingStore, String key, Object value) {
+    public void writeToBackingStore(IBackingStore backingStore, String key, Object value) throws BackingStoreException {
         String stringValue = "16bit";
         if (EAudioBitDepth.AUDIO_BIT_DEPTH_24BIT.equals(value)) {
             stringValue = "24bit";

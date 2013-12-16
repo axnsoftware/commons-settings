@@ -36,6 +36,14 @@ public final class DefaultValueHolder
     public DefaultValueHolder(final String defaultValue, final Class<?> type,
                               final ITypeMapper typeMapper)
     {
+        if (null == type)
+        {
+            throw new IllegalArgumentException("type must not be null.");
+        }
+        if (null == typeMapper)
+        {
+            throw new IllegalArgumentException("typeMapper must not be null.");
+        }
         this.defaultValue = defaultValue;
         this.doNotCacheAgain = Boolean.FALSE;
         this.type = type;
@@ -51,13 +59,10 @@ public final class DefaultValueHolder
     {
         if (this.cachedValue == null && !this.doNotCacheAgain)
         {
+            // TODO:uncaught exceptions
             this.cachedValue = this.typeMapper.valueOf(this.defaultValue,
                                                        this.type);
-            if (this.cachedValue == null || this.defaultValue.equals(
-                    this.cachedValue))
-            {
-                this.doNotCacheAgain = Boolean.TRUE;
-            }
+            this.doNotCacheAgain = Boolean.TRUE;
         }
         return this.cachedValue;
     }

@@ -46,6 +46,7 @@
         <org.apache.maven.plugins.maven-compiler-plugin.version>3.1</org.apache.maven.plugins.maven-compiler-plugin.version>
         <org.codehaus.mojo.cobertura-maven-plugin>2.6</org.codehaus.mojo.cobertura-maven-plugin>
         <org.apache.maven.plugins.maven-pmd-plugin.version>3.0.1</org.apache.maven.plugins.maven-pmd-plugin.version>
+        <org.mockito.mockito-all.version>1.9.5</org.mockito.mockito-all.version>
     </properties>
 
     <dependencies>
@@ -53,6 +54,12 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.junit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>${org.mockito.mockito-all.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

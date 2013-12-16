@@ -66,11 +66,9 @@ public @interface Property
     /**
      * For custom types, which have not been annotated by the
      * {@link PropertyClass} annotation, custom type mappers {@link ITypeMapper}
-     * can be specified. The system will try to use a default type mapper if no
-     * type mapper was specified.
+     * can be specified.
      *
      * @return the fully qualified class name of the type mapper implementation
      */
-    String typeMapper()
-            default "de.axnsoftware.settings.impl.DefaultTypeMapperImpl";
+    String typeMapper() default "";
 }

@@ -17,9 +17,10 @@ package de.axnsoftware.settings;
 
 /**
  * The interface ISettings models a service by which one can access properties
- * loaded from the underlying {@link ISettingsStore} and it provides a simple
+ * loaded from the underlying {@link ISettingsStore}. It provides a simple
  * workflow for maintaining pending changes, discarding pending changes and
- * finally, finalizing these pending changes.
+ * finalizing any pending changes before actually persisting them to the
+ * underlying storage.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0

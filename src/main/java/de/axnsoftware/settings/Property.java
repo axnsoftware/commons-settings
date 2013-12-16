@@ -24,7 +24,8 @@ import java.lang.annotation.Target;
 /**
  * The annotation Property must be present on all fields of a
  * {@link PropertyClass} which should be read from or written to the backend
- * store.
+ * store. The system will ignore all fields of a property class that have not
+ * been annotated by this.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -65,8 +66,8 @@ public @interface Property
     /**
      * For custom types, which have not been annotated by the
      * {@link PropertyClass} annotation, custom type mappers {@link ITypeMapper}
-     * can be specified. By default, the {@code DefaultTypeMapperImpl} will be
-     * used.
+     * can be specified. The system will try to use a default type mapper if no
+     * type mapper was specified.
      *
      * @return the fully qualified class name of the type mapper implementation
      */

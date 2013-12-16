@@ -16,21 +16,21 @@
 package de.axnsoftware.settings;
 
 /**
- * The enum EFileFormat defines the various file formats that can be read from
- * or written out by implementations of the {@code IBackingStoreWrapper}
+ * The enum EFileFormat defines the various file formats that can be read or
+ * written out by file based implementations of the {@link IBackingStore}
  * interface.
  */
 public enum EFileFormat
 {
 
     /**
-     * All configuration files are in XML format. The actual format is subject
-     * to the backing store implementation.
-     */
-    FILE_FORMAT_XML,
-    /**
-     * All configuration files are in plain text format. The actual format is
+     * Configuration files are stored as plain text files. The actual format is
      * subject to the backing store implementation.
      */
-    FILE_FORMAT_PLAIN_TEXT
+    PLAIN_TEXT,
+    /**
+     * Configuration files are stored as XML files. The actual format is subject
+     * to the backing store implementation.
+     */
+    XML;
 }

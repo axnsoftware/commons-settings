@@ -22,8 +22,8 @@ import de.axnsoftware.settings.ISettingsStore;
 import java.util.prefs.BackingStoreException;
 
 /**
- * The final class SettingsStoreImpl models a concrete implementation for the
- * {@code ISettingsStore} interface.
+ * The final class SettingsStoreImpl models a concrete implementation of the
+ * {@link ISettingsStore} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -32,20 +32,22 @@ public final class SettingsStoreImpl
         implements ISettingsStore
 {
 
-    private final Class<?> type;
-    private IBackingStore backingStore;
+    private final IBackingStore backingStore;
     private final IAccessor rootAccessor;
+    private final Class<?> type;
 
     public SettingsStoreImpl(final IBackingStore backingStore,
                              final IAccessor rootAccessor, final Class<?> type)
     {
         if (null == backingStore)
         {
-            throw new IllegalArgumentException("backingStore must not be null.");
+            throw new IllegalArgumentException(
+                    "backingStore must not be null.");
         }
         if (null == rootAccessor)
         {
-            throw new IllegalArgumentException("rootAccessor must not be null.");
+            throw new IllegalArgumentException(
+                    "rootAccessor must not be null.");
         }
         if (null == type)
         {
@@ -54,6 +56,24 @@ public final class SettingsStoreImpl
         this.backingStore = backingStore;
         this.rootAccessor = rootAccessor;
         this.type = type;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void deleteSettings() throws BackingStoreException
+    {
+        this.backingStore.deleteProperties();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public IBackingStore getBackingStore()
+    {
+        return this.backingStore;
     }
 
     /**
@@ -91,29 +111,11 @@ public final class SettingsStoreImpl
      * {@inheritDoc}
      */
     @Override
-    public void deleteSettings() throws BackingStoreException
-    {
-        this.backingStore.deleteProperties();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void storeSettings(final ISettings settings) throws
             BackingStoreException
     {
         this.rootAccessor.writeToBackingStore(this.backingStore, settings
                 .getProperties());
         this.backingStore.storeProperties();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public IBackingStore getBackingStore()
-    {
-        return this.backingStore;
     }
 }

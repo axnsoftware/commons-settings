@@ -27,7 +27,7 @@ under the License.
     <item>
       <title>File: 47,
              Errors: 0,
-             Warnings: 199,
+             Warnings: 202,
              Infos: 0
       </title>
             <link>http://axnsoftware.github.com/commons-settings/checkstyle.html</link>
@@ -220,7 +220,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  0
+                  2
                 </td>
                 <td>
                   0
@@ -234,7 +234,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  6
+                  7
                 </td>
                 <td>
                   0

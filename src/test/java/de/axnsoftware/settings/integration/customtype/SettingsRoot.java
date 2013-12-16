@@ -29,4 +29,14 @@ public class SettingsRoot
     @Property(typeMapper =
               "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
     private CustomType customType;
+
+    public CustomType getCustomType()
+    {
+        return customType;
+    }
+
+    public void setCustomType(CustomType customType)
+    {
+        this.customType = customType;
+    }
 }

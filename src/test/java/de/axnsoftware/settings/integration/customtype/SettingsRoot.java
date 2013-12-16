@@ -15,6 +15,7 @@ import de.axnsoftware.settings.PropertyClass;
 public class SettingsRoot
 {
 
-    @Property
+    @Property(typeMapper =
+              "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
     private CustomType customType;
 }

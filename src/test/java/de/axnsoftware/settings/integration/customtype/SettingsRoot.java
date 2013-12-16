@@ -17,6 +17,8 @@ package de.axnsoftware.settings.integration.customtype;
 
 import de.axnsoftware.settings.Property;
 import de.axnsoftware.settings.PropertyClass;
+import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -29,6 +31,47 @@ public class SettingsRoot
     @Property(typeMapper =
               "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
     private CustomType customType;
+    @Property(typeMapper =
+              "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
+    private List<CustomType> customTypeList;
+    @Property(typeMapper =
+              "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
+    private Map<String, CustomType> customTypeMap;
+
+    public List<CustomType> getCustomTypeList()
+    {
+        return customTypeList;
+    }
+
+    public void setCustomTypeList(
+            List<CustomType> customTypeList)
+    {
+        this.customTypeList = customTypeList;
+    }
+
+    public Map<String, CustomType> getCustomTypeMap()
+    {
+        return customTypeMap;
+    }
+
+    public void setCustomTypeMap(
+            Map<String, CustomType> customTypeMap)
+    {
+        this.customTypeMap = customTypeMap;
+    }
+
+    public CustomType[] getCustomTypeArray()
+    {
+        return customTypeArray;
+    }
+
+    public void setCustomTypeArray(CustomType[] customTypeArray)
+    {
+        this.customTypeArray = customTypeArray;
+    }
+    @Property(typeMapper =
+              "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
+    private CustomType[] customTypeArray;
 
     public CustomType getCustomType()
     {

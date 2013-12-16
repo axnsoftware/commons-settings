@@ -177,8 +177,8 @@ public class DefaultTypeMapperImplTest
     {
         IBackingStore backingStoreMock = Mockito.mock(IBackingStore.class);
         Mockito.when(backingStoreMock.getDouble("key")).thenReturn(Double
-                .valueOf(0.0d));
-        Assert.assertEquals(Double.valueOf(0.0d), new DefaultTypeMapperImpl()
+                .valueOf(0));
+        Assert.assertEquals(Double.valueOf(0), new DefaultTypeMapperImpl()
                 .readFromBackingStore(backingStoreMock, "key", Double.class));
         Mockito.verify(backingStoreMock).getDouble("key");
     }
@@ -189,8 +189,8 @@ public class DefaultTypeMapperImplTest
     {
         IBackingStore backingStoreMock = Mockito.mock(IBackingStore.class);
         Mockito.when(backingStoreMock.getFloat("key")).thenReturn(Float
-                .valueOf(0.0f));
-        Assert.assertEquals(Float.valueOf(0.0f), new DefaultTypeMapperImpl()
+                .valueOf(0));
+        Assert.assertEquals(Float.valueOf(0), new DefaultTypeMapperImpl()
                 .readFromBackingStore(backingStoreMock, "key", Float.class));
         Mockito.verify(backingStoreMock).getFloat("key");
     }
@@ -233,17 +233,118 @@ public class DefaultTypeMapperImplTest
                 .verify(backingStoreMock).getShort("key");
     }
 
-    @Test
-    public void valueOfMustReturnForNullValue()
+    @Test(expected = IllegalArgumentException.class)
+    public void valueOfMustFailOnNullType()
     {
-        Assert.assertNull(new DefaultTypeMapperImpl().valueOf(null,
-                                                              String.class));
+        new DefaultTypeMapperImpl().valueOf("notNull", null);
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void valueOfMustFailOnUnsupportedType()
     {
         new DefaultTypeMapperImpl().valueOf("notNull", Object.class);
+    }
+
+    @Test
+    public void valueOfMustNotFailOnNullValue()
+    {
+        Assert.assertNull(new DefaultTypeMapperImpl().valueOf(null,
+                                                              String.class));
+    }
+
+    @Test
+    public void valueOfMustReturnBigDecimalForBigDecimalType()
+    {
+        BigDecimal value = new BigDecimal("1234");
+        Assert.assertEquals(value, new DefaultTypeMapperImpl().valueOf(value
+                .toString(), BigDecimal.class));
+    }
+
+    @Test
+    public void valueOfMustReturnBigIntegerForBigIntegerType()
+    {
+        BigInteger value = new BigInteger("1234");
+        Assert.assertEquals(value, new DefaultTypeMapperImpl().valueOf(value
+                .toString(), BigInteger.class));
+    }
+
+    @Test
+    public void valueOfMustReturnBooleanForBooleanType()
+    {
+        Assert.assertEquals(Boolean.FALSE, new DefaultTypeMapperImpl()
+                .valueOf(Boolean.FALSE.toString(), Boolean.class));
+    }
+
+    @Test
+    public void valueOfMustReturnByteForByteType()
+    {
+        Assert.assertEquals(Byte.valueOf((byte) 0), new DefaultTypeMapperImpl()
+                .valueOf(Byte.valueOf((byte) 0).toString(), Byte.class));
+    }
+
+    @Test
+    public void valueOfMustReturnCharacterForCharacterType()
+    {
+        Assert.assertEquals(Character.valueOf('a'), new DefaultTypeMapperImpl()
+                .valueOf(Character.valueOf('a').toString(), Character.class));
+    }
+
+    @Test
+    public void valueOfMustReturnDoubleForDoubleType()
+    {
+        Assert.assertEquals(Double.valueOf(0), new DefaultTypeMapperImpl()
+                .valueOf(Double.valueOf(0).toString(), Double.class));
+    }
+
+    @Test
+    public void valueOfMustReturnFloatForFloatType()
+    {
+        Assert.assertEquals(Float.valueOf(0), new DefaultTypeMapperImpl()
+                .valueOf(Float.valueOf(0).toString(), Float.class));
+    }
+
+    @Test
+    public void valueOfMustReturnIntegerForIntegerType()
+    {
+        Assert.assertEquals(Integer.valueOf(0), new DefaultTypeMapperImpl()
+                .valueOf(Integer.valueOf(0).toString(), Integer.class));
+    }
+
+    @Test
+    public void valueOfMustReturnLongForLongType()
+    {
+        Assert.assertEquals(Long.valueOf(0), new DefaultTypeMapperImpl()
+                .valueOf(Long.valueOf(0).toString(), Long.class));
+    }
+
+    @Test
+    public void valueOfMustReturnShortForShortType()
+    {
+        Assert.assertEquals(Short.valueOf((short) 0),
+                            new DefaultTypeMapperImpl().valueOf(Short.valueOf(
+                (short) 0).toString(), Short.class));
+    }
+
+    @Test
+    public void valueOfMustReturnStringForStringType()
+    {
+        Assert.assertEquals("value", new DefaultTypeMapperImpl()
+                .valueOf("value", String.class));
+    }
+
+    @Test
+    public void valueOfMustReturnEnumConstantForEnumType()
+    {
+        Assert.assertEquals(TestEnum.ABC, new DefaultTypeMapperImpl().valueOf(
+                TestEnum.ABC.toString(), TestEnum.class));
+    }
+
+    @Test
+    public void valueOfMustReturnUUIDForUUIDType()
+    {
+        UUID uuid = UUID.randomUUID();
+        Assert.assertEquals(uuid, new DefaultTypeMapperImpl().valueOf(uuid
+                .toString(), UUID.class));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -264,13 +365,12 @@ public class DefaultTypeMapperImplTest
     }
 
     @Test
-    public void writeBackingStoreMustNotFailOnNullValue() throws
+    public void writeToBackingStoreMustNotFailOnNullValue() throws
             Exception
     {
         IBackingStore backingStoreMock = Mockito.mock(IBackingStore.class);
         new DefaultTypeMapperImpl().writeToBackingStore(backingStoreMock,
-                                                        "notNull",
-                                                        new Integer(0));
+                                                        "notNull", null);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -280,7 +380,7 @@ public class DefaultTypeMapperImplTest
         IBackingStore backingStoreMock = Mockito.mock(IBackingStore.class);
         new DefaultTypeMapperImpl().writeToBackingStore(backingStoreMock,
                                                         "notNull",
-                                                        Object.class);
+                                                        new Object());
     }
 
     @Test
@@ -375,8 +475,8 @@ public class DefaultTypeMapperImplTest
     {
         IBackingStore backingStoreMock = Mockito.mock(IBackingStore.class);
         new DefaultTypeMapperImpl().writeToBackingStore(backingStoreMock, "key",
-                                                        Double.valueOf(0.0d));
-        Mockito.verify(backingStoreMock).setDouble("key", Double.valueOf(0.0d));
+                                                        Double.valueOf(0));
+        Mockito.verify(backingStoreMock).setDouble("key", Double.valueOf(0));
     }
 
     @Test
@@ -385,8 +485,8 @@ public class DefaultTypeMapperImplTest
     {
         IBackingStore backingStoreMock = Mockito.mock(IBackingStore.class);
         new DefaultTypeMapperImpl().writeToBackingStore(backingStoreMock, "key",
-                                                        Float.valueOf(0.0f));
-        Mockito.verify(backingStoreMock).setFloat("key", Float.valueOf(0.0f));
+                                                        Float.valueOf(0));
+        Mockito.verify(backingStoreMock).setFloat("key", Float.valueOf(0));
     }
 
     @Test

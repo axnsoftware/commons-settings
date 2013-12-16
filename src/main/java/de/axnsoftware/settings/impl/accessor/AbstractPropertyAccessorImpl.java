@@ -84,7 +84,9 @@ public abstract class AbstractPropertyAccessorImpl
         if (!get.getDeclaringClass().equals(valueHolder.getClass()))
         {
             throw new IllegalStateException(
-                    "TODO:unexpected class of valueHolder");
+                    "valueHolder is of an unexpected type, expected: " + get
+                    .getDeclaringClass().getName()
+                    + ", was: " + valueHolder.getClass().getName());
         }
         try
         {
@@ -148,7 +150,9 @@ public abstract class AbstractPropertyAccessorImpl
         if (!set.getDeclaringClass().equals(valueHolder.getClass()))
         {
             throw new IllegalStateException(
-                    "TODO:unexpected class of valueHolder");
+                    "valueHolder is of an unexpected type, expected: " + set
+                    .getDeclaringClass().getName()
+                    + ", was: " + valueHolder.getClass().getName());
         }
         try
         {

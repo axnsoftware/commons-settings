@@ -23,15 +23,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * The final class RootAccessorFactory models a factory for instances of the
- * {@code IAccessor} interface that represent the root of a hierarchy of
+ * The final class RootAccessorBuilder models a builder for instances of the
+ * {@link IAccessor} interface that represent the root of a hierarchy of
  * accessors for traversing and accessing the properties of instances of classes
  * that have been annotated with the {@code PropertyClass} annotation.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
  */
-public final class RootAccessorFactory
+public final class RootAccessorBuilder
 {
 
     /**
@@ -39,13 +39,13 @@ public final class RootAccessorFactory
      *
      * @return the instance
      */
-    public static RootAccessorFactory newInstance()
+    public static RootAccessorBuilder newInstance()
     {
-        return new RootAccessorFactory();
+        return new RootAccessorBuilder();
     }
 
     /**
-     * Builds and returns a new instance of the {@code IAccessor} interface for
+     * Builds and returns a new instance of the {@link IAccessor} interface for
      * the specified {@code type}, which must have been annotated using the
      * {@code PropertyClass} annotation.
      *
@@ -70,7 +70,7 @@ public final class RootAccessorFactory
         }
         else
         {
-            throw new RuntimeException("TODO:unable to process type: " + type);
+            throw new RuntimeException("unable to process type: " + type);
         }
         return result;
     }

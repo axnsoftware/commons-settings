@@ -19,8 +19,9 @@ import java.util.Set;
 import java.util.prefs.BackingStoreException;
 
 /**
- * The interface IBackingStore models a wrapper for a backing store which is
- * responsible for both loading and storing configuration data.
+ * The interface IBackingStore models a backing store which is responsible for
+ * both retrieving configuration data from and persistently storing
+ * configuration data to an underlying storage.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0

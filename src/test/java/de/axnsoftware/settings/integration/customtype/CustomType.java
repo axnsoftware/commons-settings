@@ -13,12 +13,39 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.axnsoftware.settings.impl.accessor;
+package de.axnsoftware.settings.integration.customtype;
 
 /**
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  */
-public class RootAccessorImplTest
+public class CustomType
 {
+
+    private Integer intValue;
+    private Float floatValue;
+
+    public CustomType()
+    {
+    }
+
+    public Integer getIntValue()
+    {
+        return intValue;
+    }
+
+    public void setIntValue(Integer intValue)
+    {
+        this.intValue = intValue;
+    }
+
+    public Float getFloatValue()
+    {
+        return floatValue;
+    }
+
+    public void setFloatValue(Float floatValue)
+    {
+        this.floatValue = floatValue;
+    }
 }

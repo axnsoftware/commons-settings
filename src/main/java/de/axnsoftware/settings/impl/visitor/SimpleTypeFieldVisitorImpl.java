@@ -17,6 +17,7 @@ package de.axnsoftware.settings.impl.visitor;
 
 import de.axnsoftware.settings.ITypeMapper;
 import de.axnsoftware.settings.Property;
+import de.axnsoftware.settings.impl.accessor.DefaultTypeMapperImpl;
 import de.axnsoftware.settings.impl.accessor.IAccessor;
 import de.axnsoftware.settings.impl.accessor.IPropertyAccessor;
 import de.axnsoftware.settings.impl.accessor.DefaultValueHolder;
@@ -52,7 +53,25 @@ public final class SimpleTypeFieldVisitorImpl
     @Override
     protected Boolean canVisitImpl(final Field visitee)
     {
-        return this.valueType.isAssignableFrom(visitee.getType());
+        Boolean result = Boolean.FALSE;
+        Class<?> type = visitee.getType();
+        if (this.valueType.isAssignableFrom(type))
+        {
+            if (DefaultTypeMapperImpl.getPreparedDefaultTypeMappings()
+                    .containsKey(type))
+            {
+                result = Boolean.TRUE;
+            }
+            else if (visitee.isAnnotationPresent(Property.class))
+            {
+                Property annotation = visitee.getAnnotation(Property.class);
+                if (!"".equals(annotation.typeMapper()))
+                {
+                    result = Boolean.TRUE;
+                }
+            }
+        }
+        return result;
     }
 
     /**
@@ -89,7 +108,11 @@ public final class SimpleTypeFieldVisitorImpl
                 new SimpleTypeFieldVisitorImpl(Long.class),
                 new SimpleTypeFieldVisitorImpl(Short.class),
                 new SimpleTypeFieldVisitorImpl(String.class),
-                new SimpleTypeFieldVisitorImpl(UUID.class)
+                new SimpleTypeFieldVisitorImpl(UUID.class),
+                /*
+                 * Visitor for custom types with an appropriate type mapper
+                 */
+                new SimpleTypeFieldVisitorImpl(Object.class)
             };
         }
         return preparedSimpleTypeFieldVisitors.clone();

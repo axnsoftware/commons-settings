@@ -18,12 +18,12 @@ package de.axnsoftware.settings;
 import de.axnsoftware.settings.impl.SettingsStoreImpl;
 import de.axnsoftware.settings.impl.accessor.IAccessor;
 import de.axnsoftware.settings.impl.PropertiesBackingStoreImpl;
-import de.axnsoftware.settings.impl.accessor.RootAccessorFactory;
+import de.axnsoftware.settings.impl.accessor.RootAccessorBuilder;
 import java.io.File;
 
 /**
- * The final class SettingsStoreFactory models a factory for instances of type
- * {@code ISettingsStore}.
+ * The final class SettingsStoreFactory models a factory for instances of the
+ * {@link ISettingsStore} interface.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0
@@ -49,11 +49,11 @@ public final class SettingsStoreFactory
     }
 
     /**
-     * Returns a new instance of the {@code ISettingsStore} interface for the
+     * Returns a new instance of the {@link ISettingsStore} interface for the
      * specified {@code storagePath} and the specified {@code type}, which must
-     * be annotated with the {@code PropertyClass} annotation.
+     * be annotated with the {@link PropertyClass} annotation.
      *
-     * The backing store will use the file system and standard plain text format
+     * The backing store uses the file system and standard plain text format
      * Java property files.
      *
      * @param storagePath
@@ -65,16 +65,16 @@ public final class SettingsStoreFactory
     {
         final IBackingStore backingStoreWrapper =
                             new PropertiesBackingStoreImpl(
-                EFileFormat.FILE_FORMAT_PLAIN_TEXT, storagePath);
+                EFileFormat.PLAIN_TEXT, storagePath);
         return this.createNewStore(backingStoreWrapper, type);
     }
 
     /**
-     * Returns a new instance of the {@code ISettingsStore} interface for the
+     * Returns a new instance of the {@link ISettingsStore} interface for the
      * specified {@code storagePath} and the specified {@code type}, which must
-     * be annotated with the {@code PropertyClass} annotation.
+     * be annotated with the {@link PropertyClass} annotation.
      *
-     * The backing store will use the file system and standard XML format Java
+     * The backing store uses the file system and standard XML format Java
      * property files.
      *
      * @param storagePath
@@ -86,25 +86,24 @@ public final class SettingsStoreFactory
     {
         final IBackingStore backingStoreWrapper =
                             new PropertiesBackingStoreImpl(
-                EFileFormat.FILE_FORMAT_XML, storagePath);
+                EFileFormat.XML, storagePath);
         return this.createNewStore(backingStoreWrapper, type);
     }
 
     /**
-     * Returns a new instance of the {@code ISettingsStore} interface for the
+     * Returns a new instance of the {@link ISettingsStore} interface for the
      * specified {@code fileFormat}, the specified {@code storagePath}, and, the
      * specified {@code type}, which must be annotated with the
-     * {@code PropertyClass} annotation.
+     * {@link PropertyClass} annotation.
      *
      * @param backingStoreWrapper
      * @param type
      * @return the settings store
      */
     public ISettingsStore createNewStore(
-            final IBackingStore backingStoreWrapper,
-            final Class<?> type)
+            final IBackingStore backingStoreWrapper, final Class<?> type)
     {
-        IAccessor rootAccessor = RootAccessorFactory.newInstance()
+        IAccessor rootAccessor = RootAccessorBuilder.newInstance()
                 .buildRootAccessor(type);
         return new SettingsStoreImpl(backingStoreWrapper, rootAccessor, type);
     }

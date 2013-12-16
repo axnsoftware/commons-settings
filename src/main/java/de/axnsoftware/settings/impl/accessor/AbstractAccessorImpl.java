@@ -70,7 +70,8 @@ public abstract class AbstractAccessorImpl
         }
         catch (CloneNotSupportedException e)
         {
-            throw new RuntimeException("TODO:must never happen.", e);
+            // Must never happen
+            throw new RuntimeException("unable to clone accessor.", e);
         }
         return result;
     }

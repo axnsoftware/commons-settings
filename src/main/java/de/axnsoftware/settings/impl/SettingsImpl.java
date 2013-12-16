@@ -44,11 +44,13 @@ public final class SettingsImpl
         }
         if (null == rootAccessor)
         {
-            throw new IllegalArgumentException("rootAccessor must not be null.");
+            throw new IllegalArgumentException(
+                    "rootAccessor must not be null.");
         }
         if (null == settingsStore)
         {
-            throw new IllegalArgumentException("settingsStore must not be null.");
+            throw new IllegalArgumentException(
+                    "settingsStore must not be null.");
         }
         this.properties = properties;
         this.rootAccessor = rootAccessor;

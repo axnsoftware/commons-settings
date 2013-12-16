@@ -13,12 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.axnsoftware.settings.impl.accessor;
+package de.axnsoftware.settings.integration.customtype;
+
+import de.axnsoftware.settings.Property;
+import de.axnsoftware.settings.PropertyClass;
 
 /**
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  */
-public class RootAccessorImplTest
+@PropertyClass
+public class SettingsRoot
 {
+
+    @Property(typeMapper =
+              "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
+    private CustomType customType;
+
+    public CustomType getCustomType()
+    {
+        return customType;
+    }
+
+    public void setCustomType(CustomType customType)
+    {
+        this.customType = customType;
+    }
 }

@@ -24,8 +24,8 @@ import java.util.List;
 
 /**
  * The final class AbstractFieldVisitorImpl models a concrete implementation of
- * the {@code IVisitor} interface that is responsible for visiting classes that
- * have been annotated with the {@code PropertyClass} annotation.
+ * the {@link IVisitor} interface that is responsible for visiting classes that
+ * have been annotated with the {@link PropertyClass} annotation.
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  * @since 1.0.0

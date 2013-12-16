@@ -64,35 +64,28 @@ public final class ArrayPropertyAccessorImpl
         final String key = this.getQualifiedKey();
         final List<String> itemKeys = new ArrayList<>();
         final List<String> sortedPropertyNames = new ArrayList<>();
-        try
+        sortedPropertyNames.addAll(properties.keySet());
+        Collections.sort(sortedPropertyNames);
+        int nextProvableItemKey = 0;
+        String provableKey = key + "." + nextProvableItemKey;
+        for (String propertyName : sortedPropertyNames)
         {
-            sortedPropertyNames.addAll(properties.keySet());
-            Collections.sort(sortedPropertyNames);
-            int nextProvableItemKey = 0;
-            String provableKey = key + "." + nextProvableItemKey;
-            for (String propertyName : sortedPropertyNames)
+            if (propertyName.startsWith(provableKey))
             {
-                if (propertyName.startsWith(provableKey))
-                {
-                    itemKeys.add(provableKey);
-                    nextProvableItemKey++;
-                    provableKey = key + "." + nextProvableItemKey;
-                }
-            }
-            final Object items = this.getType().cast(Array.newInstance(this
-                    .getItemAccessorTemplate().getType(), nextProvableItemKey));
-            this.setValue(items, settingsRoot);
-            for (int index = 0; index < itemKeys.size(); index++)
-            {
-                IContainerItemAccessor accessor = (IContainerItemAccessor) this
-                        .getItemAccessorTemplate().clone();
-                accessor.setItemKey(index);
-                accessor.readFromBackingStore(properties, settingsRoot);
+                itemKeys.add(provableKey);
+                nextProvableItemKey++;
+                provableKey = key + "." + nextProvableItemKey;
             }
         }
-        catch (BackingStoreException e)
+        final Object items = this.getType().cast(Array.newInstance(this
+                .getItemAccessorTemplate().getType(), nextProvableItemKey));
+        this.setValue(items, settingsRoot);
+        for (int index = 0; index < itemKeys.size(); index++)
         {
-            throw new RuntimeException(e);
+            IContainerItemAccessor accessor = (IContainerItemAccessor) this
+                    .getItemAccessorTemplate().clone();
+            accessor.setItemKey(index);
+            accessor.readFromBackingStore(properties, settingsRoot);
         }
     }
 

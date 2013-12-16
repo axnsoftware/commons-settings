@@ -79,49 +79,42 @@ public final class ListPropertyAccessorImpl
         final String key = this.getQualifiedKey();
         final List<String> itemKeys = new ArrayList<>();
         final List<String> sortedPropertyNames = new ArrayList<>();
-        try
+        sortedPropertyNames.addAll(backingStore.keySet());
+        Collections.sort(sortedPropertyNames);
+        int nextProvableItemKey = 0;
+        String provableKey = key + "." + nextProvableItemKey;
+        for (String propertyName : sortedPropertyNames)
         {
-            sortedPropertyNames.addAll(backingStore.keySet());
-            Collections.sort(sortedPropertyNames);
-            int nextProvableItemKey = 0;
-            String provableKey = key + "." + nextProvableItemKey;
-            for (String propertyName : sortedPropertyNames)
+            if (propertyName.startsWith(provableKey))
             {
-                if (propertyName.startsWith(provableKey))
-                {
-                    itemKeys.add(provableKey);
-                    nextProvableItemKey++;
-                    provableKey = key + "." + nextProvableItemKey;
-                }
-            }
-            final List<?> items = (List<?>) this.getType().cast(
-                    new ArrayList<>());
-            this.setValue(items, settingsRoot);
-            for (int index = 0; index < itemKeys.size(); index++)
-            {
-                IContainerItemAccessor accessor;
-                accessor = (IContainerItemAccessor) this
-                        .getItemAccessorTemplate().clone();
-                accessor.setItemKey(index);
-                accessor.readFromBackingStore(backingStore, settingsRoot);
-            }
-            // in case the user or the program created gaps in the
-            // order of indices, we will close these now
-            if (items.size() > itemKeys.size())
-            {
-                Iterator iterator = items.iterator();
-                while (iterator.hasNext())
-                {
-                    if (null == iterator.next())
-                    {
-                        iterator.remove();
-                    }
-                }
+                itemKeys.add(provableKey);
+                nextProvableItemKey++;
+                provableKey = key + "." + nextProvableItemKey;
             }
         }
-        catch (BackingStoreException e)
+        final List<?> items = (List<?>) this.getType().cast(
+                new ArrayList<>());
+        this.setValue(items, settingsRoot);
+        for (int index = 0; index < itemKeys.size(); index++)
         {
-            throw new RuntimeException(e);
+            IContainerItemAccessor accessor;
+            accessor = (IContainerItemAccessor) this
+                    .getItemAccessorTemplate().clone();
+            accessor.setItemKey(index);
+            accessor.readFromBackingStore(backingStore, settingsRoot);
+        }
+        // in case the user or the program created gaps in the
+        // order of indices, we will close these now
+        if (items.size() > itemKeys.size())
+        {
+            Iterator iterator = items.iterator();
+            while (iterator.hasNext())
+            {
+                if (null == iterator.next())
+                {
+                    iterator.remove();
+                }
+            }
         }
     }
 

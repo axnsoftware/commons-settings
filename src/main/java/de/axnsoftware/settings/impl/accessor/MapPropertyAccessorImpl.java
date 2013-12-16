@@ -80,45 +80,38 @@ public final class MapPropertyAccessorImpl
         final String key = this.getQualifiedKey();
         final List<String> itemKeys = new ArrayList<>();
         final List<String> sortedPropertyNames = new ArrayList<>();
-        try
+        sortedPropertyNames.addAll(backingStore.keySet());
+        Collections.sort(sortedPropertyNames);
+        String currentKey = null;
+        for (String propertyName : sortedPropertyNames)
         {
-            sortedPropertyNames.addAll(backingStore.keySet());
-            Collections.sort(sortedPropertyNames);
-            String currentKey = null;
-            for (String propertyName : sortedPropertyNames)
+            if (null != currentKey && propertyName.startsWith(currentKey))
             {
-                if (null != currentKey && propertyName.startsWith(currentKey))
-                {
-                    continue;
-                }
-                if (propertyName.startsWith(key))
-                {
-                    int dotPosition = propertyName
-                            .indexOf('.', key.length() + 1);
-                    if (-1 == dotPosition)
-                    {
-                        currentKey = propertyName;
-                    }
-                    else
-                    {
-                        currentKey = propertyName.substring(0, dotPosition);
-                    }
-                    itemKeys.add(currentKey.replace(key + ".", ""));
-                }
+                continue;
             }
-            this.setValue(this.getType().cast(new HashMap<String, Object>()),
-                          settingsRoot);
-            for (final String itemKey : itemKeys)
+            if (propertyName.startsWith(key))
             {
-                IContainerItemAccessor accessor = (IContainerItemAccessor) this
-                        .getItemAccessorTemplate().clone();
-                accessor.setItemKey(itemKey);
-                accessor.readFromBackingStore(backingStore, settingsRoot);
+                int dotPosition = propertyName
+                        .indexOf('.', key.length() + 1);
+                if (-1 == dotPosition)
+                {
+                    currentKey = propertyName;
+                }
+                else
+                {
+                    currentKey = propertyName.substring(0, dotPosition);
+                }
+                itemKeys.add(currentKey.replace(key + ".", ""));
             }
         }
-        catch (BackingStoreException e)
+        this.setValue(this.getType().cast(new HashMap<String, Object>()),
+                      settingsRoot);
+        for (final String itemKey : itemKeys)
         {
-            throw new RuntimeException(e);
+            IContainerItemAccessor accessor = (IContainerItemAccessor) this
+                    .getItemAccessorTemplate().clone();
+            accessor.setItemKey(itemKey);
+            accessor.readFromBackingStore(backingStore, settingsRoot);
         }
     }
 

@@ -15,9 +15,10 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
+import de.axnsoftware.settings.fixtures.CompoundMapFieldSettingsRoot;
+import de.axnsoftware.settings.fixtures.SimpleMapFieldSettingsRoot;
+import de.axnsoftware.settings.fixtures.DummyBackingStore;
 import de.axnsoftware.settings.IBackingStore;
-import de.axnsoftware.settings.Property;
-import de.axnsoftware.settings.PropertyClass;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,57 +37,21 @@ public class MapPropertyAccessorImplTest
     private IAccessor compoundSettingsRootAccessor;
     private IBackingStore properties;
 
-    @PropertyClass
-    public static class SimpleSettingsRoot
-    {
-
-        @Property
-        private Map<String, Integer> values;
-
-        public Map<String, Integer> getValues()
-        {
-            return values;
-        }
-
-        public void setValues(Map<String, Integer> values)
-        {
-            this.values = values;
-        }
-    }
-
-    @PropertyClass
-    public static class CompoundSettingsRoot
-    {
-
-        @Property
-        private Map<String, SimpleSettingsRoot> values;
-
-        public Map<String, SimpleSettingsRoot> getValues()
-        {
-            return values;
-        }
-
-        public void setValues(Map<String, SimpleSettingsRoot> values)
-        {
-            this.values = values;
-        }
-    }
-
     @Before
     public void setup()
     {
         this.simpleSettingsRootAccessor = RootAccessorBuilder.newInstance()
-                .buildRootAccessor(SimpleSettingsRoot.class);
+                .buildRootAccessor(SimpleMapFieldSettingsRoot.class);
         this.compoundSettingsRootAccessor = RootAccessorBuilder.newInstance()
-                .buildRootAccessor(CompoundSettingsRoot.class);
+                .buildRootAccessor(CompoundMapFieldSettingsRoot.class);
         this.properties = new DummyBackingStore();
     }
 
     @Test
     public void copyValueMustPopulateTargetAsExpectedForSimpleSettingsRoot()
     {
-        SimpleSettingsRoot source = new SimpleSettingsRoot();
-        SimpleSettingsRoot target = new SimpleSettingsRoot();
+        SimpleMapFieldSettingsRoot source = new SimpleMapFieldSettingsRoot();
+        SimpleMapFieldSettingsRoot target = new SimpleMapFieldSettingsRoot();
         source.setValues(new HashMap<String, Integer>());
         source.getValues().put("0", 1);
         source.getValues().put("1", 1);
@@ -98,14 +63,14 @@ public class MapPropertyAccessorImplTest
     @Test
     public void copyValueMustPopulateTargetAsExpectedForCompoundSettingsRoot()
     {
-        CompoundSettingsRoot source = new CompoundSettingsRoot();
-        CompoundSettingsRoot target = new CompoundSettingsRoot();
-        SimpleSettingsRoot v1 = new SimpleSettingsRoot();
+        CompoundMapFieldSettingsRoot source = new CompoundMapFieldSettingsRoot();
+        CompoundMapFieldSettingsRoot target = new CompoundMapFieldSettingsRoot();
+        SimpleMapFieldSettingsRoot v1 = new SimpleMapFieldSettingsRoot();
         v1.setValues(new HashMap<String, Integer>());
         v1.getValues().put("0", 1);
         v1.getValues().put("1", 2);
         v1.getValues().put("2", 3);
-        source.setValues(new HashMap<String, SimpleSettingsRoot>());
+        source.setValues(new HashMap<String, SimpleMapFieldSettingsRoot>());
         source.getValues().put("0", v1);
         this.compoundSettingsRootAccessor.copyValue(source, target);
         Assert
@@ -119,7 +84,8 @@ public class MapPropertyAccessorImplTest
     public void readFromPropertiesMustPopulateSimpleSettingsRootAsExpected()
             throws Exception
     {
-        SimpleSettingsRoot settingsRoot = new SimpleSettingsRoot();
+        SimpleMapFieldSettingsRoot settingsRoot =
+                                   new SimpleMapFieldSettingsRoot();
         properties.setString("values.0", "1");
         properties.setString("values.1", "2");
         properties.setString("values.2", "3");
@@ -136,7 +102,8 @@ public class MapPropertyAccessorImplTest
     public void readFromPropertiesMustPopulateCompoundSettingsRootAsExpected()
             throws Exception
     {
-        CompoundSettingsRoot settingsRoot = new CompoundSettingsRoot();
+        CompoundMapFieldSettingsRoot settingsRoot =
+                                     new CompoundMapFieldSettingsRoot();
         properties.setString("values.0.values.0", "1");
         properties.setString("values.0.values.1", "2");
         properties.setString("values.0.values.2", "3");
@@ -155,7 +122,8 @@ public class MapPropertyAccessorImplTest
     public void writeToPropertiesMustPopulatePropertiesFromSimpleSettingsRootAsExpected()
             throws Exception
     {
-        SimpleSettingsRoot settingsRoot = new SimpleSettingsRoot();
+        SimpleMapFieldSettingsRoot settingsRoot =
+                                   new SimpleMapFieldSettingsRoot();
         settingsRoot.setValues(new HashMap<String, Integer>());
         settingsRoot.getValues().put("0", 1);
         settingsRoot.getValues().put("1", 2);
@@ -177,13 +145,15 @@ public class MapPropertyAccessorImplTest
     public void writeToPropertiesMustPopulatePropertiesFromCompoundSettingsRootAsExpected()
             throws Exception
     {
-        CompoundSettingsRoot settingsRoot = new CompoundSettingsRoot();
-        SimpleSettingsRoot v1 = new SimpleSettingsRoot();
+        CompoundMapFieldSettingsRoot settingsRoot =
+                                     new CompoundMapFieldSettingsRoot();
+        SimpleMapFieldSettingsRoot v1 = new SimpleMapFieldSettingsRoot();
         v1.setValues(new HashMap<String, Integer>());
         v1.getValues().put("0", 1);
         v1.getValues().put("1", 2);
         v1.getValues().put("2", 3);
-        settingsRoot.setValues(new HashMap<String, SimpleSettingsRoot>());
+        settingsRoot
+                .setValues(new HashMap<String, SimpleMapFieldSettingsRoot>());
         settingsRoot.getValues().put("0", v1);
         this.compoundSettingsRootAccessor.writeToBackingStore(properties,
                                                               settingsRoot);

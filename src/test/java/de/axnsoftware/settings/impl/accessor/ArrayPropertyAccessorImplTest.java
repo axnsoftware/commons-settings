@@ -15,9 +15,10 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
+import de.axnsoftware.settings.fixtures.DummyBackingStore;
+import de.axnsoftware.settings.fixtures.SimpleArrayFieldSettingsRoot;
+import de.axnsoftware.settings.fixtures.CompoundArrayFieldSettingsRoot;
 import de.axnsoftware.settings.IBackingStore;
-import de.axnsoftware.settings.Property;
-import de.axnsoftware.settings.PropertyClass;
 import java.util.Arrays;
 import org.junit.Assert;
 import org.junit.Before;
@@ -34,57 +35,21 @@ public class ArrayPropertyAccessorImplTest
     private IAccessor compoundSettingsRootAccessor;
     private IBackingStore properties;
 
-    @PropertyClass
-    public static class SimpleSettingsRoot
-    {
-
-        @Property
-        private Integer[] values;
-
-        public Integer[] getValues()
-        {
-            return values;
-        }
-
-        public void setValues(Integer[] values)
-        {
-            this.values = values;
-        }
-    }
-
-    @PropertyClass
-    public static class CompoundSettingsRoot
-    {
-
-        @Property
-        private SimpleSettingsRoot[] values;
-
-        public SimpleSettingsRoot[] getValues()
-        {
-            return values;
-        }
-
-        public void setValues(SimpleSettingsRoot[] values)
-        {
-            this.values = values;
-        }
-    }
-
     @Before
     public void setup()
     {
         this.simpleSettingsRootAccessor = RootAccessorBuilder.newInstance()
-                .buildRootAccessor(SimpleSettingsRoot.class);
+                .buildRootAccessor(SimpleArrayFieldSettingsRoot.class);
         this.compoundSettingsRootAccessor = RootAccessorBuilder.newInstance()
-                .buildRootAccessor(CompoundSettingsRoot.class);
+                .buildRootAccessor(CompoundArrayFieldSettingsRoot.class);
         this.properties = new DummyBackingStore();
     }
 
     @Test
     public void copyValueMustPopulateTargetAsExpectedForSimpleSettingsRoot()
     {
-        SimpleSettingsRoot source = new SimpleSettingsRoot();
-        SimpleSettingsRoot target = new SimpleSettingsRoot();
+        SimpleArrayFieldSettingsRoot source = new SimpleArrayFieldSettingsRoot();
+        SimpleArrayFieldSettingsRoot target = new SimpleArrayFieldSettingsRoot();
         source.setValues(new Integer[]
         {
             1, 2, 3
@@ -96,14 +61,16 @@ public class ArrayPropertyAccessorImplTest
     @Test
     public void copyValueMustPopulateTargetAsExpectedForCompoundSettingsRoot()
     {
-        CompoundSettingsRoot source = new CompoundSettingsRoot();
-        CompoundSettingsRoot target = new CompoundSettingsRoot();
-        SimpleSettingsRoot v1 = new SimpleSettingsRoot();
+        CompoundArrayFieldSettingsRoot source =
+                                       new CompoundArrayFieldSettingsRoot();
+        CompoundArrayFieldSettingsRoot target =
+                                       new CompoundArrayFieldSettingsRoot();
+        SimpleArrayFieldSettingsRoot v1 = new SimpleArrayFieldSettingsRoot();
         v1.setValues(new Integer[]
         {
             1, 2, 3
         });
-        source.setValues(new SimpleSettingsRoot[]
+        source.setValues(new SimpleArrayFieldSettingsRoot[]
         {
             v1
         });
@@ -119,7 +86,8 @@ public class ArrayPropertyAccessorImplTest
     public void readFromPropertiesMustPopulateSimpleSettingsRootAsExpected()
             throws Exception
     {
-        SimpleSettingsRoot settingsRoot = new SimpleSettingsRoot();
+        SimpleArrayFieldSettingsRoot settingsRoot =
+                                     new SimpleArrayFieldSettingsRoot();
         properties.setString("values.0", "1");
         properties.setString("values.1", "2");
         properties.setString("values.2", "3");
@@ -135,7 +103,8 @@ public class ArrayPropertyAccessorImplTest
     public void readFromPropertiesMustPopulateCompoundSettingsRootAsExpected()
             throws Exception
     {
-        CompoundSettingsRoot settingsRoot = new CompoundSettingsRoot();
+        CompoundArrayFieldSettingsRoot settingsRoot =
+                                       new CompoundArrayFieldSettingsRoot();
         properties.setString("values.0.values.0", "1");
         properties.setString("values.0.values.1", "2");
         properties.setString("values.0.values.2", "3");
@@ -152,7 +121,8 @@ public class ArrayPropertyAccessorImplTest
     public void writeToPropertiesMustPopulatePropertiesFromSimpleSettingsRootAsExpected()
             throws Exception
     {
-        SimpleSettingsRoot settingsRoot = new SimpleSettingsRoot();
+        SimpleArrayFieldSettingsRoot settingsRoot =
+                                     new SimpleArrayFieldSettingsRoot();
         settingsRoot.setValues(new Integer[]
         {
             1, 2, 3
@@ -174,13 +144,14 @@ public class ArrayPropertyAccessorImplTest
     public void writeToPropertiesMustPopulatePropertiesFromCompoundSettingsRootAsExpected()
             throws Exception
     {
-        CompoundSettingsRoot settingsRoot = new CompoundSettingsRoot();
-        SimpleSettingsRoot v1 = new SimpleSettingsRoot();
+        CompoundArrayFieldSettingsRoot settingsRoot =
+                                       new CompoundArrayFieldSettingsRoot();
+        SimpleArrayFieldSettingsRoot v1 = new SimpleArrayFieldSettingsRoot();
         v1.setValues(new Integer[]
         {
             1, 2, 3
         });
-        settingsRoot.setValues(new SimpleSettingsRoot[]
+        settingsRoot.setValues(new SimpleArrayFieldSettingsRoot[]
         {
             v1
         });

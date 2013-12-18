@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.axnsoftware.settings.integration.customtype;
+package de.axnsoftware.settings.fixtures;
 
 import de.axnsoftware.settings.Property;
 import java.util.Objects;
@@ -23,7 +23,7 @@ import java.util.Objects;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  */
 @Property(typeMapper =
-          "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
+          "de.axnsoftware.settings.fixtures.CustomTypeTypeMapperImpl")
 public class CustomType
         implements Comparable<CustomType>
 {

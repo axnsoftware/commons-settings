@@ -63,10 +63,40 @@ public final class SettingsStoreFactory
     public ISettingsStore newFileStore(final File storagePath,
                                        final Class<?> type)
     {
+        if (null == storagePath)
+        {
+            throw new IllegalArgumentException("storagePath must not be null.");
+        }
         final IBackingStore backingStoreWrapper =
                             new PropertiesBackingStoreImpl(
                 EFileFormat.PLAIN_TEXT, storagePath);
-        return this.createNewStore(backingStoreWrapper, type);
+        return this.newStore(backingStoreWrapper, type);
+    }
+
+    /**
+     * Returns a new instance of the {@link ISettingsStore} interface for the
+     * specified {@code fileFormat}, the specified {@code storagePath}, and, the
+     * specified {@code type}, which must be annotated with the
+     * {@link PropertyClass} annotation.
+     *
+     * @param backingStore
+     * @param type
+     * @return the settings store
+     */
+    public ISettingsStore newStore(
+            final IBackingStore backingStore, final Class<?> type)
+    {
+        if (null == backingStore)
+        {
+            throw new IllegalArgumentException("backingStore must not be null.");
+        }
+        if (null == type)
+        {
+            throw new IllegalArgumentException("type must not be null.");
+        }
+        IAccessor rootAccessor = RootAccessorBuilder.newInstance()
+                .buildRootAccessor(type);
+        return new SettingsStoreImpl(backingStore, rootAccessor, type);
     }
 
     /**
@@ -84,27 +114,13 @@ public final class SettingsStoreFactory
     public ISettingsStore newXMLFileStore(final File storagePath,
                                           final Class<?> type)
     {
+        if (null == storagePath)
+        {
+            throw new IllegalArgumentException("storagePath must not be null.");
+        }
         final IBackingStore backingStoreWrapper =
                             new PropertiesBackingStoreImpl(
                 EFileFormat.XML, storagePath);
-        return this.createNewStore(backingStoreWrapper, type);
-    }
-
-    /**
-     * Returns a new instance of the {@link ISettingsStore} interface for the
-     * specified {@code fileFormat}, the specified {@code storagePath}, and, the
-     * specified {@code type}, which must be annotated with the
-     * {@link PropertyClass} annotation.
-     *
-     * @param backingStoreWrapper
-     * @param type
-     * @return the settings store
-     */
-    public ISettingsStore createNewStore(
-            final IBackingStore backingStoreWrapper, final Class<?> type)
-    {
-        IAccessor rootAccessor = RootAccessorBuilder.newInstance()
-                .buildRootAccessor(type);
-        return new SettingsStoreImpl(backingStoreWrapper, rootAccessor, type);
+        return this.newStore(backingStoreWrapper, type);
     }
 }

@@ -15,6 +15,7 @@
  */
 package de.axnsoftware.settings.integration.customtype;
 
+import de.axnsoftware.settings.fixtures.CustomTypeSettingsRoot;
 import de.axnsoftware.settings.SettingsStoreFactory;
 import java.io.File;
 import org.junit.Assert;
@@ -31,8 +32,8 @@ public class CustomTypeTest
     @Test
     public void settingsStoreFactoryMustNotFailOnCustomType()
     {
-        SettingsStoreFactory.newInstance().newFileStore(new File("/tmp/unused"),
-                                                        SettingsRoot.class);
+        SettingsStoreFactory.newInstance().newFileStore(
+                new File("/tmp/unused"), CustomTypeSettingsRoot.class);
     }
 
     @Test

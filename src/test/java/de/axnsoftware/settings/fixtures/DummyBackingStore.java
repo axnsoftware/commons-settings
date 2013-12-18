@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.axnsoftware.settings.impl.accessor;
+package de.axnsoftware.settings.fixtures;
 
 import de.axnsoftware.settings.IBackingStore;
 import java.util.Properties;

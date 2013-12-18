@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.axnsoftware.settings.integration.customtype;
+package de.axnsoftware.settings.fixtures;
 
 import de.axnsoftware.settings.Property;
 import de.axnsoftware.settings.PropertyClass;
@@ -25,11 +25,13 @@ import java.util.Map;
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  */
 @PropertyClass
-public class SettingsRoot
+public class CustomTypeSettingsRoot
 {
 
     @Property
     private CustomType customType;
+    @Property
+    private CustomType[] customTypeArray;
     @Property
     private List<CustomType> customTypeList;
     @Property
@@ -66,9 +68,6 @@ public class SettingsRoot
     {
         this.customTypeArray = customTypeArray;
     }
-    @Property(typeMapper =
-              "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
-    private CustomType[] customTypeArray;
 
     public CustomType getCustomType()
     {

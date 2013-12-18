@@ -15,9 +15,10 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
+import de.axnsoftware.settings.fixtures.SimpleListFieldSettingsRoot;
+import de.axnsoftware.settings.fixtures.CompoundListFieldSettingsRoot;
+import de.axnsoftware.settings.fixtures.DummyBackingStore;
 import de.axnsoftware.settings.IBackingStore;
-import de.axnsoftware.settings.Property;
-import de.axnsoftware.settings.PropertyClass;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,57 +37,21 @@ public class ListPropertyAccessorImplTest
     private IAccessor compoundSettingsRootAccessor;
     private IBackingStore properties;
 
-    @PropertyClass
-    public static class SimpleSettingsRoot
-    {
-
-        @Property
-        private List<Integer> values;
-
-        public List<Integer> getValues()
-        {
-            return values;
-        }
-
-        public void setValues(List<Integer> values)
-        {
-            this.values = values;
-        }
-    }
-
-    @PropertyClass
-    public static class CompoundSettingsRoot
-    {
-
-        @Property
-        private List<SimpleSettingsRoot> values;
-
-        public List<SimpleSettingsRoot> getValues()
-        {
-            return values;
-        }
-
-        public void setValues(List<SimpleSettingsRoot> values)
-        {
-            this.values = values;
-        }
-    }
-
     @Before
     public void setup()
     {
         this.simpleSettingsRootAccessor = RootAccessorBuilder.newInstance()
-                .buildRootAccessor(SimpleSettingsRoot.class);
+                .buildRootAccessor(SimpleListFieldSettingsRoot.class);
         this.compoundSettingsRootAccessor = RootAccessorBuilder.newInstance()
-                .buildRootAccessor(CompoundSettingsRoot.class);
+                .buildRootAccessor(CompoundListFieldSettingsRoot.class);
         this.properties = new DummyBackingStore();
     }
 
     @Test
     public void copyValueMustPopulateTargetAsExpectedForSimpleSettingsRoot()
     {
-        SimpleSettingsRoot source = new SimpleSettingsRoot();
-        SimpleSettingsRoot target = new SimpleSettingsRoot();
+        SimpleListFieldSettingsRoot source = new SimpleListFieldSettingsRoot();
+        SimpleListFieldSettingsRoot target = new SimpleListFieldSettingsRoot();
         source.setValues(new ArrayList<Integer>());
         source.getValues().add(1);
         source.getValues().add(2);
@@ -98,14 +63,16 @@ public class ListPropertyAccessorImplTest
     @Test
     public void copyValueMustPopulateTargetAsExpectedForCompoundSettingsRoot()
     {
-        CompoundSettingsRoot source = new CompoundSettingsRoot();
-        CompoundSettingsRoot target = new CompoundSettingsRoot();
-        SimpleSettingsRoot v1 = new SimpleSettingsRoot();
+        CompoundListFieldSettingsRoot source =
+                                      new CompoundListFieldSettingsRoot();
+        CompoundListFieldSettingsRoot target =
+                                      new CompoundListFieldSettingsRoot();
+        SimpleListFieldSettingsRoot v1 = new SimpleListFieldSettingsRoot();
         v1.setValues(new ArrayList<Integer>());
         v1.getValues().add(1);
         v1.getValues().add(2);
         v1.getValues().add(3);
-        source.setValues(new ArrayList<SimpleSettingsRoot>());
+        source.setValues(new ArrayList<SimpleListFieldSettingsRoot>());
         source.getValues().add(v1);
         this.compoundSettingsRootAccessor.copyValue(source, target);
         Assert
@@ -119,7 +86,8 @@ public class ListPropertyAccessorImplTest
     public void readFromPropertiesMustPopulateSimpleSettingsRootAsExpected()
             throws Exception
     {
-        SimpleSettingsRoot settingsRoot = new SimpleSettingsRoot();
+        SimpleListFieldSettingsRoot settingsRoot =
+                                    new SimpleListFieldSettingsRoot();
         properties.setString("values.0", "1");
         properties.setString("values.1", "2");
         properties.setString("values.2", "3");
@@ -136,7 +104,8 @@ public class ListPropertyAccessorImplTest
     public void readFromPropertiesMustPopulateCompoundSettingsRootAsExpected()
             throws Exception
     {
-        CompoundSettingsRoot settingsRoot = new CompoundSettingsRoot();
+        CompoundListFieldSettingsRoot settingsRoot =
+                                      new CompoundListFieldSettingsRoot();
         properties.setString("values.0.values.0", "1");
         properties.setString("values.0.values.1", "2");
         properties.setString("values.0.values.2", "3");
@@ -155,7 +124,8 @@ public class ListPropertyAccessorImplTest
     public void writeToPropertiesMustPopulatePropertiesFromSimpleSettingsRootAsExpected()
             throws Exception
     {
-        SimpleSettingsRoot settingsRoot = new SimpleSettingsRoot();
+        SimpleListFieldSettingsRoot settingsRoot =
+                                    new SimpleListFieldSettingsRoot();
         settingsRoot.setValues(new ArrayList<Integer>());
         settingsRoot.getValues().add(1);
         settingsRoot.getValues().add(2);
@@ -177,13 +147,14 @@ public class ListPropertyAccessorImplTest
     public void writeToPropertiesMustPopulatePropertiesFromCompoundSettingsRootAsExpected()
             throws Exception
     {
-        CompoundSettingsRoot settingsRoot = new CompoundSettingsRoot();
-        SimpleSettingsRoot v1 = new SimpleSettingsRoot();
+        CompoundListFieldSettingsRoot settingsRoot =
+                                      new CompoundListFieldSettingsRoot();
+        SimpleListFieldSettingsRoot v1 = new SimpleListFieldSettingsRoot();
         v1.setValues(new ArrayList<Integer>());
         v1.getValues().add(1);
         v1.getValues().add(2);
         v1.getValues().add(3);
-        settingsRoot.setValues(new ArrayList<SimpleSettingsRoot>());
+        settingsRoot.setValues(new ArrayList<SimpleListFieldSettingsRoot>());
         settingsRoot.getValues().add(v1);
         this.compoundSettingsRootAccessor.writeToBackingStore(properties,
                                                               settingsRoot);

@@ -25,9 +25,9 @@ under the License.
     <language>en-us</language>
     <copyright>&#169;2013 axn software UG</copyright>
     <item>
-      <title>File: 48,
-             Errors: 0,
-             Warnings: 199,
+      <title>File: 50,
+             Errors: 2,
+             Warnings: 209,
              Infos: 0
       </title>
             <link>http://axnsoftware.github.com/commons-settings/checkstyle.html</link>
@@ -46,48 +46,6 @@ under the License.
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.IVisitor.java">de/axnsoftware/settings/impl/visitor/IVisitor.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.AbstractArrayItemAccessorImpl.java">de/axnsoftware/settings/impl/accessor/AbstractArrayItemAccessorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.MapFieldVisitorImpl.java">de/axnsoftware/settings/impl/visitor/MapFieldVisitorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.SettingsStoreImpl.java">de/axnsoftware/settings/impl/SettingsStoreImpl.java</a>
                 </td>
                 <td>
@@ -95,20 +53,6 @@ under the License.
                 </td>
                 <td>
                   4
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.AbstractMapItemAccessorImpl.java">de/axnsoftware/settings/impl/accessor/AbstractMapItemAccessorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
                 </td>
                 <td>
                   0
@@ -130,55 +74,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.ISettingsStore.java">de/axnsoftware/settings/ISettingsStore.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.ArrayFieldVisitorImpl.java">de/axnsoftware/settings/impl/visitor/ArrayFieldVisitorImpl.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  4
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.Property.java">de/axnsoftware/settings/Property.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  3
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.PropertyClassVisitorImpl.java">de/axnsoftware/settings/impl/visitor/PropertyClassVisitorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
+                  1
                 </td>
                 <td>
                   0
@@ -192,7 +94,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  51
+                  50
                 </td>
                 <td>
                   0
@@ -214,77 +116,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.DefaultTypeMapperImpl.java">de/axnsoftware/settings/impl/accessor/DefaultTypeMapperImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.DefaultValueHolder.java">de/axnsoftware/settings/impl/accessor/DefaultValueHolder.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  7
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.ISettings.java">de/axnsoftware/settings/ISettings.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.BranchPropertyAccessorImpl.java">de/axnsoftware/settings/impl/accessor/BranchPropertyAccessorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.EFileFormat.java">de/axnsoftware/settings/EFileFormat.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  1
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.RootAccessorBuilder.java">de/axnsoftware/settings/impl/accessor/RootAccessorBuilder.java</a>
                 </td>
                 <td>
                   0
@@ -304,49 +136,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.PropertyClassFieldVisitorImpl.java">de/axnsoftware/settings/impl/visitor/PropertyClassFieldVisitorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.ArrayPropertyAccessorImpl.java">de/axnsoftware/settings/impl/accessor/ArrayPropertyAccessorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.AbstractFieldVisitorImpl.java">de/axnsoftware/settings/impl/visitor/AbstractFieldVisitorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  11
+                  5
                 </td>
                 <td>
                   0
@@ -368,20 +158,6 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.PropertiesBackingStoreImpl.java">de/axnsoftware/settings/impl/PropertiesBackingStoreImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  5
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
                   <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.AbstractAccessorImpl.java">de/axnsoftware/settings/impl/accessor/AbstractAccessorImpl.java</a>
                 </td>
                 <td>
@@ -389,20 +165,6 @@ under the License.
                 </td>
                 <td>
                   13
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.LeafListItemAccessorImpl.java">de/axnsoftware/settings/impl/accessor/LeafListItemAccessorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  0
                 </td>
                 <td>
                   0
@@ -466,6 +228,328 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.SettingsImpl.java">de/axnsoftware/settings/impl/SettingsImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.ListFieldVisitorImpl.java">de/axnsoftware/settings/impl/visitor/ListFieldVisitorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.AbstractPropertyAccessorImpl.java">de/axnsoftware/settings/impl/accessor/AbstractPropertyAccessorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  6
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.util.OrderedProperties.java">de/axnsoftware/settings/util/OrderedProperties.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.ITypeMapper.java">de/axnsoftware/settings/ITypeMapper.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  11
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.IVisitor.java">de/axnsoftware/settings/impl/visitor/IVisitor.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.AbstractArrayItemAccessorImpl.java">de/axnsoftware/settings/impl/accessor/AbstractArrayItemAccessorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.MapFieldVisitorImpl.java">de/axnsoftware/settings/impl/visitor/MapFieldVisitorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.AbstractMapItemAccessorImpl.java">de/axnsoftware/settings/impl/accessor/AbstractMapItemAccessorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.AbstractContainerFieldVisitorImpl.java">de/axnsoftware/settings/impl/visitor/AbstractContainerFieldVisitorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  10
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.ISettingsStore.java">de/axnsoftware/settings/ISettingsStore.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  4
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.PropertyClassVisitorImpl.java">de/axnsoftware/settings/impl/visitor/PropertyClassVisitorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.Property.java">de/axnsoftware/settings/Property.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.DefaultTypeMapperImpl.java">de/axnsoftware/settings/impl/accessor/DefaultTypeMapperImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.BranchPropertyAccessorImpl.java">de/axnsoftware/settings/impl/accessor/BranchPropertyAccessorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.EFileFormat.java">de/axnsoftware/settings/EFileFormat.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.RootAccessorBuilder.java">de/axnsoftware/settings/impl/accessor/RootAccessorBuilder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  1
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.ArrayPropertyAccessorImpl.java">de/axnsoftware/settings/impl/accessor/ArrayPropertyAccessorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  3
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.PropertyClassFieldVisitorImpl.java">de/axnsoftware/settings/impl/visitor/PropertyClassFieldVisitorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.AbstractFieldVisitorImpl.java">de/axnsoftware/settings/impl/visitor/AbstractFieldVisitorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.util.DefaultValueHolder.java">de/axnsoftware/settings/util/DefaultValueHolder.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  8
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.PropertiesBackingStoreImpl.java">de/axnsoftware/settings/impl/PropertiesBackingStoreImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  5
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.LeafListItemAccessorImpl.java">de/axnsoftware/settings/impl/accessor/LeafListItemAccessorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.IContainerItemAccessor.java">de/axnsoftware/settings/impl/accessor/IContainerItemAccessor.java</a>
                 </td>
                 <td>
@@ -508,7 +592,7 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.FailFastVisitorImpl.java">de/axnsoftware/settings/impl/visitor/FailFastVisitorImpl.java</a>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.AbstractListItemAccessorImpl.java">de/axnsoftware/settings/impl/accessor/AbstractListItemAccessorImpl.java</a>
                 </td>
                 <td>
                   0
@@ -522,41 +606,13 @@ under the License.
               </tr>
                           <tr>
                 <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.SettingsImpl.java">de/axnsoftware/settings/impl/SettingsImpl.java</a>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.FailFastVisitorImpl.java">de/axnsoftware/settings/impl/visitor/FailFastVisitorImpl.java</a>
                 </td>
                 <td>
                   0
                 </td>
                 <td>
-                  6
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.AbstractListItemAccessorImpl.java">de/axnsoftware/settings/impl/accessor/AbstractListItemAccessorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.ListFieldVisitorImpl.java">de/axnsoftware/settings/impl/visitor/ListFieldVisitorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  4
+                  1
                 </td>
                 <td>
                   0
@@ -578,6 +634,20 @@ under the License.
               </tr>
                           <tr>
                 <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.visitor.VisitorUtils.java">de/axnsoftware/settings/impl/visitor/VisitorUtils.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  14
+                </td>
+                <td>
+                  2
+                </td>
+              </tr>
+                          <tr>
+                <td>
                   <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.SettingsStoreFactory.java">de/axnsoftware/settings/SettingsStoreFactory.java</a>
                 </td>
                 <td>
@@ -585,34 +655,6 @@ under the License.
                 </td>
                 <td>
                   6
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.AbstractPropertyAccessorImpl.java">de/axnsoftware/settings/impl/accessor/AbstractPropertyAccessorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  6
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.util.OrderedProperties.java">de/axnsoftware/settings/util/OrderedProperties.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  3
                 </td>
                 <td>
                   0
@@ -668,35 +710,7 @@ under the License.
                   0
                 </td>
                 <td>
-                  4
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.ITypeMapper.java">de/axnsoftware/settings/ITypeMapper.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  11
-                </td>
-                <td>
-                  0
-                </td>
-              </tr>
-                          <tr>
-                <td>
-                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.AbstractContainerPropertyAccessorImpl.java">de/axnsoftware/settings/impl/accessor/AbstractContainerPropertyAccessorImpl.java</a>
-                </td>
-                <td>
-                  0
-                </td>
-                <td>
-                  2
+                  6
                 </td>
                 <td>
                   0
@@ -711,6 +725,20 @@ under the License.
                 </td>
                 <td>
                   5
+                </td>
+                <td>
+                  0
+                </td>
+              </tr>
+                          <tr>
+                <td>
+                  <a href="http://axnsoftware.github.com/commons-settings/checkstyle.html#de.axnsoftware.settings.impl.accessor.AbstractContainerPropertyAccessorImpl.java">de/axnsoftware/settings/impl/accessor/AbstractContainerPropertyAccessorImpl.java</a>
+                </td>
+                <td>
+                  0
+                </td>
+                <td>
+                  2
                 </td>
                 <td>
                   0

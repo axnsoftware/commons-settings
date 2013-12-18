@@ -73,7 +73,7 @@
 <a class="jxr_linenumber" name="63" href="#63">63</a>          typeMappings = result.getTypeMappings();
 <a class="jxr_linenumber" name="64" href="#64">64</a>          typeMappings.putAll(<a href="../../../../../de/axnsoftware/settings/impl/accessor/DefaultTypeMapperImpl.html">DefaultTypeMapperImpl</a>
 <a class="jxr_linenumber" name="65" href="#65">65</a>                  .getPreparedDefaultTypeMappings());
-<a class="jxr_linenumber" name="66" href="#66">66</a>          <a href="../../../../../de/axnsoftware/settings/impl/visitor/IVisitor.html">IVisitor</a> visitor = <strong class="jxr_keyword">new</strong> <a href="../../../../../de/axnsoftware/settings/impl/visitor/PropertyClassVisitorImpl.html">PropertyClassVisitorImpl</a>();
+<a class="jxr_linenumber" name="66" href="#66">66</a>          IVisitor&lt;Class&lt;?&gt;&gt; visitor = <strong class="jxr_keyword">new</strong> <a href="../../../../../de/axnsoftware/settings/impl/visitor/PropertyClassVisitorImpl.html">PropertyClassVisitorImpl</a>();
 <a class="jxr_linenumber" name="67" href="#67">67</a>          <strong class="jxr_keyword">if</strong> (visitor.canVisit(type))
 <a class="jxr_linenumber" name="68" href="#68">68</a>          {
 <a class="jxr_linenumber" name="69" href="#69">69</a>              visitor.visit(type, result);

@@ -70,7 +70,7 @@
 <a class="jxr_linenumber" name="60" href="#60">60</a>          }
 <a class="jxr_linenumber" name="61" href="#61">61</a>  
 <a class="jxr_linenumber" name="62" href="#62">62</a>          <strong class="jxr_keyword">this</strong>.fileFormat = fileFormat;
-<a class="jxr_linenumber" name="63" href="#63">63</a>          <strong class="jxr_keyword">this</strong>.properties = <strong class="jxr_keyword">new</strong> Properties();
+<a class="jxr_linenumber" name="63" href="#63">63</a>          <strong class="jxr_keyword">this</strong>.properties = <strong class="jxr_keyword">new</strong> <a href="../../../../de/axnsoftware/settings/util/OrderedProperties.html">OrderedProperties</a>();
 <a class="jxr_linenumber" name="64" href="#64">64</a>          <strong class="jxr_keyword">this</strong>.storagePath = storagePath;
 <a class="jxr_linenumber" name="65" href="#65">65</a>      }
 <a class="jxr_linenumber" name="66" href="#66">66</a>  
@@ -364,23 +364,21 @@
 <a class="jxr_linenumber" name="354" href="#354">354</a>         <strong class="jxr_keyword">try</strong> (<strong class="jxr_keyword">final</strong> OutputStream outputStream = <strong class="jxr_keyword">new</strong> FileOutputStream(
 <a class="jxr_linenumber" name="355" href="#355">355</a>                 <strong class="jxr_keyword">this</strong>.storagePath))
 <a class="jxr_linenumber" name="356" href="#356">356</a>         {
-<a class="jxr_linenumber" name="357" href="#357">357</a>             <strong class="jxr_keyword">final</strong> <a href="../../../../de/axnsoftware/settings/util/OrderedProperties.html">OrderedProperties</a> orderedProperties = <strong class="jxr_keyword">new</strong> <a href="../../../../de/axnsoftware/settings/util/OrderedProperties.html">OrderedProperties</a>();
-<a class="jxr_linenumber" name="358" href="#358">358</a>             orderedProperties.putAll(<strong class="jxr_keyword">this</strong>.properties);
-<a class="jxr_linenumber" name="359" href="#359">359</a>             <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.fileFormat.equals(EFileFormat.PLAIN_TEXT))
-<a class="jxr_linenumber" name="360" href="#360">360</a>             {
-<a class="jxr_linenumber" name="361" href="#361">361</a>                 orderedProperties.store(outputStream, <strong class="jxr_keyword">null</strong>);
-<a class="jxr_linenumber" name="362" href="#362">362</a>             }
-<a class="jxr_linenumber" name="363" href="#363">363</a>             <strong class="jxr_keyword">else</strong>
-<a class="jxr_linenumber" name="364" href="#364">364</a>             {
-<a class="jxr_linenumber" name="365" href="#365">365</a>                 orderedProperties.storeToXML(outputStream, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"utf-8"</span>);
-<a class="jxr_linenumber" name="366" href="#366">366</a>             }
-<a class="jxr_linenumber" name="367" href="#367">367</a>         }
-<a class="jxr_linenumber" name="368" href="#368">368</a>         <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IOException e)
-<a class="jxr_linenumber" name="369" href="#369">369</a>         {
-<a class="jxr_linenumber" name="370" href="#370">370</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> BackingStoreException(e);
-<a class="jxr_linenumber" name="371" href="#371">371</a>         }
-<a class="jxr_linenumber" name="372" href="#372">372</a>     }
-<a class="jxr_linenumber" name="373" href="#373">373</a> }
+<a class="jxr_linenumber" name="357" href="#357">357</a>             <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">this</strong>.fileFormat.equals(EFileFormat.PLAIN_TEXT))
+<a class="jxr_linenumber" name="358" href="#358">358</a>             {
+<a class="jxr_linenumber" name="359" href="#359">359</a>                 <strong class="jxr_keyword">this</strong>.properties.store(outputStream, <strong class="jxr_keyword">null</strong>);
+<a class="jxr_linenumber" name="360" href="#360">360</a>             }
+<a class="jxr_linenumber" name="361" href="#361">361</a>             <strong class="jxr_keyword">else</strong>
+<a class="jxr_linenumber" name="362" href="#362">362</a>             {
+<a class="jxr_linenumber" name="363" href="#363">363</a>                 <strong class="jxr_keyword">this</strong>.properties.storeToXML(outputStream, <strong class="jxr_keyword">null</strong>, <span class="jxr_string">"utf-8"</span>);
+<a class="jxr_linenumber" name="364" href="#364">364</a>             }
+<a class="jxr_linenumber" name="365" href="#365">365</a>         }
+<a class="jxr_linenumber" name="366" href="#366">366</a>         <strong class="jxr_keyword">catch</strong> (<strong class="jxr_keyword">final</strong> IOException e)
+<a class="jxr_linenumber" name="367" href="#367">367</a>         {
+<a class="jxr_linenumber" name="368" href="#368">368</a>             <strong class="jxr_keyword">throw</strong> <strong class="jxr_keyword">new</strong> BackingStoreException(e);
+<a class="jxr_linenumber" name="369" href="#369">369</a>         }
+<a class="jxr_linenumber" name="370" href="#370">370</a>     }
+<a class="jxr_linenumber" name="371" href="#371">371</a> }
 </pre>
 <hr/><div id="footer">This page was automatically generated by <a href="http://maven.apache.org/">Maven</a></div></body>
 </html>

@@ -3,10 +3,10 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <title>DefaultValueHolder xref</title>
-<link type="text/css" rel="stylesheet" href="../../../../../stylesheet.css" />
+<link type="text/css" rel="stylesheet" href="../../../../stylesheet.css" />
 </head>
 <body>
-<div id="overview"><a href="../../../../../../apidocs/de/axnsoftware/settings/impl/accessor/DefaultValueHolder.html">View Javadoc</a></div><pre>
+<div id="overview"><a href="../../../../../apidocs/de/axnsoftware/settings/util/DefaultValueHolder.html">View Javadoc</a></div><pre>
 
 <a class="jxr_linenumber" name="1" href="#1">1</a>   <em class="jxr_comment">/*</em>
 <a class="jxr_linenumber" name="2" href="#2">2</a>   <em class="jxr_comment"> * Copyright 2013 axn software UG</em>
@@ -23,7 +23,7 @@
 <a class="jxr_linenumber" name="13" href="#13">13</a>  <em class="jxr_comment"> * See the License for the specific language governing permissions and</em>
 <a class="jxr_linenumber" name="14" href="#14">14</a>  <em class="jxr_comment"> * limitations under the License.</em>
 <a class="jxr_linenumber" name="15" href="#15">15</a>  <em class="jxr_comment"> */</em>
-<a class="jxr_linenumber" name="16" href="#16">16</a>  <strong class="jxr_keyword">package</strong> de.axnsoftware.settings.impl.accessor;
+<a class="jxr_linenumber" name="16" href="#16">16</a>  <strong class="jxr_keyword">package</strong> de.axnsoftware.settings.util;
 <a class="jxr_linenumber" name="17" href="#17">17</a>  
 <a class="jxr_linenumber" name="18" href="#18">18</a>  <strong class="jxr_keyword">import</strong> de.axnsoftware.settings.ITypeMapper;
 <a class="jxr_linenumber" name="19" href="#19">19</a>  
@@ -34,17 +34,17 @@
 <a class="jxr_linenumber" name="24" href="#24">24</a>  <em class="jxr_javadoccomment"> * @author Carsten Klein "cklein" &lt;carsten.klein@axn-software.de&gt;</em>
 <a class="jxr_linenumber" name="25" href="#25">25</a>  <em class="jxr_javadoccomment"> * @since 1.0.0</em>
 <a class="jxr_linenumber" name="26" href="#26">26</a>  <em class="jxr_javadoccomment"> */</em>
-<a class="jxr_linenumber" name="27" href="#27">27</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../../de/axnsoftware/settings/impl/accessor/DefaultValueHolder.html">DefaultValueHolder</a>
+<a class="jxr_linenumber" name="27" href="#27">27</a>  <strong class="jxr_keyword">public</strong> <strong class="jxr_keyword">final</strong> <strong class="jxr_keyword">class</strong> <a href="../../../../de/axnsoftware/settings/util/DefaultValueHolder.html">DefaultValueHolder</a>
 <a class="jxr_linenumber" name="28" href="#28">28</a>  {
 <a class="jxr_linenumber" name="29" href="#29">29</a>  
 <a class="jxr_linenumber" name="30" href="#30">30</a>      <strong class="jxr_keyword">private</strong> Object cachedValue;
 <a class="jxr_linenumber" name="31" href="#31">31</a>      <strong class="jxr_keyword">private</strong> String defaultValue;
 <a class="jxr_linenumber" name="32" href="#32">32</a>      <strong class="jxr_keyword">private</strong> Boolean doNotCacheAgain;
 <a class="jxr_linenumber" name="33" href="#33">33</a>      <strong class="jxr_keyword">private</strong> Class&lt;?&gt; type;
-<a class="jxr_linenumber" name="34" href="#34">34</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../../de/axnsoftware/settings/ITypeMapper.html">ITypeMapper</a> typeMapper;
+<a class="jxr_linenumber" name="34" href="#34">34</a>      <strong class="jxr_keyword">private</strong> <a href="../../../../de/axnsoftware/settings/ITypeMapper.html">ITypeMapper</a> typeMapper;
 <a class="jxr_linenumber" name="35" href="#35">35</a>  
-<a class="jxr_linenumber" name="36" href="#36">36</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../../de/axnsoftware/settings/impl/accessor/DefaultValueHolder.html">DefaultValueHolder</a>(<strong class="jxr_keyword">final</strong> String defaultValue, <strong class="jxr_keyword">final</strong> Class&lt;?&gt; type,
-<a class="jxr_linenumber" name="37" href="#37">37</a>                                <strong class="jxr_keyword">final</strong> <a href="../../../../../de/axnsoftware/settings/ITypeMapper.html">ITypeMapper</a> typeMapper)
+<a class="jxr_linenumber" name="36" href="#36">36</a>      <strong class="jxr_keyword">public</strong> <a href="../../../../de/axnsoftware/settings/util/DefaultValueHolder.html">DefaultValueHolder</a>(<strong class="jxr_keyword">final</strong> String defaultValue, <strong class="jxr_keyword">final</strong> Class&lt;?&gt; type,
+<a class="jxr_linenumber" name="37" href="#37">37</a>                                <strong class="jxr_keyword">final</strong> <a href="../../../../de/axnsoftware/settings/ITypeMapper.html">ITypeMapper</a> typeMapper)
 <a class="jxr_linenumber" name="38" href="#38">38</a>      {
 <a class="jxr_linenumber" name="39" href="#39">39</a>          <strong class="jxr_keyword">if</strong> (<strong class="jxr_keyword">null</strong> == type)
 <a class="jxr_linenumber" name="40" href="#40">40</a>          {

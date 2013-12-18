@@ -31,6 +31,13 @@ import java.util.Map;
 public final class VisitorUtils
 {
 
+    /**
+     * Must not be instantiated.
+     */
+    private VisitorUtils()
+    {
+    }
+
     public static String capitalizeFieldName(final Field field)
     {
         final String fieldName = field.getName();

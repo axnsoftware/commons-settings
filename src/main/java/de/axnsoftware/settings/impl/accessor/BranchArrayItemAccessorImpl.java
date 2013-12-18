@@ -75,8 +75,7 @@ public final class BranchArrayItemAccessorImpl
         for (IAccessor childAccessor : this.getChildAccessors())
         {
             ((IPropertyAccessor) childAccessor).readFromBackingStore(
-                    backingStore,
-                    settingsRoot);
+                    backingStore, settingsRoot);
         }
     }
 
@@ -90,9 +89,8 @@ public final class BranchArrayItemAccessorImpl
     {
         for (IAccessor childAccessor : this.getChildAccessors())
         {
-            ((IPropertyAccessor) childAccessor).writeToBackingStore(
-                    backingStore,
-                    settingsRoot);
+            ((IPropertyAccessor) childAccessor)
+                    .writeToBackingStore(backingStore, settingsRoot);
         }
     }
 }

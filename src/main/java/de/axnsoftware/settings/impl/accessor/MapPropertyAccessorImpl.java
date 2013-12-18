@@ -39,6 +39,7 @@ public final class MapPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void copyValue(final Object source, final Object target)
     {
         final Map<String, Object> sourceMap = (Map<String, Object>) this
@@ -47,7 +48,8 @@ public final class MapPropertyAccessorImpl
         this.setValue(targetMap, target);
         for (final Map.Entry<String, Object> entry : sourceMap.entrySet())
         {
-            IContainerItemAccessor accessor = (IContainerItemAccessor) this
+            IContainerItemAccessor<String> accessor =
+                                           (IContainerItemAccessor<String>) this
                     .getItemAccessorTemplate().clone();
             accessor.setItemKey(entry.getKey());
             accessor.copyValue(source, target);
@@ -73,6 +75,7 @@ public final class MapPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void readFromBackingStore(final IBackingStore backingStore,
                                      final Object settingsRoot) throws
             BackingStoreException
@@ -108,7 +111,8 @@ public final class MapPropertyAccessorImpl
                       settingsRoot);
         for (final String itemKey : itemKeys)
         {
-            IContainerItemAccessor accessor = (IContainerItemAccessor) this
+            IContainerItemAccessor<String> accessor =
+                                           (IContainerItemAccessor<String>) this
                     .getItemAccessorTemplate().clone();
             accessor.setItemKey(itemKey);
             accessor.readFromBackingStore(backingStore, settingsRoot);
@@ -119,6 +123,7 @@ public final class MapPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void writeToBackingStore(final IBackingStore backingStore,
                                     final Object settingsRoot) throws
             BackingStoreException
@@ -127,7 +132,8 @@ public final class MapPropertyAccessorImpl
                 settingsRoot);
         for (final String itemKey : items.keySet())
         {
-            IContainerItemAccessor accessor = (IContainerItemAccessor) this
+            IContainerItemAccessor<String> accessor =
+                                           (IContainerItemAccessor<String>) this
                     .getItemAccessorTemplate().clone();
             accessor.setItemKey(itemKey);
             accessor.writeToBackingStore(backingStore, settingsRoot);

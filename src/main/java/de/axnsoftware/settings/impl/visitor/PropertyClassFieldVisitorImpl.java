@@ -33,9 +33,10 @@ public final class PropertyClassFieldVisitorImpl
         extends AbstractFieldVisitorImpl
 {
 
-    private IVisitor propertyClassVisitor;
+    private IVisitor<Class<?>> propertyClassVisitor;
 
-    public PropertyClassFieldVisitorImpl(final IVisitor propertyClassVisitor)
+    public PropertyClassFieldVisitorImpl(
+            final IVisitor<Class<?>> propertyClassVisitor)
     {
         this.propertyClassVisitor = propertyClassVisitor;
     }
@@ -56,7 +57,7 @@ public final class PropertyClassFieldVisitorImpl
     public void visit(final Field visitee, final IAccessor parentAccessor)
     {
         final IPropertyAccessor accessor = new BranchPropertyAccessorImpl();
-        this.configureAccessor(accessor, parentAccessor, visitee);
+        VisitorUtils.configureAccessor(accessor, parentAccessor, visitee);
         this.propertyClassVisitor.visit(visitee.getType(), accessor);
     }
 }

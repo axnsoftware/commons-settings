@@ -28,11 +28,6 @@ public abstract class AbstractArrayItemAccessorImpl
         extends AbstractContainerItemAccessorImpl<Integer>
 {
 
-    protected AbstractArrayItemAccessorImpl()
-    {
-        super();
-    }
-
     /**
      * {@inheritDoc}
      */

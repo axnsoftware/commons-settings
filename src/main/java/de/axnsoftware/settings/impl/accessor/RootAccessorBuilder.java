@@ -63,7 +63,7 @@ public final class RootAccessorBuilder
         typeMappings = result.getTypeMappings();
         typeMappings.putAll(DefaultTypeMapperImpl
                 .getPreparedDefaultTypeMappings());
-        IVisitor visitor = new PropertyClassVisitorImpl();
+        IVisitor<Class<?>> visitor = new PropertyClassVisitorImpl();
         if (visitor.canVisit(type))
         {
             visitor.visit(type, result);

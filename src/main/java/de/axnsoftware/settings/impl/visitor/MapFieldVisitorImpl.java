@@ -23,9 +23,6 @@ import de.axnsoftware.settings.impl.accessor.LeafMapItemAccessorImpl;
 import de.axnsoftware.settings.impl.accessor.MapPropertyAccessorImpl;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,20 +34,12 @@ import java.util.Map;
  * @since 1.0.0
  */
 public final class MapFieldVisitorImpl
-        extends AbstractFieldVisitorImpl
+        extends AbstractContainerFieldVisitorImpl
 {
 
-    private final List<IVisitor> visitors;
-    private Class<?> itemType;
-    private IVisitor<Class<?>> itemVisitor;
-
-    public MapFieldVisitorImpl(final IVisitor propertyClassVisitor)
+    public MapFieldVisitorImpl(final IVisitor<Class<?>> propertyClassVisitor)
     {
-        this.visitors = new ArrayList<>();
-        this.visitors.add(propertyClassVisitor);
-        this.visitors.addAll(Arrays.asList(SimpleTypeVisitorImpl
-                .getPreparedSimpleTypeVisitors()));
-        this.visitors.add(new FailFastVisitorImpl<Class<?>>());
+        super(propertyClassVisitor);
     }
 
     /**
@@ -61,30 +50,17 @@ public final class MapFieldVisitorImpl
     {
         Boolean result = Boolean.FALSE;
         final Class<?> type = visitee.getType();
-        this.itemType = null;
         if (Map.class.isAssignableFrom(type))
         {
             ParameterizedType parameterizedType = (ParameterizedType) visitee
                     .getGenericType();
-            this.itemType = (Class<?>) parameterizedType
-                    .getActualTypeArguments()[1];
-            if (this.itemVisitor != null && this.itemVisitor.canVisit(
-                    this.itemType))
+            // TODO:log error that keys have to be of type String
+            if (String.class.equals(
+                    parameterizedType.getActualTypeArguments()[0]))
             {
-                result = Boolean.TRUE;
-            }
-            else
-            {
-                this.itemVisitor = null;
-                for (final IVisitor visitor : this.visitors)
-                {
-                    if (visitor.canVisit(this.itemType))
-                    {
-                        this.itemVisitor = visitor;
-                        result = Boolean.TRUE;
-                        break;
-                    }
-                }
+                this.setItemType((Class<?>) parameterizedType
+                        .getActualTypeArguments()[1]);
+                result = super.canVisitItemType();
             }
         }
         return result;
@@ -96,10 +72,12 @@ public final class MapFieldVisitorImpl
     @Override
     public void visit(final Field visitee, final IAccessor parentAccessor)
     {
+        IVisitor<Class<?>> itemVisitor = this.getItemVisitor();
+        Class<?> itemType = this.getItemType();
         IContainerPropertyAccessor accessor = new MapPropertyAccessorImpl();
-        this.configureAccessor(accessor, parentAccessor, visitee);
+        VisitorUtils.configureAccessor(accessor, parentAccessor, visitee);
         IContainerItemAccessor itemAccessorTemplate;
-        if (this.itemVisitor instanceof SimpleTypeVisitorImpl)
+        if (itemVisitor instanceof SimpleTypeVisitorImpl)
         {
             itemAccessorTemplate = new LeafMapItemAccessorImpl();
         }
@@ -108,8 +86,8 @@ public final class MapFieldVisitorImpl
             itemAccessorTemplate = new BranchMapItemAccessorImpl();
         }
         itemAccessorTemplate.setParentAccessor(accessor);
-        itemAccessorTemplate.setType(this.itemType);
+        itemAccessorTemplate.setType(itemType);
         accessor.setItemAccessorTemplate(itemAccessorTemplate);
-        this.itemVisitor.visit(this.itemType, itemAccessorTemplate);
+        itemVisitor.visit(itemType, itemAccessorTemplate);
     }
 }

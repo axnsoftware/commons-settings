@@ -63,13 +63,17 @@ public final class PropertyClassVisitorImpl
     @Override
     public void visit(final Class<?> visitee, final IAccessor parentAccessor)
     {
+        /*
+         * Make sure that the parentAccessor supports child accessors
+         * as they will be added by the visited fieldVisitors.
+         */
         if (null == parentAccessor.getChildAccessors())
         {
             parentAccessor.setChildAccessors(new ArrayList<IAccessor>());
         }
         for (Field field : visitee.getDeclaredFields())
         {
-            for (IVisitor visitor : this.fieldVisitors)
+            for (IVisitor<Field> visitor : this.fieldVisitors)
             {
                 if (visitor.canVisit(field))
                 {

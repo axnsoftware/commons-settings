@@ -17,6 +17,7 @@ package de.axnsoftware.settings.util;
 
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.LinkedHashMap;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeSet;
@@ -31,6 +32,17 @@ import java.util.TreeSet;
 public class OrderedProperties
         extends Properties
 {
+
+    @Override
+    public Set<String> stringPropertyNames()
+    {
+        Set<String> result = new TreeSet<>();
+        for (Object key : this.keySet())
+        {
+            result.add((String) key);
+        }
+        return result;
+    }
 
     /**
      * Returns the keys in alphanumerical order.

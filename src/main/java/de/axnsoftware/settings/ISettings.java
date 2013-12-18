@@ -31,7 +31,7 @@ public interface ISettings
     /**
      * Returns the type registered with the underlying {@code ISettingsStore}.
      *
-     * @return
+     * @return the registered type
      */
     Class<?> getType();
 

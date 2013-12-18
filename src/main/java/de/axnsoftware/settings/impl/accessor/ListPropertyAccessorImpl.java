@@ -38,6 +38,7 @@ public final class ListPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void copyValue(final Object source, final Object target)
     {
         final List<Object> sourceList = (List<Object>) this.getValue(source);
@@ -45,9 +46,9 @@ public final class ListPropertyAccessorImpl
         this.setValue(targetList, target);
         for (int index = 0; index < sourceList.size(); index++)
         {
-            IContainerItemAccessor accessor;
-            accessor = (IContainerItemAccessor) this.getItemAccessorTemplate()
-                    .clone();
+            IContainerItemAccessor<Integer> accessor;
+            accessor = (IContainerItemAccessor<Integer>) this
+                    .getItemAccessorTemplate().clone();
             accessor.setItemKey(Integer.valueOf(index));
             accessor.copyValue(source, target);
         }
@@ -72,6 +73,7 @@ public final class ListPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void readFromBackingStore(final IBackingStore backingStore,
                                      final Object settingsRoot) throws
             BackingStoreException
@@ -97,8 +99,8 @@ public final class ListPropertyAccessorImpl
         this.setValue(items, settingsRoot);
         for (int index = 0; index < itemKeys.size(); index++)
         {
-            IContainerItemAccessor accessor;
-            accessor = (IContainerItemAccessor) this
+            IContainerItemAccessor<Integer> accessor;
+            accessor = (IContainerItemAccessor<Integer>) this
                     .getItemAccessorTemplate().clone();
             accessor.setItemKey(index);
             accessor.readFromBackingStore(backingStore, settingsRoot);
@@ -122,6 +124,7 @@ public final class ListPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void writeToBackingStore(final IBackingStore backingStore,
                                     final Object settingsRoot) throws
             BackingStoreException
@@ -129,9 +132,9 @@ public final class ListPropertyAccessorImpl
         final List<Object> items = (List<Object>) this.getValue(settingsRoot);
         for (int index = 0; index < items.size(); index++)
         {
-            IContainerItemAccessor accessor;
-            accessor = (IContainerItemAccessor) this.getItemAccessorTemplate()
-                    .clone();
+            IContainerItemAccessor<Integer> accessor;
+            accessor = (IContainerItemAccessor<Integer>) this
+                    .getItemAccessorTemplate().clone();
             accessor.setItemKey(index);
             accessor.writeToBackingStore(backingStore, settingsRoot);
         }

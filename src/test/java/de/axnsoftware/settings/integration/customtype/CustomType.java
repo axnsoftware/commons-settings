@@ -15,18 +15,26 @@
  */
 package de.axnsoftware.settings.integration.customtype;
 
+import de.axnsoftware.settings.Property;
+import java.util.Objects;
+
 /**
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  */
+@Property(typeMapper =
+          "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
 public class CustomType
+        implements Comparable<CustomType>
 {
 
     private Integer intValue;
     private Float floatValue;
 
-    public CustomType()
+    public CustomType(Integer intValue, Float floatValue)
     {
+        this.intValue = intValue;
+        this.floatValue = floatValue;
     }
 
     public Integer getIntValue()
@@ -34,18 +42,39 @@ public class CustomType
         return intValue;
     }
 
-    public void setIntValue(Integer intValue)
-    {
-        this.intValue = intValue;
-    }
-
     public Float getFloatValue()
     {
         return floatValue;
     }
 
-    public void setFloatValue(Float floatValue)
+    @Override
+    public boolean equals(Object o)
     {
-        this.floatValue = floatValue;
+        boolean result = false;
+        if (o instanceof CustomType)
+        {
+            result = 0 == this.compareTo((CustomType) o);
+        }
+        return result;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.intValue);
+        hash = 41 * hash + Objects.hashCode(this.floatValue);
+        return hash;
+    }
+
+    @Override
+    public int compareTo(CustomType o)
+    {
+        int result = this.intValue.compareTo(o.intValue);
+        if (0 == result)
+        {
+            result = this.floatValue.compareTo(o.floatValue);
+        }
+        return result;
     }
 }

@@ -30,15 +30,11 @@ public abstract class AbstractMapItemAccessorImpl
         extends AbstractContainerItemAccessorImpl<String>
 {
 
-    protected AbstractMapItemAccessorImpl()
-    {
-        super();
-    }
-
     /**
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public Object getValue(final Object settingsRoot)
     {
         Map<String, Object> container = (Map<String, Object>) this
@@ -50,6 +46,7 @@ public abstract class AbstractMapItemAccessorImpl
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public final void setValue(final Object value, final Object settingsRoot)
     {
         Map<String, Object> container = (Map<String, Object>) this

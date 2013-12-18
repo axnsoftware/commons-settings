@@ -76,6 +76,9 @@
                     <target>${targetVersion}</target>
                     <debug>true</debug>
                     <showDeprecation>true</showDeprecation>
+                    <compilerArgs>
+                        <arg>-Xlint:unchecked</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>

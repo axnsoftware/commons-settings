@@ -31,10 +31,7 @@ public class CustomTypeTypeMapperImpl
     public Object copyOf(Object value)
     {
         CustomType original = (CustomType) value;
-        CustomType result = new CustomType();
-        result.setFloatValue(original.getFloatValue());
-        result.setIntValue(original.getIntValue());
-        return result;
+        return new CustomType(original.getIntValue(), original.getFloatValue());
     }
 
     @Override
@@ -42,21 +39,16 @@ public class CustomTypeTypeMapperImpl
                                        Class<?> type) throws
             BackingStoreException
     {
-        CustomType result = new CustomType();
-        result.setIntValue(backingStore.getInteger(key + ".int"));
-        result.setFloatValue(backingStore.getFloat(key + ".float"));
-        return result;
+        return new CustomType(backingStore.getInteger(key + ".int"),
+                              backingStore.getFloat(key + ".float"));
     }
 
     @Override
-    public Object valueOf(String value,
-                          Class<?> type)
+    public Object valueOf(String value, Class<?> type)
     {
-        CustomType result = new CustomType();
         String[] components = value.split("|");
-        result.setFloatValue(Float.valueOf(components[0]));
-        result.setIntValue(Integer.valueOf(components[1]));
-        return result;
+        return new CustomType(Integer.valueOf(components[0]), Float.valueOf(
+                components[1]));
     }
 
     @Override

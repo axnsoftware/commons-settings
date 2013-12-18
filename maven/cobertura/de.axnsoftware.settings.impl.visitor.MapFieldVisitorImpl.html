@@ -87,7 +87,7 @@
   <td class="src"><pre class="src">&nbsp;<span class="comment"> * @since 1.0.0</span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;35</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;<span class="comment"> */</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;36</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;<span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> MapFieldVisitorImpl</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;36</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;<span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> MapFieldVisitorImpl</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;37</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        <span class="keyword">extends</span> AbstractContainerFieldVisitorImpl</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;38</td>  <td class="nbHits">&nbsp;</td>
@@ -98,8 +98,8 @@
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> MapFieldVisitorImpl(<span class="keyword">final</span> IVisitor&lt;Class&lt;?&gt;&gt; propertyClassVisitor)</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;41</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;42</td>  <td class="nbHitsCovered">&nbsp;74</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">super</span>(propertyClassVisitor);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;43</td>  <td class="nbHitsCovered">&nbsp;74</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;42</td>  <td class="nbHitsCovered">&nbsp;80</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">super</span>(propertyClassVisitor);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;43</td>  <td class="nbHitsCovered">&nbsp;80</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;44</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;45</td>  <td class="nbHits">&nbsp;</td>
@@ -114,30 +114,30 @@
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">protected</span> Boolean canVisitImpl(<span class="keyword">final</span> Field visitee)</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;50</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;51</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;        Boolean result = Boolean.FALSE;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;52</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> Class&lt;?&gt; type = visitee.getType();</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;53</td>  <td class="nbHitsUncovered"><a title="Line 53: Conditional coverage 50% (1/2).">&nbsp;38</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 53: Conditional coverage 50% (1/2).">        <span class="keyword">if</span> (Map.<span class="keyword">class</span>.isAssignableFrom(type))</a></span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;51</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;        Boolean result = Boolean.FALSE;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;52</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">final</span> Class&lt;?&gt; type = visitee.getType();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;53</td>  <td class="nbHitsUncovered"><a title="Line 53: Conditional coverage 50% (1/2).">&nbsp;44</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 53: Conditional coverage 50% (1/2).">        <span class="keyword">if</span> (Map.<span class="keyword">class</span>.isAssignableFrom(type))</a></span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;54</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;55</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;            ParameterizedType parameterizedType = (ParameterizedType) visitee</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;55</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;            ParameterizedType parameterizedType = (ParameterizedType) visitee</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;56</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                    .getGenericType();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;57</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            <span class="comment">// TODO:log error that keys have to be of type String</span></pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;58</td>  <td class="nbHitsUncovered"><a title="Line 58: Conditional coverage 50% (1/2).">&nbsp;38</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 58: Conditional coverage 50% (1/2).">            <span class="keyword">if</span> (String.<span class="keyword">class</span>.equals(</a></span></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;58</td>  <td class="nbHitsUncovered"><a title="Line 58: Conditional coverage 50% (1/2).">&nbsp;44</a></td>  <td class="src"><pre class="src"><span class="srcUncovered">&nbsp;<a title="Line 58: Conditional coverage 50% (1/2).">            <span class="keyword">if</span> (String.<span class="keyword">class</span>.equals(</a></span></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;59</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                    parameterizedType.getActualTypeArguments()[0]))</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;60</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;61</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">this</span>.setItemType((Class&lt;?&gt;) parameterizedType</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;61</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;                <span class="keyword">this</span>.setItemType((Class&lt;?&gt;) parameterizedType</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;62</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;                        .getActualTypeArguments()[1]);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;63</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;                result = <span class="keyword">super</span>.canVisitItemType();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;63</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;                result = <span class="keyword">super</span>.canVisitItemType();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;64</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;            }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;65</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;66</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> result;</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;66</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;        <span class="keyword">return</span> result;</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;67</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;68</td>  <td class="nbHits">&nbsp;</td>
@@ -154,16 +154,16 @@
   <td class="src"><pre class="src">&nbsp;    <span class="keyword">public</span> <span class="keyword">void</span> visit(<span class="keyword">final</span> Field visitee, <span class="keyword">final</span> IAccessor parentAccessor)</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;74</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;    {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;75</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;        IVisitor&lt;Class&lt;?&gt;&gt; itemVisitor = <span class="keyword">this</span>.getItemVisitor();</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;76</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;        Class&lt;?&gt; itemType = <span class="keyword">this</span>.getItemType();</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;77</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;        IContainerPropertyAccessor accessor = <span class="keyword">new</span> MapPropertyAccessorImpl();</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;78</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;        VisitorUtils.configureAccessor(accessor, parentAccessor, visitee);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;75</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;        IVisitor&lt;Class&lt;?&gt;&gt; itemVisitor = <span class="keyword">this</span>.getItemVisitor();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;76</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;        Class&lt;?&gt; itemType = <span class="keyword">this</span>.getItemType();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;77</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;        IContainerPropertyAccessor accessor = <span class="keyword">new</span> MapPropertyAccessorImpl();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;78</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;        VisitorUtils.configureAccessor(accessor, parentAccessor, visitee);</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;79</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        IContainerItemAccessor itemAccessorTemplate;</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;80</td>  <td class="nbHitsCovered"><a title="Line 80: Conditional coverage 100% (2/2).">&nbsp;38</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 80: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (itemVisitor <span class="keyword">instanceof</span> SimpleTypeVisitorImpl)</a></pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;80</td>  <td class="nbHitsCovered"><a title="Line 80: Conditional coverage 100% (2/2).">&nbsp;44</a></td>  <td class="src"><pre class="src">&nbsp;<a title="Line 80: Conditional coverage 100% (2/2).">        <span class="keyword">if</span> (itemVisitor <span class="keyword">instanceof</span> SimpleTypeVisitorImpl)</a></pre></td></tr>
 <tr>  <td class="numLine">&nbsp;81</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        {</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;82</td>  <td class="nbHitsCovered">&nbsp;26</td>  <td class="src"><pre class="src">&nbsp;            itemAccessorTemplate = <span class="keyword">new</span> LeafMapItemAccessorImpl();</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;82</td>  <td class="nbHitsCovered">&nbsp;32</td>  <td class="src"><pre class="src">&nbsp;            itemAccessorTemplate = <span class="keyword">new</span> LeafMapItemAccessorImpl();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;83</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;84</td>  <td class="nbHits">&nbsp;</td>
@@ -173,15 +173,15 @@
 <tr>  <td class="numLineCover">&nbsp;86</td>  <td class="nbHitsCovered">&nbsp;12</td>  <td class="src"><pre class="src">&nbsp;            itemAccessorTemplate = <span class="keyword">new</span> BranchMapItemAccessorImpl();</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;87</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;        }</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;88</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;        itemAccessorTemplate.setParentAccessor(accessor);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;89</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;        itemAccessorTemplate.setType(itemType);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;90</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;        accessor.setItemAccessorTemplate(itemAccessorTemplate);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;91</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;        itemVisitor.visit(itemType, itemAccessorTemplate);</pre></td></tr>
-<tr>  <td class="numLineCover">&nbsp;92</td>  <td class="nbHitsCovered">&nbsp;38</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;88</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;        itemAccessorTemplate.setParentAccessor(accessor);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;89</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;        itemAccessorTemplate.setType(itemType);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;90</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;        accessor.setItemAccessorTemplate(itemAccessorTemplate);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;91</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;        itemVisitor.visit(itemType, itemAccessorTemplate);</pre></td></tr>
+<tr>  <td class="numLineCover">&nbsp;92</td>  <td class="nbHitsCovered">&nbsp;44</td>  <td class="src"><pre class="src">&nbsp;    }</pre></td></tr>
 <tr>  <td class="numLine">&nbsp;93</td>  <td class="nbHits">&nbsp;</td>
   <td class="src"><pre class="src">&nbsp;}</pre></td></tr>
 </table>
 
-<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.0.3 on 18.12.13 13:00.</div>
+<div class="footer">Report generated by <a href="http://cobertura.sourceforge.net/" target="_top">Cobertura</a> 2.0.3 on 18.12.13 14:37.</div>
 </body>
 </html>

@@ -17,7 +17,9 @@ package de.axnsoftware.settings.impl.visitor;
 
 import de.axnsoftware.settings.PropertyClass;
 import de.axnsoftware.settings.impl.accessor.IAccessor;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,7 +47,6 @@ public final class PropertyClassVisitorImpl
         this.fieldVisitors.add(new ListFieldVisitorImpl(this));
         this.fieldVisitors.add(new MapFieldVisitorImpl(this));
         this.fieldVisitors.add(new PropertyClassFieldVisitorImpl(this));
-        this.fieldVisitors.add(new FailFastVisitorImpl<Field>());
     }
 
     /**
@@ -54,14 +55,50 @@ public final class PropertyClassVisitorImpl
     @Override
     public Boolean canVisit(final Class<?> visitee)
     {
-        return visitee.isAnnotationPresent(PropertyClass.class);
+        Boolean result = Boolean.FALSE;
+        if (visitee.isAnnotationPresent(PropertyClass.class)
+            && 0 < visitee.getDeclaredFields().length)
+        {
+            if (Modifier.isPublic(visitee.getModifiers())
+                && !Modifier.isAbstract(visitee.getModifiers()))
+            {
+                Constructor<?>[] constructors = visitee.getConstructors();
+                for (Constructor<?> constructor : constructors)
+                {
+                    if (0 == constructor.getParameterTypes().length
+                        && Modifier.isPublic(constructor.getModifiers()))
+                    {
+                        result = Boolean.TRUE;
+                        break;
+                    }
+                }
+            }
+            if (!result)
+            {
+                /* TODO:log error stating that the property class does not
+                 * have an accessible default constructor.
+                 */
+            }
+        }
+        return result;
+    }
+
+    /**
+     * Introduced for testing purposes only. Sets the fieldVisitors.
+     *
+     * @param fieldVisitors
+     */
+    void setFieldVisitors(final List<IVisitor<Field>> fieldVisitors)
+    {
+        this.fieldVisitors = fieldVisitors;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void visit(final Class<?> visitee, final IAccessor parentAccessor)
+    public void visit(final Class<?> visitee,
+                      final IAccessor parentAccessor)
     {
         /*
          * Make sure that the parentAccessor supports child accessors

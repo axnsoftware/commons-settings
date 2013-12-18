@@ -102,7 +102,8 @@ public final class SettingsStoreImpl
         }
         catch (InstantiationException | IllegalAccessException e)
         {
-            throw new BackingStoreException(e);
+            // This should never happen
+            throw new RuntimeException(e);
         }
         return result;
     }

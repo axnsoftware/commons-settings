@@ -19,6 +19,8 @@ import de.axnsoftware.settings.IBackingStore;
 import de.axnsoftware.settings.ISettings;
 import de.axnsoftware.settings.ISettingsStore;
 import de.axnsoftware.settings.fixtures.CustomTypeSettingsRoot;
+import de.axnsoftware.settings.fixtures.SettingsRootWithNonDefaultConstructor;
+import de.axnsoftware.settings.fixtures.SettingsRootWithPrivateDefaultConstructor;
 import de.axnsoftware.settings.impl.accessor.IAccessor;
 import java.util.Properties;
 import org.junit.Assert;
@@ -44,7 +46,8 @@ public class SettingsStoreImplTest
     public void constructorMustFailOnNullRootAccessor()
     {
         IBackingStore backingStoreMock = Mockito.mock(IBackingStore.class);
-        new SettingsStoreImpl(null, null, CustomTypeSettingsRoot.class);
+        new SettingsStoreImpl(backingStoreMock, null,
+                              CustomTypeSettingsRoot.class);
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -101,6 +104,32 @@ public class SettingsStoreImplTest
                 .<CustomTypeSettingsRoot>any(CustomTypeSettingsRoot.class));
         Assert.assertSame(store, settings.getStore());
         Assert.assertSame(CustomTypeSettingsRoot.class, settings.getType());
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void loadSettingsMustFailOnSettingsRootWithprivateDefaultConstructor()
+            throws
+            Exception
+    {
+        IBackingStore backingStoreMock = Mockito.mock(IBackingStore.class);
+        IAccessor rootAccessorMock = Mockito.mock(IAccessor.class);
+        ISettingsStore store = new SettingsStoreImpl(
+                backingStoreMock, rootAccessorMock,
+                SettingsRootWithPrivateDefaultConstructor.class);
+        ISettings settings = store.loadSettings();
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void loadSettingsMustFailOnSettingsRootWithNonDefaultConstructor()
+            throws
+            Exception
+    {
+        IBackingStore backingStoreMock = Mockito.mock(IBackingStore.class);
+        IAccessor rootAccessorMock = Mockito.mock(IAccessor.class);
+        ISettingsStore store = new SettingsStoreImpl(
+                backingStoreMock, rootAccessorMock,
+                SettingsRootWithNonDefaultConstructor.class);
+        ISettings settings = store.loadSettings();
     }
 
     @Test

@@ -30,25 +30,20 @@ public abstract class AbstractListItemAccessorImpl
         extends AbstractContainerItemAccessorImpl<Integer>
 {
 
-    protected AbstractListItemAccessorImpl()
-    {
-        super();
-    }
-
     /**
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public Object getValue(final Object settingsRoot)
     {
         Object result = null;
-        List<Object> container =
-                     (List<Object>) this.getParentAccessor().
-                getValue(settingsRoot);
-        Integer itemKey = this.getItemKey();
-        if (itemKey < container.size())
+        final List<Object> container = (List<Object>) this.getParentAccessor()
+                .getValue(settingsRoot);
+        final Integer itemKey = this.getItemKey();
+        if (itemKey.intValue() < container.size())
         {
-            result = container.get(this.getItemKey());
+            result = container.get(itemKey);
         }
         return result;
     }
@@ -57,13 +52,15 @@ public abstract class AbstractListItemAccessorImpl
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public final void setValue(final Object value, final Object settingsRoot)
     {
-        List<Object> container = (List<Object>) this.getParentAccessor()
+        final List<Object> container = (List<Object>) this.getParentAccessor()
                 .getValue(settingsRoot);
-        if (this.getItemKey() < container.size())
+        final Integer itemKey = this.getItemKey();
+        if (itemKey.intValue() < container.size())
         {
-            container.set(this.getItemKey(), value);
+            container.set(itemKey, value);
         }
         else
         {

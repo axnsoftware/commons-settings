@@ -60,7 +60,7 @@ public final class PropertiesBackingStoreImpl
         }
 
         this.fileFormat = fileFormat;
-        this.properties = new Properties();
+        this.properties = new OrderedProperties();
         this.storagePath = storagePath;
     }
 
@@ -354,15 +354,13 @@ public final class PropertiesBackingStoreImpl
         try (final OutputStream outputStream = new FileOutputStream(
                 this.storagePath))
         {
-            final OrderedProperties orderedProperties = new OrderedProperties();
-            orderedProperties.putAll(this.properties);
             if (this.fileFormat.equals(EFileFormat.PLAIN_TEXT))
             {
-                orderedProperties.store(outputStream, null);
+                this.properties.store(outputStream, null);
             }
             else
             {
-                orderedProperties.storeToXML(outputStream, null, "utf-8");
+                this.properties.storeToXML(outputStream, null, "utf-8");
             }
         }
         catch (final IOException e)

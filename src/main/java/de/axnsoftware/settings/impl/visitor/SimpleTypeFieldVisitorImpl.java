@@ -20,7 +20,7 @@ import de.axnsoftware.settings.Property;
 import de.axnsoftware.settings.impl.accessor.DefaultTypeMapperImpl;
 import de.axnsoftware.settings.impl.accessor.IAccessor;
 import de.axnsoftware.settings.impl.accessor.IPropertyAccessor;
-import de.axnsoftware.settings.impl.accessor.DefaultValueHolder;
+import de.axnsoftware.settings.util.DefaultValueHolder;
 import de.axnsoftware.settings.impl.accessor.LeafPropertyAccessorImpl;
 import java.lang.reflect.Field;
 import java.math.BigDecimal;
@@ -41,6 +41,7 @@ public final class SimpleTypeFieldVisitorImpl
 
     private static IVisitor<Field>[] preparedSimpleTypeFieldVisitors;
     private final Class<?> valueType;
+    private Property propertyAnnotation;
 
     public SimpleTypeFieldVisitorImpl(final Class<?> valueType)
     {
@@ -53,19 +54,30 @@ public final class SimpleTypeFieldVisitorImpl
     @Override
     protected Boolean canVisitImpl(final Field visitee)
     {
+        this.propertyAnnotation = null;
         Boolean result = Boolean.FALSE;
         Class<?> type = visitee.getType();
-        if (this.valueType.isAssignableFrom(type))
+        if (this.valueType.isAssignableFrom(type) && visitee
+                .isAnnotationPresent(Property.class))
         {
+            /*
+             * must set propertyAnnotation now or otherwise this will fail on
+             * visiting all default supported type typed fields.
+             */
+            this.propertyAnnotation = visitee.getAnnotation(Property.class);
             if (DefaultTypeMapperImpl.getPreparedDefaultTypeMappings()
                     .containsKey(type))
             {
                 result = Boolean.TRUE;
             }
-            else if (visitee.isAnnotationPresent(Property.class))
+            else
             {
-                Property annotation = visitee.getAnnotation(Property.class);
-                if (!"".equals(annotation.typeMapper()))
+                if ("".equals(this.propertyAnnotation.typeMapper()) && type
+                        .isAnnotationPresent(Property.class))
+                {
+                    this.propertyAnnotation = type.getAnnotation(Property.class);
+                }
+                if (!"".equals(this.propertyAnnotation.typeMapper()))
                 {
                     result = Boolean.TRUE;
                 }
@@ -82,15 +94,16 @@ public final class SimpleTypeFieldVisitorImpl
     {
         Class<?> type = visitee.getType();
         IPropertyAccessor accessor = new LeafPropertyAccessorImpl();
-        Property annotation = visitee.getAnnotation(Property.class);
-        ITypeMapper typeMapper = this.getAndRegisterTypeMapper(type, annotation
-                .typeMapper(), parentAccessor.getTypeMappings());
+        ITypeMapper typeMapper = VisitorUtils.registerOrGetExistingTypeMapper(
+                type, this.propertyAnnotation.typeMapper(), parentAccessor
+                .getTypeMappings());
         DefaultValueHolder defaultValueHolder = new DefaultValueHolder(
-                annotation.defaultValue(), type, typeMapper);
+                this.propertyAnnotation.defaultValue(), type, typeMapper);
         accessor.setDefaultValueHolder(defaultValueHolder);
-        this.configureAccessor(accessor, parentAccessor, visitee);
+        VisitorUtils.configureAccessor(accessor, parentAccessor, visitee);
     }
 
+    @SuppressWarnings("unchecked")
     public static IVisitor<Field>[] getPreparedSimpleTypeFieldVisitors()
     {
         if (null == preparedSimpleTypeFieldVisitors)

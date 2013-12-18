@@ -38,6 +38,7 @@ public final class ArrayPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void copyValue(final Object source, final Object target)
     {
         final Object[] sourceArray = (Object[]) this.getValue(source);
@@ -46,7 +47,8 @@ public final class ArrayPropertyAccessorImpl
         this.setValue(targetArray, target);
         for (int index = 0; index < sourceArray.length; index++)
         {
-            IContainerItemAccessor accessor = (IContainerItemAccessor) this
+            IContainerItemAccessor<Integer> accessor =
+                                            (IContainerItemAccessor<Integer>) this
                     .getItemAccessorTemplate().clone();
             accessor.setItemKey(Integer.valueOf(index));
             accessor.copyValue(source, target);
@@ -57,6 +59,7 @@ public final class ArrayPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void readFromBackingStore(final IBackingStore properties,
                                      final Object settingsRoot) throws
             BackingStoreException
@@ -82,7 +85,8 @@ public final class ArrayPropertyAccessorImpl
         this.setValue(items, settingsRoot);
         for (int index = 0; index < itemKeys.size(); index++)
         {
-            IContainerItemAccessor accessor = (IContainerItemAccessor) this
+            IContainerItemAccessor<Integer> accessor =
+                                            (IContainerItemAccessor<Integer>) this
                     .getItemAccessorTemplate().clone();
             accessor.setItemKey(index);
             accessor.readFromBackingStore(properties, settingsRoot);
@@ -93,6 +97,7 @@ public final class ArrayPropertyAccessorImpl
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public void writeToBackingStore(final IBackingStore properties,
                                     final Object settingsRoot) throws
             BackingStoreException
@@ -100,7 +105,8 @@ public final class ArrayPropertyAccessorImpl
         final Object[] items = (Object[]) this.getValue(settingsRoot);
         for (int index = 0; index < items.length; index++)
         {
-            IContainerItemAccessor accessor = (IContainerItemAccessor) this
+            IContainerItemAccessor<Integer> accessor =
+                                            (IContainerItemAccessor<Integer>) this
                     .getItemAccessorTemplate().clone();
             accessor.setItemKey(index);
             accessor.writeToBackingStore(properties, settingsRoot);

@@ -28,14 +28,11 @@ import java.util.Map;
 public class SettingsRoot
 {
 
-    @Property(typeMapper =
-              "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
+    @Property
     private CustomType customType;
-    @Property(typeMapper =
-              "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
+    @Property
     private List<CustomType> customTypeList;
-    @Property(typeMapper =
-              "de.axnsoftware.settings.integration.customtype.CustomTypeTypeMapperImpl")
+    @Property
     private Map<String, CustomType> customTypeMap;
 
     public List<CustomType> getCustomTypeList()

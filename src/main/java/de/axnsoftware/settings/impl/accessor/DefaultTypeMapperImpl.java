@@ -124,6 +124,7 @@ public final class DefaultTypeMapperImpl
      * {@inheritDoc}
      */
     @Override
+    @SuppressWarnings("unchecked")
     public Object valueOf(final String value, final Class<?> type)
     {
         Object result = value;
@@ -270,21 +271,23 @@ public final class DefaultTypeMapperImpl
         if (null == preparedDefaultTypeMappings)
         {
             ITypeMapper mapper = new DefaultTypeMapperImpl();
-            preparedDefaultTypeMappings = new HashMap<>();
-            preparedDefaultTypeMappings.put(BigDecimal.class, mapper);
-            preparedDefaultTypeMappings.put(BigInteger.class, mapper);
-            preparedDefaultTypeMappings.put(Boolean.class, mapper);
-            preparedDefaultTypeMappings.put(Byte.class, mapper);
-            preparedDefaultTypeMappings.put(Character.class, mapper);
-            preparedDefaultTypeMappings.put(Double.class, mapper);
-            preparedDefaultTypeMappings.put(Enum.class, mapper);
-            preparedDefaultTypeMappings.put(Float.class, mapper);
-            preparedDefaultTypeMappings.put(Integer.class, mapper);
-            preparedDefaultTypeMappings.put(Long.class, mapper);
-            preparedDefaultTypeMappings.put(Short.class, mapper);
-            preparedDefaultTypeMappings.put(String.class, mapper);
-            preparedDefaultTypeMappings.put(UUID.class, mapper);
+            Map<Class<?>, ITypeMapper> defaultTypeMappings = new HashMap<>();
+            defaultTypeMappings.put(BigDecimal.class, mapper);
+            defaultTypeMappings.put(BigInteger.class, mapper);
+            defaultTypeMappings.put(Boolean.class, mapper);
+            defaultTypeMappings.put(Byte.class, mapper);
+            defaultTypeMappings.put(Character.class, mapper);
+            defaultTypeMappings.put(Double.class, mapper);
+            defaultTypeMappings.put(Enum.class, mapper);
+            defaultTypeMappings.put(Float.class, mapper);
+            defaultTypeMappings.put(Integer.class, mapper);
+            defaultTypeMappings.put(Long.class, mapper);
+            defaultTypeMappings.put(Short.class, mapper);
+            defaultTypeMappings.put(String.class, mapper);
+            defaultTypeMappings.put(UUID.class, mapper);
+            preparedDefaultTypeMappings = Collections.unmodifiableMap(
+                    defaultTypeMappings);
         }
-        return Collections.unmodifiableMap(preparedDefaultTypeMappings);
+        return preparedDefaultTypeMappings;
     }
 }

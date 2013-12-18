@@ -173,7 +173,7 @@ public interface IBackingStore
      * Gets the value of the property identified by the specified {@code key}.
      *
      * @param key
-     * @return the value or null
+     * @param value
      * @throws BackingStoreException
      */
     void setDouble(final String key, final Double value) throws

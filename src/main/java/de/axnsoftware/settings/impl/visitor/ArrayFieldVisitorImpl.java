@@ -22,9 +22,6 @@ import de.axnsoftware.settings.impl.accessor.ArrayPropertyAccessorImpl;
 import de.axnsoftware.settings.impl.accessor.BranchArrayItemAccessorImpl;
 import de.axnsoftware.settings.impl.accessor.LeafArrayItemAccessorImpl;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * The final class ArrayFieldVisitorImpl models a concrete implementation of the
@@ -35,20 +32,12 @@ import java.util.List;
  * @since 1.0.0
  */
 public final class ArrayFieldVisitorImpl
-        extends AbstractFieldVisitorImpl
+        extends AbstractContainerFieldVisitorImpl
 {
 
-    private final List<IVisitor> visitors;
-    private Class<?> itemType;
-    private IVisitor<Class<?>> itemVisitor;
-
-    public ArrayFieldVisitorImpl(final IVisitor propertyClassVisitor)
+    public ArrayFieldVisitorImpl(final IVisitor<Class<?>> propertyClassVisitor)
     {
-        this.visitors = new ArrayList<>();
-        this.visitors.add(propertyClassVisitor);
-        this.visitors.addAll(Arrays.asList(SimpleTypeVisitorImpl
-                .getPreparedSimpleTypeVisitors()));
-        this.visitors.add(new FailFastVisitorImpl<Class<?>>());
+        super(propertyClassVisitor);
     }
 
     /**
@@ -59,28 +48,10 @@ public final class ArrayFieldVisitorImpl
     {
         Boolean result = Boolean.FALSE;
         final Class<?> type = visitee.getType();
-        this.itemType = null;
         if (type.isArray())
         {
-            this.itemType = type.getComponentType();
-            if (this.itemVisitor != null && this.itemVisitor.canVisit(
-                    this.itemType))
-            {
-                result = Boolean.TRUE;
-            }
-            else
-            {
-                this.itemVisitor = null;
-                for (final IVisitor visitor : this.visitors)
-                {
-                    if (visitor.canVisit(this.itemType))
-                    {
-                        this.itemVisitor = visitor;
-                        result = Boolean.TRUE;
-                        break;
-                    }
-                }
-            }
+            this.setItemType(type.getComponentType());
+            result = super.canVisitItemType();
         }
         return result;
     }
@@ -91,10 +62,12 @@ public final class ArrayFieldVisitorImpl
     @Override
     public void visit(final Field visitee, final IAccessor parentAccessor)
     {
+        IVisitor<Class<?>> itemVisitor = this.getItemVisitor();
+        Class<?> itemType = this.getItemType();
         IContainerPropertyAccessor accessor = new ArrayPropertyAccessorImpl();
-        this.configureAccessor(accessor, parentAccessor, visitee);
-        IContainerItemAccessor itemAccessorTemplate;
-        if (this.itemVisitor instanceof SimpleTypeVisitorImpl)
+        VisitorUtils.configureAccessor(accessor, parentAccessor, visitee);
+        IContainerItemAccessor<Integer> itemAccessorTemplate;
+        if (itemVisitor instanceof SimpleTypeVisitorImpl)
         {
             itemAccessorTemplate = new LeafArrayItemAccessorImpl();
         }
@@ -103,8 +76,8 @@ public final class ArrayFieldVisitorImpl
             itemAccessorTemplate = new BranchArrayItemAccessorImpl();
         }
         itemAccessorTemplate.setParentAccessor(accessor);
-        itemAccessorTemplate.setType(this.itemType);
+        itemAccessorTemplate.setType(itemType);
         accessor.setItemAccessorTemplate(itemAccessorTemplate);
-        this.itemVisitor.visit(this.itemType, itemAccessorTemplate);
+        itemVisitor.visit(itemType, itemAccessorTemplate);
     }
 }

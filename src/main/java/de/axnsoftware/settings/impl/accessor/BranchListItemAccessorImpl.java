@@ -36,12 +36,9 @@ public final class BranchListItemAccessorImpl
     @Override
     public void copyValue(final Object source, final Object target)
     {
-        if (null != this.getValue(source))
+        for (IAccessor childAccessor : this.getChildAccessors())
         {
-            for (IAccessor childAccessor : this.getChildAccessors())
-            {
-                ((IPropertyAccessor) childAccessor).copyValue(source, target);
-            }
+            ((IPropertyAccessor) childAccessor).copyValue(source, target);
         }
     }
 

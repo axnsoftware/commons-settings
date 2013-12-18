@@ -15,6 +15,7 @@
  */
 package de.axnsoftware.settings.impl.accessor;
 
+import de.axnsoftware.settings.util.DefaultValueHolder;
 import java.lang.reflect.Method;
 
 /**

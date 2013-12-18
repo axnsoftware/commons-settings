@@ -15,6 +15,8 @@
  */
 package de.axnsoftware.settings.impl.visitor;
 
+import de.axnsoftware.settings.Property;
+import de.axnsoftware.settings.impl.accessor.DefaultTypeMapperImpl;
 import de.axnsoftware.settings.impl.accessor.IAccessor;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -34,10 +36,12 @@ public final class SimpleTypeVisitorImpl
 
     private static IVisitor<Class<?>>[] preparedSimpleTypeVisitors;
     private final Class<?> valueType;
+    private Boolean isAnnotatedType;
 
     public SimpleTypeVisitorImpl(final Class<?> valueType)
     {
         this.valueType = valueType;
+        this.isAnnotatedType = Boolean.FALSE;
     }
 
     /**
@@ -46,7 +50,26 @@ public final class SimpleTypeVisitorImpl
     @Override
     public Boolean canVisit(final Class<?> visitee)
     {
-        return this.valueType.equals(visitee);
+        Boolean result = Boolean.FALSE;
+        this.isAnnotatedType = Boolean.FALSE;
+        if (this.valueType.isAssignableFrom(visitee))
+        {
+            if (DefaultTypeMapperImpl.getPreparedDefaultTypeMappings()
+                    .containsKey(visitee))
+            {
+                result = Boolean.TRUE;
+            }
+            else if (visitee.isAnnotationPresent(Property.class))
+            {
+                Property annotation = visitee.getAnnotation(Property.class);
+                if (!"".equals(annotation.typeMapper()))
+                {
+                    result = Boolean.TRUE;
+                    this.isAnnotatedType = Boolean.TRUE;
+                }
+            }
+        }
+        return result;
     }
 
     /**
@@ -55,8 +78,18 @@ public final class SimpleTypeVisitorImpl
     @Override
     public void visit(final Class<?> visitee, final IAccessor parentAccessor)
     {
+        if (this.isAnnotatedType)
+        {
+            Property annotation = visitee.getAnnotation(Property.class);
+            if (!"".equals(annotation.typeMapper()))
+            {
+                VisitorUtils.registerOrGetExistingTypeMapper(visitee, annotation
+                        .typeMapper(), parentAccessor.getTypeMappings());
+            }
+        }
     }
 
+    @SuppressWarnings("unchecked")
     public static IVisitor<Class<?>>[] getPreparedSimpleTypeVisitors()
     {
         if (null == preparedSimpleTypeVisitors)
@@ -74,7 +107,11 @@ public final class SimpleTypeVisitorImpl
                 new SimpleTypeVisitorImpl(Long.class),
                 new SimpleTypeVisitorImpl(Short.class),
                 new SimpleTypeVisitorImpl(String.class),
-                new SimpleTypeVisitorImpl(UUID.class)
+                new SimpleTypeVisitorImpl(UUID.class),
+                /*
+                 * Visitor for custom types with an appropriate type mapper
+                 */
+                new SimpleTypeVisitorImpl(Object.class)
             };
         }
         return preparedSimpleTypeVisitors.clone();

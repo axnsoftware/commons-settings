@@ -13,34 +13,26 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.axnsoftware.settings.integration.customtype;
+package de.axnsoftware.settings.impl.visitor;
 
-import de.axnsoftware.settings.SettingsStoreFactory;
-import java.io.File;
-import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
  * @author Carsten Klein "cklein" <carsten.klein@axn-software.de>
  */
-public class CustomTypeTest
+public class FailFastVisitorImplTest
 {
 
-    @Test
-    public void settingsStoreFactoryMustNotFailOnCustomType()
+    @Test(expected = RuntimeException.class)
+    public void canVisitMustFail()
     {
-        SettingsStoreFactory.newInstance().newFileStore(new File("/tmp/unused"),
-                                                        SettingsRoot.class);
+        new FailFastVisitorImpl<>().canVisit(null);
     }
 
-    @Test
-    @Ignore
-    public void testCaseIsIncomplete()
+    @Test(expected = RuntimeException.class)
+    public void visitMustFail()
     {
-        Assert.fail(
-                "existing visitors are unable to correctly process "
-                + "Array/List/Map of custom type");
+        new FailFastVisitorImpl<>().visit(null, null);
     }
 }

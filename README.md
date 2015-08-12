@@ -9,7 +9,7 @@ Visit the [project site](http://axnsoftware.github.io/commons-settings) for more
 Build Status
 ------------
 
-[![Build Status](https://travis-ci.org/axnsoftware/commons-settings.png)](https://travis-ci.org/axnsoftware/commons-settings)
+[![Build Status](https://travis-ci.org/coldrye-java/gentings.png)](https://travis-ci.org/coldrye-java/gentings)
 
 Licensing
 ---------

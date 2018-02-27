@@ -36,8 +36,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>de.axnsoftware.commons</groupId>
-            <artifactId>commons-settings</artifactId>
+            <groupId>eu.coldrye</groupId>
+            <artifactId>settings</artifactId>
             <version>${de.axnsoftware.commons.commons-settings}</version>
         </dependency>
         <dependency>

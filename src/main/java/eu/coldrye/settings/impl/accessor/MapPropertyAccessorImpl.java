@@ -18,6 +18,7 @@
 package eu.coldrye.settings.impl.accessor;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.util.ReflectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -52,9 +53,9 @@ public class MapPropertyAccessorImpl extends AbstractContainerPropertyAccessorIm
   @Override
   public Object getValue(Object settingsRoot) {
 
-    Object result = super.getValue(settingsRoot);
+    Object result = ReflectionUtils.getValue(this, settingsRoot);
     if (null == result) {
-      result = new HashMap<>();
+      result = new HashMap<String, Object>();
       setValue(result, settingsRoot);
     }
     return result;
@@ -71,6 +72,7 @@ public class MapPropertyAccessorImpl extends AbstractContainerPropertyAccessorIm
     Collections.sort(sortedPropertyNames);
     String currentKey = null;
     for (String propertyName : sortedPropertyNames) {
+      // TODO skip duplicate keys early? can there ever be duplicate keys in the backing store?
       if (null != currentKey && propertyName.startsWith(currentKey)) {
         continue;
       }
@@ -90,6 +92,12 @@ public class MapPropertyAccessorImpl extends AbstractContainerPropertyAccessorIm
       accessor.setItemKey(itemKey);
       accessor.readFromBackingStore(backingStore, settingsRoot);
     }
+  }
+
+  @Override
+  public void setValue(Object value, Object settingsRoot) {
+
+    ReflectionUtils.setValue(this, value, settingsRoot);
   }
 
   @Override

@@ -48,7 +48,12 @@ public interface Accessor extends Cloneable {
    * @param source
    * @param target
    */
-  void copyValue(Object source, Object target);
+  default void copyValue(Object source, Object target) {
+
+    for (Accessor childAccessor : getChildAccessors()) {
+      childAccessor.copyValue(source, target);
+    }
+  }
 
   /**
    * Returns the child accessors.
@@ -116,7 +121,12 @@ public interface Accessor extends Cloneable {
    * @param settingsRoot
    * @throws BackingStoreException
    */
-  void readFromBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException;
+  default void readFromBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
+
+    for (Accessor childAccessor : getChildAccessors()) {
+      childAccessor.readFromBackingStore(backingStore, settingsRoot);
+    }
+  }
 
   /**
    * Replaces the existing child accessors with the specified
@@ -156,7 +166,12 @@ public interface Accessor extends Cloneable {
    * @param settingsRoot
    * @throws BackingStoreException
    */
-  void writeToBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException;
+  default void writeToBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
+
+    for (Accessor childAccessor : getChildAccessors()) {
+      childAccessor.writeToBackingStore(backingStore, settingsRoot);
+    }
+  }
 
   /**
    * @param problemReporter

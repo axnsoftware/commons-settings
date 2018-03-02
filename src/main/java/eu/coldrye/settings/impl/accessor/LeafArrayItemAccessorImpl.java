@@ -17,12 +17,6 @@
 
 package eu.coldrye.settings.impl.accessor;
 
-import eu.coldrye.settings.BackingStore;
-import eu.coldrye.settings.TypeMapper;
-
-import java.util.Map;
-import java.util.prefs.BackingStoreException;
-
 /**
  * The class LeafArrayItemAccessorImpl models a concrete implementation of
  * the {@code Accessor} interface, responsible for accessing simple type items
@@ -30,27 +24,7 @@ import java.util.prefs.BackingStoreException;
  *
  * @since 1.0.0
  */
-public class LeafArrayItemAccessorImpl extends AbstractArrayItemAccessorImpl {
+public class LeafArrayItemAccessorImpl extends AbstractContainerItemAccessorImpl<Integer>
+  implements ArrayItemAccessor, LeafItemAccessor {
 
-  @Override
-  public void copyValue(Object source, Object target) {
-
-    Map<Class<?>, TypeMapper> typeMappings = getTypeMappings();
-    Object copy = typeMappings.get(getType()).copyOf(getValue(source));
-    setValue(copy, target);
-  }
-
-  @Override
-  public void readFromBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
-
-    Class<?> type = getType();
-    Object value = getTypeMappings().get(type).readFromBackingStore(backingStore, getQualifiedKey(), type);
-    setValue(value, settingsRoot);
-  }
-
-  @Override
-  public void writeToBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
-
-    getTypeMappings().get(getType()).writeToBackingStore(backingStore, getQualifiedKey(), getValue(settingsRoot));
-  }
 }

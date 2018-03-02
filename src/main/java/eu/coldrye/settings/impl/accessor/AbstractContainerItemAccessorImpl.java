@@ -18,7 +18,7 @@
 package eu.coldrye.settings.impl.accessor;
 
 /**
- * The abstract class AbstractArrayItemAccessorImpl models the root of a
+ * The abstract class AbstractContainerItemAccessorImpl models the root of a
  * hierarchy of derived classes and provides default behaviour for all
  * implementations of the {@code Accessor} interface.
  *

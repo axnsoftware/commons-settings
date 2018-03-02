@@ -18,6 +18,7 @@
 package eu.coldrye.settings.impl.accessor;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.util.ReflectionUtils;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -42,9 +43,15 @@ public class ArrayPropertyAccessorImpl extends AbstractContainerPropertyAccessor
     setValue(targetArray, target);
     for (int index = 0; index < sourceArray.length; index++) {
       ContainerItemAccessor<Integer> accessor = (ContainerItemAccessor<Integer>) getItemAccessorTemplate().clone();
-      accessor.setItemKey(Integer.valueOf(index));
+      accessor.setItemKey(index);
       accessor.copyValue(source, target);
     }
+  }
+
+  @Override
+  public Object getValue(Object settingsRoot) {
+
+    return ReflectionUtils.getValue(this, settingsRoot);
   }
 
   @Override
@@ -74,6 +81,12 @@ public class ArrayPropertyAccessorImpl extends AbstractContainerPropertyAccessor
     }
   }
 
+  @Override
+  public void setValue(Object value, Object settingsRoot) {
+
+    ReflectionUtils.setValue(this, value, settingsRoot);
+  }
+  
   @Override
   @SuppressWarnings("unchecked")
   public void writeToBackingStore(BackingStore properties, Object settingsRoot) throws BackingStoreException {

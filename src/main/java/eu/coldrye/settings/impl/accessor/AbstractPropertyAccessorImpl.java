@@ -19,7 +19,6 @@ package eu.coldrye.settings.impl.accessor;
 
 import eu.coldrye.settings.util.DefaultValueHolder;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
@@ -73,36 +72,6 @@ public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl 
   }
 
   @Override
-  public Object getValue(Object settingsRoot) {
-
-    Object result;
-    Object valueHolder = settingsRoot;
-    Accessor parentAccessor = getParentAccessor();
-    if (parentAccessor != null) {
-      valueHolder = parentAccessor.getValue(settingsRoot);
-    }
-    Method get = getGetter();
-    // FIXME valueHolder is either simple value or instance of ...
-    if (!get.getDeclaringClass().equals(valueHolder.getClass())) {
-      throw new IllegalStateException(
-        "valueHolder is of an unexpected type, expected: "
-          + get.getDeclaringClass().getName()
-          + ", was: " + valueHolder.getClass().getName());
-    }
-    try {
-      result = get.invoke(valueHolder);
-      DefaultValueHolder holder = getDefaultValueHolder();
-      if (null == result && null != holder) {
-        result = holder.getValue();
-      }
-    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-      throw new RuntimeException(e);
-    }
-
-    return result;
-  }
-
-  @Override
   public void setDefaultValueHolder(DefaultValueHolder defaultValueHolder) {
 
     this.defaultValueHolder = defaultValueHolder;
@@ -118,27 +87,5 @@ public abstract class AbstractPropertyAccessorImpl extends AbstractAccessorImpl 
   public void setSetter(Method setter) {
 
     this.setter = setter;
-  }
-
-  @Override
-  public void setValue(Object value, Object settingsRoot) {
-
-    Object valueHolder = settingsRoot;
-    Accessor parentAccessor = getParentAccessor();
-    if (parentAccessor != null) {
-      valueHolder = parentAccessor.getValue(settingsRoot);
-    }
-    Method set = getSetter();
-    if (!set.getDeclaringClass().equals(valueHolder.getClass())) {
-      throw new IllegalStateException(
-        "valueHolder is of an unexpected type, expected: "
-          + set.getDeclaringClass().getName()
-          + ", was: " + valueHolder.getClass().getName());
-    }
-    try {
-      set.invoke(valueHolder, value);
-    } catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-      throw new RuntimeException(e);
-    }
   }
 }

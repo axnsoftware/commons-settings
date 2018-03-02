@@ -1,6 +1,5 @@
 /*
  * Copyright 2018 coldrye.eu, Carsten Klein
- * Copyright 2013 axn software UG
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,18 +18,11 @@ package eu.coldrye.settings.impl.accessor;
 
 import java.util.Map;
 
-/**
- * The abstract class AbstractMapItemAccessorImpl models the root of a hierarchy of derived implementation classes and
- * it provides the default behaviour for all implementations of the {@code ContainerItemAccessor} interface for all
- * {@code Map} like properties.
- *
- * @since 1.0.0
- */
-public abstract class AbstractMapItemAccessorImpl extends AbstractContainerItemAccessorImpl<String> {
+public interface MapItemAccessor extends ContainerItemAccessor<String> {
 
   @Override
   @SuppressWarnings("unchecked")
-  public Object getValue(Object settingsRoot) {
+  default Object getValue(Object settingsRoot) {
 
     Map<String, Object> container = (Map<String, Object>) getParentAccessor().getValue(settingsRoot);
     return container.get(getItemKey());
@@ -38,7 +30,7 @@ public abstract class AbstractMapItemAccessorImpl extends AbstractContainerItemA
 
   @Override
   @SuppressWarnings("unchecked")
-  public void setValue(Object value, Object settingsRoot) {
+  default void setValue(Object value, Object settingsRoot) {
 
     Map<String, Object> container = (Map<String, Object>) getParentAccessor().getValue(settingsRoot);
     container.put(getItemKey(), value);

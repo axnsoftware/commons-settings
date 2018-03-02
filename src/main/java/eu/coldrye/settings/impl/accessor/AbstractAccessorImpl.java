@@ -65,9 +65,9 @@ public abstract class AbstractAccessorImpl implements Accessor {
         }
         result.setChildAccessors(newChildAccessors);
       }
-    } catch (CloneNotSupportedException e) {
+    } catch (CloneNotSupportedException ex) {
       // Must never happen
-      throw new RuntimeException("unable to clone accessor.", e);
+      throw new RuntimeException("unable to clone accessor.", ex);
     }
     return result;
   }
@@ -91,7 +91,7 @@ public abstract class AbstractAccessorImpl implements Accessor {
   }
 
   @Override
-  public String getQualifiedKey() {
+  public final String getQualifiedKey() {
 
     if (null == cachedQualifiedKey) {
       Accessor accessor = getParentAccessor();

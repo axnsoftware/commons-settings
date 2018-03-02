@@ -18,6 +18,7 @@
 package eu.coldrye.settings.impl.accessor;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.util.ReflectionUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,7 +45,7 @@ public class ListPropertyAccessorImpl extends AbstractContainerPropertyAccessorI
     for (int index = 0; index < sourceList.size(); index++) {
       ContainerItemAccessor<Integer> accessor;
       accessor = (ContainerItemAccessor<Integer>) getItemAccessorTemplate().clone();
-      accessor.setItemKey(Integer.valueOf(index));
+      accessor.setItemKey(index);
       accessor.copyValue(source, target);
     }
   }
@@ -52,7 +53,7 @@ public class ListPropertyAccessorImpl extends AbstractContainerPropertyAccessorI
   @Override
   public Object getValue(Object settingsRoot) {
 
-    Object result = super.getValue(settingsRoot);
+    Object result = ReflectionUtils.getValue(this, settingsRoot);
     if (null == result) {
       result = new ArrayList<>();
       setValue(result, settingsRoot);
@@ -99,13 +100,18 @@ public class ListPropertyAccessorImpl extends AbstractContainerPropertyAccessorI
   }
 
   @Override
+  public void setValue(Object value, Object settingsRoot) {
+
+    ReflectionUtils.setValue(this, value, settingsRoot);
+  }
+
+  @Override
   @SuppressWarnings("unchecked")
   public void writeToBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
 
     List<Object> items = (List<Object>) getValue(settingsRoot);
     for (int index = 0; index < items.size(); index++) {
-      ContainerItemAccessor<Integer> accessor;
-      accessor = (ContainerItemAccessor<Integer>) getItemAccessorTemplate().clone();
+      ContainerItemAccessor<Integer> accessor = (ContainerItemAccessor<Integer>) getItemAccessorTemplate().clone();
       accessor.setItemKey(index);
       accessor.writeToBackingStore(backingStore, settingsRoot);
     }

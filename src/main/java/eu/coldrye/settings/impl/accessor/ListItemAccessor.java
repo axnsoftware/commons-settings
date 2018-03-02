@@ -1,6 +1,5 @@
 /*
  * Copyright 2018 coldrye.eu, Carsten Klein
- * Copyright 2013 axn software UG
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,36 +18,23 @@ package eu.coldrye.settings.impl.accessor;
 
 import java.util.List;
 
-/**
- * The abstract class AbstractListItemAccessorImpl models the root of a
- * hierarchy of derived implementation classes and it provides the default
- * behaviour for all implementations of the {@code ContainerItemAccessor}
- * interface for all {@code List} like properties.
- *
- * @since 1.0.0
- */
-public abstract class AbstractListItemAccessorImpl extends AbstractContainerItemAccessorImpl<Integer> {
+public interface ListItemAccessor extends ContainerItemAccessor<Integer> {
 
   @Override
   @SuppressWarnings("unchecked")
-  public Object getValue(Object settingsRoot) {
+  default Object getValue(Object settingsRoot) {
 
-    Object result = null;
     List<Object> container = (List<Object>) getParentAccessor().getValue(settingsRoot);
-    Integer itemKey = getItemKey();
-    if (itemKey.intValue() < container.size()) {
-      result = container.get(itemKey);
-    }
-    return result;
+    return container.get(getItemKey());
   }
 
   @Override
   @SuppressWarnings("unchecked")
-  public void setValue(Object value, Object settingsRoot) {
+  default void setValue(Object value, Object settingsRoot) {
 
     List<Object> container = (List<Object>) getParentAccessor().getValue(settingsRoot);
     Integer itemKey = getItemKey();
-    if (itemKey.intValue() < container.size()) {
+    if (itemKey < container.size()) {
       container.set(itemKey, value);
     } else {
       container.add(value);

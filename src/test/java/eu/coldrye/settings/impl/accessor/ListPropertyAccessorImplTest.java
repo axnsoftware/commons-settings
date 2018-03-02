@@ -70,10 +70,7 @@ public class ListPropertyAccessorImplTest {
     CompoundListFieldSettingsRoot source = new CompoundListFieldSettingsRoot();
     CompoundListFieldSettingsRoot target = new CompoundListFieldSettingsRoot();
     SimpleListFieldSettingsRoot v1 = new SimpleListFieldSettingsRoot();
-    v1.setValues(new ArrayList<>());
-    v1.getValues().add(1);
-    v1.getValues().add(2);
-    v1.getValues().add(3);
+    v1.setValues(Arrays.asList(1,2,3));
     source.setValues(new ArrayList<>());
     source.getValues().add(v1);
     this.compoundSettingsRootAccessor.copyValue(source, target);
@@ -105,10 +102,7 @@ public class ListPropertyAccessorImplTest {
     properties.setString("values.0.values.2", "3");
     this.compoundSettingsRootAccessor.readFromBackingStore(properties, settingsRoot);
     Assertions.assertEquals(1, settingsRoot.getValues().size());
-    List<Integer> expected = new ArrayList<>();
-    expected.add(1);
-    expected.add(2);
-    expected.add(3);
+    List<Integer> expected = Arrays.asList(1,2,3);
     Assertions.assertEquals(expected, settingsRoot.getValues().get(0).getValues());
   }
 

@@ -17,11 +17,7 @@
 
 package eu.coldrye.settings.impl.accessor;
 
-import eu.coldrye.settings.BackingStore;
-import eu.coldrye.settings.ProblemReporter;
-import eu.coldrye.settings.TypeMapper;
-
-import java.util.prefs.BackingStoreException;
+import eu.coldrye.settings.util.ReflectionUtils;
 
 /**
  * The class LeafPropertyAccessorImpl models a concrete implementation of
@@ -30,44 +26,17 @@ import java.util.prefs.BackingStoreException;
  *
  * @since 1.0.0
  */
-public class LeafPropertyAccessorImpl extends AbstractPropertyAccessorImpl {
+public class LeafPropertyAccessorImpl extends AbstractPropertyAccessorImpl implements LeafItemAccessor {
 
   @Override
-  public void copyValue(Object source, Object target) {
+  public Object getValue(Object settingsRoot) {
 
-    Object value = getValue(source);
-    if (value != null) {
-      TypeMapper mapper = getTypeMappings().get(value.getClass());
-      Object copy = mapper.copyOf(value);
-      setValue(copy, target);
-    }
+    return ReflectionUtils.getValue(this, settingsRoot);
   }
 
   @Override
-  public void readFromBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
+  public void setValue(Object value, Object settingsRoot) {
 
-    Object value = getTypeMappings().get(getType()).readFromBackingStore(backingStore, getQualifiedKey(), getType());
-    if (value != null) {
-      setValue(value, settingsRoot);
-    }
-  }
-
-  @Override
-  public void writeToBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
-
-    Object value = getValue(settingsRoot);
-    if (value != null) {
-      getTypeMappings().get(getType()).writeToBackingStore(
-        backingStore, getQualifiedKey(), value);
-    }
-  }
-
-  @Override
-  public void validate(ProblemReporter problemReporter) {
-
-    // TODO: might want to chain multiple validators here, i.e. min/max (length/cardinality), regex
-    if (getMandatory()) {
-      Object value = getValue(problemReporter.getSettings().getProperties());
-    }
+    ReflectionUtils.setValue(this, value, settingsRoot);
   }
 }

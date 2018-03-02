@@ -17,6 +17,9 @@
 
 package eu.coldrye.settings.util;
 
+import eu.coldrye.settings.impl.accessor.Accessor;
+import eu.coldrye.settings.impl.accessor.PropertyAccessor;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -25,6 +28,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public final class ReflectionUtils {
 
@@ -63,6 +67,7 @@ public final class ReflectionUtils {
     return fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
   }
 
+  @SuppressWarnings("unchecked")
   public static <T> T newInstance(Class<? extends T> type) {
 
     try {
@@ -124,6 +129,51 @@ public final class ReflectionUtils {
     } catch (NoSuchMethodException ex) {
       throw new RuntimeException(ex);
     }
+  }
+
+  public static void invokeSetter(Method method, Object instance, Object value) {
+
+    invokeMethod(method, instance, value);
+  }
+
+  public static Object invokeGetter(Method method, Object instance, DefaultValueHolder defaultValueHolder) {
+
+    Object result = invokeMethod(method, instance);
+    if (Objects.isNull(result) && !Objects.isNull(defaultValueHolder)) {
+      result = defaultValueHolder.getValue();
+    }
+    return result;
+  }
+
+  public static Object invokeMethod(Method method, Object instance, Object... parameters) {
+
+    try {
+      return method.invoke(instance, parameters);
+    } catch (IllegalAccessException | InvocationTargetException ex) {
+      throw new RuntimeException(ex);
+    }
+  }
+
+  public static Object getValue(PropertyAccessor accessor, Object settingsRoot) {
+
+    Accessor parentAccessor = accessor.getParentAccessor();
+    Object valueHolder = parentAccessor.getValue(settingsRoot);
+    Method getter = accessor.getGetter();
+    if (Objects.isNull(getter)) {
+      return valueHolder;
+    }
+    return invokeGetter(getter, valueHolder, accessor.getDefaultValueHolder());
+  }
+
+  public static void setValue(PropertyAccessor accessor, Object value, Object settingsRoot) {
+
+    Accessor parentAccessor = accessor.getParentAccessor();
+    Object valueHolder = parentAccessor.getValue(settingsRoot);
+    Method setter = accessor.getSetter();
+    if (Objects.isNull(setter)) {
+      throw new IllegalStateException("no setter available");
+    }
+    invokeSetter(setter, valueHolder, value);
   }
 
   /**

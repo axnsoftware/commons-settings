@@ -17,11 +17,9 @@
 
 package eu.coldrye.settings.impl.accessor;
 
-import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.util.ReflectionUtils;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.prefs.BackingStoreException;
+import java.util.Objects;
 
 /**
  * The class BranchPropertyAccessorImpl models a concrete implementation
@@ -33,42 +31,19 @@ import java.util.prefs.BackingStoreException;
 public class BranchPropertyAccessorImpl extends AbstractPropertyAccessorImpl {
 
   @Override
-  public void copyValue(Object source, Object target) {
-
-    for (Accessor childAccessor : getChildAccessors()) {
-      childAccessor.copyValue(source, target);
-    }
-  }
-
-  @Override
   public Object getValue(Object settingsRoot) {
 
-    Object result = super.getValue(settingsRoot);
-    if (null == result) {
-      try {
-        Constructor constructor = getType().getConstructor();
-        result = constructor.newInstance();
-        setValue(result, settingsRoot);
-      } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-        throw new RuntimeException(e);
-      }
+    Object result = ReflectionUtils.getValue(this, settingsRoot);
+    if (Objects.isNull(result)) {
+      result = ReflectionUtils.newInstance(getType());
+      setValue(result, settingsRoot);
     }
     return result;
   }
 
   @Override
-  public void readFromBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
+  public void setValue(Object value, Object settingsRoot) {
 
-    for (Accessor childAccessor : getChildAccessors()) {
-      childAccessor.readFromBackingStore(backingStore, settingsRoot);
-    }
-  }
-
-  @Override
-  public void writeToBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
-
-    for (Accessor childAccessor : getChildAccessors()) {
-      childAccessor.writeToBackingStore(backingStore, settingsRoot);
-    }
+    throw new RuntimeException("not implemented yet");
   }
 }

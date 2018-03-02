@@ -17,11 +17,7 @@
 
 package eu.coldrye.settings.impl.accessor;
 
-import eu.coldrye.settings.BackingStore;
-
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.prefs.BackingStoreException;
+import eu.coldrye.settings.util.ReflectionUtils;
 
 /**
  * The class BranchListItemAccessorImpl models a concrete implementation
@@ -30,45 +26,18 @@ import java.util.prefs.BackingStoreException;
  *
  * @since 1.0.0
  */
-public class BranchListItemAccessorImpl extends AbstractListItemAccessorImpl {
-
-  @Override
-  public void copyValue(Object source, Object target) {
-
-    for (Accessor childAccessor : getChildAccessors()) {
-      childAccessor.copyValue(source, target);
-    }
-  }
+public class BranchListItemAccessorImpl extends AbstractContainerItemAccessorImpl<Integer> implements ListItemAccessor {
 
   @Override
   public Object getValue(Object settingsRoot) {
 
-    Object result = super.getValue(settingsRoot);
-    if (null == result) {
-      try {
-        Constructor constructor = getType().getConstructor();
-        result = constructor.newInstance();
-        setValue(result, settingsRoot);
-      } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-        throw new RuntimeException(e);
-      }
+    Object result;
+    try {
+      return ListItemAccessor.super.getValue(settingsRoot);
+    } catch (IndexOutOfBoundsException ex) {
+      result = ReflectionUtils.newInstance(getType());
+      setValue(result, settingsRoot);
     }
     return result;
-  }
-
-  @Override
-  public void readFromBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
-
-    for (Accessor childAccessor : getChildAccessors()) {
-      childAccessor.readFromBackingStore(backingStore, settingsRoot);
-    }
-  }
-
-  @Override
-  public void writeToBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
-
-    for (Accessor childAccessor : getChildAccessors()) {
-      childAccessor.writeToBackingStore(backingStore, settingsRoot);
-    }
   }
 }

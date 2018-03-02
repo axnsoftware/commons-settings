@@ -57,6 +57,7 @@ public class SimpleFileStoreExample {
 
   public static void main(String... args) throws BackingStoreException {
 
+    System.out.println(System.currentTimeMillis());
     SimpleFileStoreExample app = new SimpleFileStoreExample();
     Settings settings;
     System.out.println("loading properties");
@@ -143,6 +144,8 @@ public class SimpleFileStoreExample {
     System.out.println(simpleSettings.getBranchmap());
     System.out.println(simpleSettings.getGeneralGraphicsSettings());
     System.out.println(simpleSettings.getGeneralAudioSettings());
+
+    System.out.println(System.currentTimeMillis());
 
     System.exit(0);
   }

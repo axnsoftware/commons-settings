@@ -44,6 +44,6 @@ public class BranchPropertyAccessorImpl extends AbstractPropertyAccessorImpl {
   @Override
   public void setValue(Object value, Object settingsRoot) {
 
-    throw new RuntimeException("not implemented yet");
+    ReflectionUtils.setValue(this, value, settingsRoot);
   }
 }

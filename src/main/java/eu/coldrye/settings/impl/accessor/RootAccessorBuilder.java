@@ -33,17 +33,7 @@ import java.util.Map;
  *
  * @since 1.0.0
  */
-public class RootAccessorBuilder {
-
-  /**
-   * Returns a new instance of this.
-   *
-   * @return the instance
-   */
-  public static RootAccessorBuilder newInstance() {
-
-    return new RootAccessorBuilder();
-  }
+public final class RootAccessorBuilder {
 
   /**
    * Builds and returns a new instance of the {@link Accessor} interface for

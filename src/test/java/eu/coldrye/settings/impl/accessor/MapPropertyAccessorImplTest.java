@@ -44,9 +44,9 @@ public class MapPropertyAccessorImplTest {
   @BeforeEach
   public void setup() {
 
-    this.simpleSettingsRootAccessor = RootAccessorBuilder.newInstance().buildRootAccessor(
+    this.simpleSettingsRootAccessor = new RootAccessorBuilder().buildRootAccessor(
       SimpleMapFieldSettingsRoot.class);
-    this.compoundSettingsRootAccessor = RootAccessorBuilder.newInstance().buildRootAccessor(
+    this.compoundSettingsRootAccessor = new RootAccessorBuilder().buildRootAccessor(
       CompoundMapFieldSettingsRoot.class);
     this.properties = new DummyBackingStore();
   }

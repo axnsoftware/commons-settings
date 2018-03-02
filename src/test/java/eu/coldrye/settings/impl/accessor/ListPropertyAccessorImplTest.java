@@ -44,9 +44,9 @@ public class ListPropertyAccessorImplTest {
   @BeforeEach
   public void setup() {
 
-    this.simpleSettingsRootAccessor = RootAccessorBuilder.newInstance().buildRootAccessor(
+    this.simpleSettingsRootAccessor = new RootAccessorBuilder().buildRootAccessor(
       SimpleListFieldSettingsRoot.class);
-    this.compoundSettingsRootAccessor = RootAccessorBuilder.newInstance().buildRootAccessor(
+    this.compoundSettingsRootAccessor = new RootAccessorBuilder().buildRootAccessor(
       CompoundListFieldSettingsRoot.class);
     this.properties = new DummyBackingStore();
   }

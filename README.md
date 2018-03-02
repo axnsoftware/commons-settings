@@ -12,4 +12,4 @@ you do not need the spring framework.
 ## References
 
 - [Github](https://github.com/coldrye-java/settings)
-- [Sonar](http://sonar.coldrye.eu/)
+- [Sonar](http://sonar.coldrye.eu/dashboard?id=eu.coldrye%3Asettings)

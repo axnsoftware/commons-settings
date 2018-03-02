@@ -42,9 +42,9 @@ public class ArrayPropertyAccessorImplTest {
   @BeforeEach
   public void setup() {
 
-    this.simpleSettingsRootAccessor = RootAccessorBuilder.newInstance().buildRootAccessor(
+    this.simpleSettingsRootAccessor = new RootAccessorBuilder().buildRootAccessor(
       SimpleArrayFieldSettingsRoot.class);
-    this.compoundSettingsRootAccessor = RootAccessorBuilder.newInstance().buildRootAccessor(
+    this.compoundSettingsRootAccessor = new RootAccessorBuilder().buildRootAccessor(
       CompoundArrayFieldSettingsRoot.class);
     this.properties = new DummyBackingStore();
   }

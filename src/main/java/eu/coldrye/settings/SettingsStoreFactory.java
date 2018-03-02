@@ -88,8 +88,8 @@ public class SettingsStoreFactory {
     if (null == type) {
       throw new IllegalArgumentException("type must not be null.");
     }
-    Accessor rootAccessor = RootAccessorBuilder.newInstance().buildRootAccessor(type);
-    return new SettingsStoreImpl<T>(backingStore, rootAccessor, type);
+    Accessor rootAccessor = new RootAccessorBuilder().buildRootAccessor(type);
+    return new SettingsStoreImpl<>(backingStore, rootAccessor, type);
   }
 
   /**

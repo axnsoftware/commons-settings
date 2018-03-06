@@ -20,9 +20,9 @@ package eu.coldrye.settings.impl.visitor;
 import eu.coldrye.settings.Property;
 import eu.coldrye.settings.TypeMapper;
 import eu.coldrye.settings.impl.accessor.Accessor;
-import eu.coldrye.settings.impl.accessor.DefaultTypeMapperImpl;
 import eu.coldrye.settings.impl.accessor.LeafPropertyAccessorImpl;
 import eu.coldrye.settings.impl.accessor.PropertyAccessor;
+import eu.coldrye.settings.mappers.TypeMapperRegistry;
 import eu.coldrye.settings.util.DefaultValueHolder;
 import eu.coldrye.settings.util.VisitorUtils;
 
@@ -60,7 +60,7 @@ public class SimpleTypeFieldVisitorImpl extends AbstractFieldVisitorImpl {
        * must set propertyAnnotation now or otherwise this will fail on
        * visiting all default supported type typed fields.
        */
-      if (DefaultTypeMapperImpl.getPreparedDefaultTypeMappings().containsKey(type)) {
+      if (TypeMapperRegistry.getPreparedDefaultTypeMappings().containsKey(type)) {
         result = Boolean.TRUE;
       } else {
         Class<? extends TypeMapper> typeMapperClass;

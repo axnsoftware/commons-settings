@@ -19,8 +19,8 @@ package eu.coldrye.settings.impl.visitor;
 
 import eu.coldrye.settings.Property;
 import eu.coldrye.settings.TypeMapper;
-import eu.coldrye.settings.impl.accessor.DefaultTypeMapperImpl;
 import eu.coldrye.settings.impl.accessor.Accessor;
+import eu.coldrye.settings.mappers.TypeMapperRegistry;
 import eu.coldrye.settings.util.VisitorUtils;
 
 import java.math.BigDecimal;
@@ -49,7 +49,7 @@ public class SimpleTypeVisitorImpl implements Visitor<Class<?>> {
 
     Boolean result = Boolean.FALSE;
     if (this.valueType.isAssignableFrom(visitee)) {
-      if (DefaultTypeMapperImpl.getPreparedDefaultTypeMappings().containsKey(visitee)) {
+      if (TypeMapperRegistry.getPreparedDefaultTypeMappings().containsKey(visitee)) {
         result = Boolean.TRUE;
       } else if (visitee.isAnnotationPresent(Property.class)) {
         Property annotation = visitee.getAnnotation(Property.class);

@@ -20,7 +20,6 @@ package eu.coldrye.settings.impl;
 import eu.coldrye.settings.BackingStore;
 import eu.coldrye.settings.util.OrderedProperties;
 import eu.coldrye.settings.FileFormat;
-import jdk.internal.joptsimple.internal.Strings;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -140,7 +139,7 @@ public class PropertiesBackingStoreImpl implements BackingStore {
   private <T> T getProperty(String key, Function<String, T> fn) throws BackingStoreException {
 
     String value = properties.getProperty(key);
-    if (Strings.isNullOrEmpty(value)) {
+    if (Objects.isNull(value) || value.trim().replaceAll("[ ]", "").isEmpty()) {
       return null;
     }
     return fn.apply(value);
@@ -223,7 +222,7 @@ public class PropertiesBackingStoreImpl implements BackingStore {
 
   private void setProperty(String key, Object value) throws BackingStoreException {
 
-    properties.setProperty(key, Objects.nonNull(value) ? value.toString() : Strings.EMPTY);
+    properties.setProperty(key, Objects.nonNull(value) ? value.toString() : "");
   }
 
   @Override

@@ -21,9 +21,8 @@ import eu.coldrye.settings.BackingStore;
 import eu.coldrye.settings.Settings;
 import eu.coldrye.settings.SettingsStore;
 import eu.coldrye.settings.impl.accessor.Accessor;
+import eu.coldrye.settings.util.ReflectionUtils;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.prefs.BackingStoreException;
 
 /**
@@ -75,20 +74,12 @@ public class SettingsStoreImpl<T> implements SettingsStore<T> {
   }
 
   @Override
-  public Settings loadSettings() throws BackingStoreException {
+  public Settings<T> loadSettings() throws BackingStoreException {
 
-    Settings result;
-    try {
-      Constructor constructor = type.getConstructor();
-      T settingsRoot = (T) constructor.newInstance();
-      backingStore.loadProperties();
-      rootAccessor.readFromBackingStore(backingStore, settingsRoot);
-      result = new SettingsImpl(settingsRoot, rootAccessor, this);
-    } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException e) {
-      // This should never happen
-      throw new RuntimeException(e);
-    }
-    return result;
+    T settingsRoot = ReflectionUtils.newInstance(type);
+    backingStore.loadProperties();
+    rootAccessor.readFromBackingStore(backingStore, settingsRoot);
+    return new SettingsImpl<>(settingsRoot, rootAccessor, this);
   }
 
   @Override

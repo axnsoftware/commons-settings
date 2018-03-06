@@ -57,7 +57,7 @@ public class PropertyClassVisitorImpl implements Visitor<Class<?>> {
     if (visitee.isAnnotationPresent(PropertyClass.class)) {
       List<Field> fields = ReflectionUtils.collectAnnotatedFields(visitee, Property.class);
       // We refrain from visiting a property class without any visitable fields
-      if (fields.size() == 0) {
+      if (fields.isEmpty()) {
         return false;
       }
       int modifiers = visitee.getModifiers();

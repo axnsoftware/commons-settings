@@ -36,11 +36,11 @@ public abstract class AbstractAccessorImpl implements Accessor {
 
   private String key;
 
-  private transient String cachedQualifiedKey;
+  private String cachedQualifiedKey;
 
   private Accessor parentAccessor;
 
-  private transient Accessor cachedRootAccessor;
+  private Accessor cachedRootAccessor;
 
   private Class<?> type;
 

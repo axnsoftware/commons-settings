@@ -34,7 +34,7 @@ import java.util.prefs.BackingStoreException;
  *
  * @since 1.0.0
  */
-public class MapPropertyAccessorImpl extends AbstractContainerPropertyAccessorImpl {
+public class MapPropertyAccessorImpl extends AbstractContainerPropertyAccessorImpl<String> {
 
   @Override
   @SuppressWarnings("unchecked")

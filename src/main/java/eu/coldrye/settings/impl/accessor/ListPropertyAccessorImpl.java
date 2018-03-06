@@ -33,7 +33,7 @@ import java.util.prefs.BackingStoreException;
  *
  * @since 1.0.0
  */
-public class ListPropertyAccessorImpl extends AbstractContainerPropertyAccessorImpl {
+public class ListPropertyAccessorImpl extends AbstractContainerPropertyAccessorImpl<Integer> {
 
   @Override
   @SuppressWarnings("unchecked")
@@ -43,8 +43,7 @@ public class ListPropertyAccessorImpl extends AbstractContainerPropertyAccessorI
     List<Object> targetList = new ArrayList<>();
     setValue(targetList, target);
     for (int index = 0; index < sourceList.size(); index++) {
-      ContainerItemAccessor<Integer> accessor;
-      accessor = (ContainerItemAccessor<Integer>) getItemAccessorTemplate().clone();
+      ContainerItemAccessor<Integer> accessor = (ContainerItemAccessor<Integer>) getItemAccessorTemplate().clone();
       accessor.setItemKey(index);
       accessor.copyValue(source, target);
     }
@@ -82,8 +81,7 @@ public class ListPropertyAccessorImpl extends AbstractContainerPropertyAccessorI
     List<?> items = (List<?>) getType().cast(new ArrayList<>());
     setValue(items, settingsRoot);
     for (int index = 0; index < itemKeys.size(); index++) {
-      ContainerItemAccessor<Integer> accessor;
-      accessor = (ContainerItemAccessor<Integer>) getItemAccessorTemplate().clone();
+      ContainerItemAccessor<Integer> accessor = (ContainerItemAccessor<Integer>) getItemAccessorTemplate().clone();
       accessor.setItemKey(index);
       accessor.readFromBackingStore(backingStore, settingsRoot);
     }

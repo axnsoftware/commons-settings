@@ -18,8 +18,9 @@
 package eu.coldrye.settings.impl.accessor;
 
 import eu.coldrye.settings.TypeMapper;
-import eu.coldrye.settings.impl.visitor.Visitor;
 import eu.coldrye.settings.impl.visitor.PropertyClassVisitorImpl;
+import eu.coldrye.settings.impl.visitor.Visitor;
+import eu.coldrye.settings.mappers.TypeMapperRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,7 +53,7 @@ public final class RootAccessorBuilder {
     result.setType(type);
     Map<Class<?>, TypeMapper> typeMappings;
     typeMappings = result.getTypeMappings();
-    typeMappings.putAll(DefaultTypeMapperImpl.getPreparedDefaultTypeMappings());
+    typeMappings.putAll(TypeMapperRegistry.getPreparedDefaultTypeMappings());
     Visitor<Class<?>> visitor = new PropertyClassVisitorImpl();
     if (visitor.canVisit(type)) {
       visitor.visit(type, result);

@@ -23,7 +23,7 @@ package eu.coldrye.settings.impl.accessor;
  *
  * @since 1.0.0
  */
-public interface ContainerPropertyAccessor extends PropertyAccessor {
+public interface ContainerPropertyAccessor<T> extends PropertyAccessor {
 
   /**
    * Returns the item accessor acting as a template for accessing individual
@@ -31,12 +31,12 @@ public interface ContainerPropertyAccessor extends PropertyAccessor {
    *
    * @return the item accessor template
    */
-  Accessor getItemAccessorTemplate();
+  ContainerItemAccessor<T> getItemAccessorTemplate();
 
   /**
    * Sets the item accessor template.
    *
    * @param itemAccessorTemplate
    */
-  void setItemAccessorTemplate(Accessor itemAccessorTemplate);
+  void setItemAccessorTemplate(ContainerItemAccessor<T> itemAccessorTemplate);
 }

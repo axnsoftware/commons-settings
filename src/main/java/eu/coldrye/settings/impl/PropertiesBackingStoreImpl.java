@@ -20,6 +20,7 @@ package eu.coldrye.settings.impl;
 import eu.coldrye.settings.BackingStore;
 import eu.coldrye.settings.util.OrderedProperties;
 import eu.coldrye.settings.FileFormat;
+import jdk.internal.joptsimple.internal.Strings;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -30,8 +31,10 @@ import java.io.OutputStream;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.prefs.BackingStoreException;
 
 /**
@@ -77,101 +80,70 @@ public class PropertiesBackingStoreImpl implements BackingStore {
   @Override
   public Boolean getBoolean(String key) throws BackingStoreException {
 
-    Boolean result = null;
-    String value = getString(key);
-    if (null != value) {
-      result = Boolean.valueOf(value);
-    }
-    return result;
+    return getProperty(key, Boolean::valueOf);
   }
 
   @Override
   public Byte getByte(String key) throws BackingStoreException {
 
-    Byte result = null;
-    String value = getString(key);
-    if (null != value) {
-      result = Byte.valueOf(value);
-    }
-    return result;
+    return getProperty(key, Byte::valueOf);
   }
 
   @Override
   public Character getCharacter(String key) throws BackingStoreException {
 
-    Character result = null;
-    String value = getString(key);
-    if (null != value) {
-      result = Character.valueOf(value.charAt(0));
-    }
-    return result;
+    return getProperty(key, value -> value.charAt(0));
   }
 
   @Override
   public Double getDouble(String key) throws BackingStoreException {
 
-    Double result = null;
-    String value = getString(key);
-    if (null != value) {
-      result = Double.valueOf(value);
-    }
-    return result;
+    return getProperty(key, Double::valueOf);
   }
 
   @Override
   public Float getFloat(String key) throws BackingStoreException {
 
-    Float result = null;
-    String value = getString(key);
-    if (null != value) {
-      result = Float.valueOf(value);
-    }
-    return result;
+    return getProperty(key, Float::valueOf);
   }
 
   @Override
   public Integer getInteger(String key) throws BackingStoreException {
 
-    Integer result = null;
-    String value = getString(key);
-    if (null != value) {
-      result = Integer.valueOf(value);
-    }
-    return result;
+    return getProperty(key, Integer::valueOf);
   }
 
   @Override
   public Long getLong(String key) throws BackingStoreException {
 
-    Long result = null;
-    String value = getString(key);
-    if (null != value) {
-      result = Long.valueOf(value);
-    }
-    return result;
+    return getProperty(key, Long::valueOf);
   }
 
   @Override
   public Object getProperties() throws BackingStoreException {
 
-    return (Properties) properties.clone();
+    return properties.clone();
   }
 
   @Override
   public Short getShort(String key) throws BackingStoreException {
 
-    Short result = null;
-    String value = getString(key);
-    if (null != value) {
-      result = Short.valueOf(value);
-    }
-    return result;
+    return getProperty(key, Short::valueOf);
   }
 
   @Override
   public String getString(String key) throws BackingStoreException {
 
     return properties.getProperty(key);
+  }
+
+  private <T> T getProperty(String key, Function<String, T> fn) throws BackingStoreException {
+
+    String value = properties.getProperty(key);
+    if (Strings.isNullOrEmpty(value)) {
+      return null;
+    }
+    return fn.apply(value);
   }
 
   @Override
@@ -198,55 +170,60 @@ public class PropertiesBackingStoreImpl implements BackingStore {
   @Override
   public void setBoolean(String key, Object value) throws BackingStoreException {
 
-    setString(key, value.toString());
+    setProperty(key, value);
   }
 
   @Override
   public void setByte(String key, Byte value) throws BackingStoreException {
 
-    setString(key, value.toString());
+    setProperty(key, value);
   }
 
   @Override
   public void setCharacter(String key, Character value) throws BackingStoreException {
 
-    setString(key, value.toString());
+    setProperty(key, value);
   }
 
   @Override
   public void setDouble(String key, Double value) throws BackingStoreException {
 
-    setString(key, value.toString());
+    setProperty(key, value);
   }
 
   @Override
   public void setFloat(String key, Float value) throws BackingStoreException {
 
-    setString(key, value.toString());
+    setProperty(key, value);
   }
 
   @Override
   public void setInteger(String key, Integer value) throws BackingStoreException {
 
-    setString(key, value.toString());
+    setProperty(key, value);
   }
 
   @Override
   public void setLong(String key, Long value) throws BackingStoreException {
 
-    setString(key, value.toString());
+    setProperty(key, value);
   }
 
   @Override
   public void setShort(String key, Short value) throws BackingStoreException {
 
-    setString(key, value.toString());
+    setProperty(key, value);
   }
 
   @Override
   public void setString(String key, String value) throws BackingStoreException {
 
-    properties.setProperty(key, value.toString());
+    setProperty(key, value);
+  }
+
+  private void setProperty(String key, Object value) throws BackingStoreException {
+
+    properties.setProperty(key, Objects.nonNull(value) ? value.toString() : Strings.EMPTY);
   }
 
   @Override

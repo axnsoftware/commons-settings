@@ -24,10 +24,10 @@ package eu.coldrye.settings.impl.accessor;
  *
  * @since 1.0.0
  */
-public abstract class AbstractContainerPropertyAccessorImpl extends AbstractPropertyAccessorImpl
-  implements ContainerPropertyAccessor {
+public abstract class AbstractContainerPropertyAccessorImpl<T> extends AbstractPropertyAccessorImpl
+  implements ContainerPropertyAccessor<T> {
 
-  private Accessor itemAccessorTemplate;
+  private ContainerItemAccessor<T>  itemAccessorTemplate;
 
   protected AbstractContainerPropertyAccessorImpl() {
 
@@ -35,24 +35,24 @@ public abstract class AbstractContainerPropertyAccessorImpl extends AbstractProp
   }
 
   @Override
+  @SuppressWarnings("unchecked")
   public final Object clone() {
 
-    AbstractContainerPropertyAccessorImpl result;
-    result = (AbstractContainerPropertyAccessorImpl) super.clone();
-    Accessor accessorTemplate = (Accessor) getItemAccessorTemplate().clone();
+    AbstractContainerPropertyAccessorImpl result = (AbstractContainerPropertyAccessorImpl) super.clone();
+    ContainerItemAccessor<T> accessorTemplate = (ContainerItemAccessor<T>) getItemAccessorTemplate().clone();
     accessorTemplate.setParentAccessor(result);
     result.setItemAccessorTemplate(accessorTemplate);
     return result;
   }
 
   @Override
-  public final Accessor getItemAccessorTemplate() {
+  public final ContainerItemAccessor<T> getItemAccessorTemplate() {
 
     return itemAccessorTemplate;
   }
 
   @Override
-  public final void setItemAccessorTemplate(Accessor itemAccessorTemplate) {
+  public final void setItemAccessorTemplate(ContainerItemAccessor<T> itemAccessorTemplate) {
 
     this.itemAccessorTemplate = itemAccessorTemplate;
   }

@@ -23,7 +23,6 @@ import eu.coldrye.settings.impl.accessor.Accessor;
 import eu.coldrye.settings.impl.accessor.PropertyAccessor;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Map;
 
 /**

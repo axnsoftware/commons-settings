@@ -18,12 +18,10 @@
 package eu.coldrye.settings.impl.accessor;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.BackingStoreException;
 import eu.coldrye.settings.ProblemReporter;
-import eu.coldrye.settings.TypeMapper;
 
 import java.util.List;
-import java.util.Map;
-import java.util.prefs.BackingStoreException;
 
 /**
  * The interface Accessor models the root of a hierarchy of derived interfaces.
@@ -50,9 +48,7 @@ public interface Accessor extends Cloneable {
    */
   default void copyValue(Object source, Object target) {
 
-    for (Accessor childAccessor : getChildAccessors()) {
-      childAccessor.copyValue(source, target);
-    }
+    getChildAccessors().forEach(accessor -> accessor.copyValue(source, target));
   }
 
   /**
@@ -96,13 +92,6 @@ public interface Accessor extends Cloneable {
    * @return the type of the property
    */
   Class<?> getType();
-
-  /**
-   * Gets the available type mappings from the root accessor.
-   *
-   * @return the available type mappings
-   */
-  Map<Class<?>, TypeMapper> getTypeMappings();
 
   /**
    * Gets the {@code value} of the property represented by this from the
@@ -178,8 +167,6 @@ public interface Accessor extends Cloneable {
    */
   default void validate(ProblemReporter problemReporter) {
 
-    for (Accessor childAccessor : getChildAccessors()) {
-      childAccessor.validate(problemReporter);
-    }
+    getChildAccessors().forEach(accessor -> accessor.validate(problemReporter));
   }
 }

@@ -19,7 +19,7 @@ package eu.coldrye.settings.impl.accessor;
 
 import eu.coldrye.settings.util.ReflectionUtils;
 
-import java.util.Objects;
+import java.lang.reflect.Method;
 
 /**
  * The class BranchPropertyAccessorImpl models a concrete implementation
@@ -33,17 +33,18 @@ public class BranchPropertyAccessorImpl extends AbstractPropertyAccessorImpl {
   @Override
   public Object getValue(Object settingsRoot) {
 
-    Object result = ReflectionUtils.getValue(this, settingsRoot);
-    if (Objects.isNull(result)) {
-      result = ReflectionUtils.newInstance(getType());
-      setValue(result, settingsRoot);
-    }
-    return result;
+    Accessor parentAccessor = getParentAccessor();
+    Object valueHolder = parentAccessor.getValue(settingsRoot);
+    Method getter = getGetter();
+    return ReflectionUtils.invokeGetter(getter, valueHolder, getDefaultValueHolder());
   }
 
   @Override
   public void setValue(Object value, Object settingsRoot) {
 
-    ReflectionUtils.setValue(this, value, settingsRoot);
+    Accessor parentAccessor = getParentAccessor();
+    Object valueHolder = parentAccessor.getValue(settingsRoot);
+    Method setter = getSetter();
+    ReflectionUtils.invokeSetter(setter, valueHolder, value);
   }
 }

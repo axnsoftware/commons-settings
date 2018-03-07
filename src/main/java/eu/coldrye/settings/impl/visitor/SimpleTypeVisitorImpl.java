@@ -20,7 +20,7 @@ package eu.coldrye.settings.impl.visitor;
 import eu.coldrye.settings.Property;
 import eu.coldrye.settings.TypeMapper;
 import eu.coldrye.settings.impl.accessor.Accessor;
-import eu.coldrye.settings.mappers.TypeMapperRegistry;
+import eu.coldrye.settings.util.TypeMapperRegistry;
 import eu.coldrye.settings.util.VisitorUtils;
 
 import java.math.BigDecimal;
@@ -49,12 +49,14 @@ public class SimpleTypeVisitorImpl implements Visitor<Class<?>> {
 
     Boolean result = Boolean.FALSE;
     if (this.valueType.isAssignableFrom(visitee)) {
-      if (TypeMapperRegistry.getPreparedDefaultTypeMappings().containsKey(visitee)) {
+      if (TypeMapperRegistry.INSTANCE.isAvailable(visitee)) {
         result = Boolean.TRUE;
       } else if (visitee.isAnnotationPresent(Property.class)) {
         Property annotation = visitee.getAnnotation(Property.class);
-        if (!TypeMapper.class.equals(annotation.typeMapper())) {
+        Class<? extends TypeMapper> typeMapperClass = annotation.typeMapper();
+        if (!TypeMapper.class.equals(typeMapperClass)) {
           result = Boolean.TRUE;
+          TypeMapperRegistry.INSTANCE.registerTypeMapper(visitee, typeMapperClass);
         }
       }
     }
@@ -64,11 +66,7 @@ public class SimpleTypeVisitorImpl implements Visitor<Class<?>> {
   @Override
   public void visit(Class<?> visitee, Accessor parentAccessor) {
 
-    Property annotation = visitee.getAnnotation(Property.class);
-    if (annotation != null && !TypeMapper.class.equals(annotation.typeMapper())) {
-      VisitorUtils.registerOrGetExistingTypeMapper(visitee, annotation.typeMapper(),
-        parentAccessor.getTypeMappings());
-    }
+    // TypeMapper, if any, is already registered in #canVisit()
   }
 
   @SuppressWarnings("unchecked")

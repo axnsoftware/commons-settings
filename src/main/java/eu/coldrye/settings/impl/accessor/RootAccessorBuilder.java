@@ -17,14 +17,11 @@
 
 package eu.coldrye.settings.impl.accessor;
 
-import eu.coldrye.settings.TypeMapper;
 import eu.coldrye.settings.impl.visitor.PropertyClassVisitorImpl;
 import eu.coldrye.settings.impl.visitor.Visitor;
-import eu.coldrye.settings.mappers.TypeMapperRegistry;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The class RootAccessorBuilder models a builder for instances of the
@@ -51,9 +48,6 @@ public final class RootAccessorBuilder {
     result.setChildAccessors(childAccessors);
     result.setKey("");
     result.setType(type);
-    Map<Class<?>, TypeMapper> typeMappings;
-    typeMappings = result.getTypeMappings();
-    typeMappings.putAll(TypeMapperRegistry.getPreparedDefaultTypeMappings());
     Visitor<Class<?>> visitor = new PropertyClassVisitorImpl();
     if (visitor.canVisit(type)) {
       visitor.visit(type, result);

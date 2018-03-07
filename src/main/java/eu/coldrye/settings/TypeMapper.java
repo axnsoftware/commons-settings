@@ -17,8 +17,6 @@
 
 package eu.coldrye.settings;
 
-import java.util.prefs.BackingStoreException;
-
 /**
  * The interface TypeMapper models a mapper that is responsible for reading and
  * writing a given object from and to a given backing store. The mapper is

@@ -22,8 +22,9 @@ import eu.coldrye.settings.TypeMapper;
 import eu.coldrye.settings.impl.accessor.Accessor;
 import eu.coldrye.settings.impl.accessor.LeafPropertyAccessorImpl;
 import eu.coldrye.settings.impl.accessor.PropertyAccessor;
-import eu.coldrye.settings.mappers.TypeMapperRegistry;
 import eu.coldrye.settings.util.DefaultValueHolder;
+import eu.coldrye.settings.util.ReflectionUtils;
+import eu.coldrye.settings.util.TypeMapperRegistry;
 import eu.coldrye.settings.util.VisitorUtils;
 
 import java.lang.reflect.Field;
@@ -60,7 +61,7 @@ public class SimpleTypeFieldVisitorImpl extends AbstractFieldVisitorImpl {
        * must set propertyAnnotation now or otherwise this will fail on
        * visiting all default supported type typed fields.
        */
-      if (TypeMapperRegistry.getPreparedDefaultTypeMappings().containsKey(type)) {
+      if (TypeMapperRegistry.INSTANCE.isAvailable(type)) {
         result = Boolean.TRUE;
       } else {
         Class<? extends TypeMapper> typeMapperClass;
@@ -70,6 +71,7 @@ public class SimpleTypeFieldVisitorImpl extends AbstractFieldVisitorImpl {
           typeMapperClass = propertyAnnotation.typeMapper();
         }
         if (!TypeMapper.class.equals(typeMapperClass)) {
+          TypeMapperRegistry.INSTANCE.registerTypeMapper(type, typeMapperClass);
           result = Boolean.TRUE;
         }
       }
@@ -82,16 +84,8 @@ public class SimpleTypeFieldVisitorImpl extends AbstractFieldVisitorImpl {
 
     Class<?> type = visitee.getType();
     PropertyAccessor accessor = new LeafPropertyAccessorImpl();
-    Class<? extends TypeMapper> typeMapperClass;
     Property propertyAnnotation = visitee.getAnnotation(Property.class);
-    if (type.isAnnotationPresent(Property.class)) {
-      typeMapperClass = type.getAnnotation(Property.class).typeMapper();
-    } else {
-      typeMapperClass = propertyAnnotation.typeMapper();
-    }
-    TypeMapper typeMapper = VisitorUtils.registerOrGetExistingTypeMapper(type, typeMapperClass,
-      parentAccessor.getTypeMappings());
-    DefaultValueHolder defaultValueHolder = new DefaultValueHolder(propertyAnnotation.defaultValue(), type, typeMapper);
+    DefaultValueHolder defaultValueHolder = new DefaultValueHolder(propertyAnnotation.defaultValue(), type);
     accessor.setDefaultValueHolder(defaultValueHolder);
     VisitorUtils.configureAccessor(accessor, parentAccessor, visitee);
   }

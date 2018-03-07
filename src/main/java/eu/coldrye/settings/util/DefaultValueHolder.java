@@ -17,8 +17,6 @@
 
 package eu.coldrye.settings.util;
 
-import eu.coldrye.settings.TypeMapper;
-
 /**
  * The class DefaultValueHolder models a holder for a default value which was
  * declared by the {@code Property} annotation's {@code defaultValue} property.
@@ -35,19 +33,13 @@ public class DefaultValueHolder {
 
   private Class<?> type;
 
-  private TypeMapper typeMapper;
-
-  public DefaultValueHolder(String defaultValue, Class<?> type, TypeMapper typeMapper) {
+  public DefaultValueHolder(String defaultValue, Class<?> type) {
 
     if (null == type) {
       throw new IllegalArgumentException("type must not be null.");
     }
-    if (null == typeMapper) {
-      throw new IllegalArgumentException("typeMapper must not be null.");
-    }
     this.defaultValue = defaultValue;
     this.type = type;
-    this.typeMapper = typeMapper;
   }
 
   /**
@@ -62,7 +54,7 @@ public class DefaultValueHolder {
      */
     if (cachedValue == null && !doNotCacheAgain) {
       // TODO:uncaught exceptions
-      cachedValue = typeMapper.valueOf(defaultValue, type);
+      cachedValue = TypeMapperRegistry.INSTANCE.getTypeMapper(type).valueOf(defaultValue, type);
       doNotCacheAgain = true;
     }
     return cachedValue;

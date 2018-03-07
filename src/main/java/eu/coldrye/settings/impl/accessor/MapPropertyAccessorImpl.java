@@ -18,14 +18,15 @@
 package eu.coldrye.settings.impl.accessor;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.BackingStoreException;
 import eu.coldrye.settings.util.ReflectionUtils;
+import eu.coldrye.settings.util.TypeMapperRegistry;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.prefs.BackingStoreException;
 
 /**
  * The class MapPropertyAccessorImpl models a concrete implementation of
@@ -45,6 +46,11 @@ public class MapPropertyAccessorImpl extends AbstractContainerPropertyAccessorIm
     setValue(targetMap, target);
     for (Map.Entry<String, Object> entry : sourceMap.entrySet()) {
       ContainerItemAccessor<String> accessor = (ContainerItemAccessor<String>) getItemAccessorTemplate().clone();
+      // if there is a mapper, then leave it to the child accessor, else it must be a property class without any
+      if (!TypeMapperRegistry.INSTANCE.isAvailable(accessor.getType())) {
+        Object o = ReflectionUtils.newInstance(accessor.getType());
+        targetMap.put(entry.getKey(), o);
+      }
       accessor.setItemKey(entry.getKey());
       accessor.copyValue(source, target);
     }
@@ -86,9 +92,15 @@ public class MapPropertyAccessorImpl extends AbstractContainerPropertyAccessorIm
         itemKeys.add(currentKey.replace(key + ".", ""));
       }
     }
-    setValue(getType().cast(new HashMap<String, Object>()), settingsRoot);
+    Map<String, Object> items = (Map<String, Object>) getType().cast(new HashMap<String, Object>());
+    setValue(items, settingsRoot);
     for (String itemKey : itemKeys) {
       ContainerItemAccessor<String> accessor = (ContainerItemAccessor<String>) getItemAccessorTemplate().clone();
+      // if there is a mapper, then leave it to the child accessor, else it must be a property class without any
+      if (!TypeMapperRegistry.INSTANCE.isAvailable(accessor.getType())) {
+        Object o = ReflectionUtils.newInstance(accessor.getType());
+        items.put(itemKey, o);
+      }
       accessor.setItemKey(itemKey);
       accessor.readFromBackingStore(backingStore, settingsRoot);
     }

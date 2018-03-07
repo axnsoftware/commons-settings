@@ -17,7 +17,7 @@
 
 package eu.coldrye.settings.impl.accessor;
 
-import eu.coldrye.settings.util.ReflectionUtils;
+//import eu.coldrye.settings.util.ReflectionUtils;
 
 /**
  * The class BranchListItemAccessorImpl models a concrete implementation
@@ -28,16 +28,16 @@ import eu.coldrye.settings.util.ReflectionUtils;
  */
 public class BranchListItemAccessorImpl extends AbstractContainerItemAccessorImpl<Integer> implements ListItemAccessor {
 
-  @Override
-  public Object getValue(Object settingsRoot) {
-
-    Object result;
-    try {
-      return ListItemAccessor.super.getValue(settingsRoot);
-    } catch (IndexOutOfBoundsException ex) {
-      result = ReflectionUtils.newInstance(getType());
-      setValue(result, settingsRoot);
-    }
-    return result;
-  }
+  //@Override
+  //public Object getValue(Object settingsRoot) {
+  //
+  //  Object result;
+  //  try {
+  //    return ListItemAccessor.super.getValue(settingsRoot);
+  //  } catch (IndexOutOfBoundsException ex) {
+  //    result = ReflectionUtils.newInstance(getType());
+  //    setValue(result, settingsRoot);
+  //  }
+  //  return result;
+  //}
 }

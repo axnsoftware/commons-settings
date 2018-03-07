@@ -17,8 +17,6 @@
 
 package eu.coldrye.settings;
 
-import java.util.prefs.BackingStoreException;
-
 /**
  * The interface SettingsStore models a service for loading and storing
  * properties from and to an underlying backing store represented by an instance

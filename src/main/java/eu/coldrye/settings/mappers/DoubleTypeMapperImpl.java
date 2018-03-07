@@ -18,9 +18,8 @@
 package eu.coldrye.settings.mappers;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.BackingStoreException;
 import eu.coldrye.settings.TypeMapper;
-
-import java.util.prefs.BackingStoreException;
 
 public class DoubleTypeMapperImpl implements TypeMapper {
 

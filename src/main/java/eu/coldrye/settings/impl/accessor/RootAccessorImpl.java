@@ -17,13 +17,6 @@
 
 package eu.coldrye.settings.impl.accessor;
 
-import eu.coldrye.settings.BackingStore;
-import eu.coldrye.settings.TypeMapper;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.prefs.BackingStoreException;
-
 /**
  * The class RootAccessorImpl models a concrete implementation of the
  * {@code Accessor} interface, representing the root of a hierarchy of
@@ -33,20 +26,9 @@ import java.util.prefs.BackingStoreException;
  */
 public class RootAccessorImpl extends AbstractAccessorImpl {
 
-  private Map<Class<?>, TypeMapper> typeMappings;
-
   public RootAccessorImpl() {
 
     super();
-    typeMappings = new HashMap<>();
-  }
-
-  @Override
-  public void copyValue(Object source, Object target) {
-
-    for (Accessor childAccessor : getChildAccessors()) {
-      childAccessor.copyValue(source, target);
-    }
   }
 
   @Override
@@ -65,27 +47,5 @@ public class RootAccessorImpl extends AbstractAccessorImpl {
   public Accessor getRootAccessor() {
 
     return this;
-  }
-
-  @Override
-  public Map<Class<?>, TypeMapper> getTypeMappings() {
-
-    return typeMappings;
-  }
-
-  @Override
-  public void readFromBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
-
-    for (Accessor childAccessor : getChildAccessors()) {
-      childAccessor.readFromBackingStore(backingStore, settingsRoot);
-    }
-  }
-
-  @Override
-  public void writeToBackingStore(BackingStore backingStore, Object settingsRoot) throws BackingStoreException {
-
-    for (Accessor childAccessor : getChildAccessors()) {
-      childAccessor.writeToBackingStore(backingStore, settingsRoot);
-    }
   }
 }

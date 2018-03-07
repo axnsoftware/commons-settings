@@ -18,7 +18,6 @@
 package eu.coldrye.settings;
 
 import java.util.Set;
-import java.util.prefs.BackingStoreException;
 
 /**
  * The interface BackingStore models a backing store which is responsible for

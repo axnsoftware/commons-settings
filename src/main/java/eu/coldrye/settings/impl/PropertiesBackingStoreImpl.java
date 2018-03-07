@@ -18,6 +18,7 @@
 package eu.coldrye.settings.impl;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.BackingStoreException;
 import eu.coldrye.settings.util.OrderedProperties;
 import eu.coldrye.settings.FileFormat;
 
@@ -34,7 +35,6 @@ import java.util.Objects;
 import java.util.Properties;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.prefs.BackingStoreException;
 
 /**
  * The class PropertiesBackingStoreImpl models a concrete implementation

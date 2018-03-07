@@ -18,6 +18,7 @@
 package eu.coldrye.settings.examples.simple;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.BackingStoreException;
 import eu.coldrye.settings.Settings;
 import eu.coldrye.settings.SettingsStore;
 import eu.coldrye.settings.SettingsStoreFactory;
@@ -34,7 +35,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
-import java.util.prefs.BackingStoreException;
 
 /**
  *

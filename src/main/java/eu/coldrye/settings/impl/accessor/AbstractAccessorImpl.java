@@ -17,11 +17,8 @@
 
 package eu.coldrye.settings.impl.accessor;
 
-import eu.coldrye.settings.TypeMapper;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * The abstract class AbstractAccessorImpl models the root of a hierarchy of
@@ -115,12 +112,6 @@ public abstract class AbstractAccessorImpl implements Accessor {
       cachedRootAccessor = current;
     }
     return cachedRootAccessor;
-  }
-
-  @Override
-  public Map<Class<?>, TypeMapper> getTypeMappings() {
-
-    return getRootAccessor().getTypeMappings();
   }
 
   @Override

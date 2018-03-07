@@ -18,10 +18,10 @@
 package eu.coldrye.settings.mappers;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.BackingStoreException;
 import eu.coldrye.settings.TypeMapper;
 
 import java.util.UUID;
-import java.util.prefs.BackingStoreException;
 
 public class UuidTypeMapperImpl implements TypeMapper {
 
@@ -32,7 +32,8 @@ public class UuidTypeMapperImpl implements TypeMapper {
   }
 
   @Override
-  public Object readFromBackingStore(BackingStore backingStore, String key, Class<?> type) throws BackingStoreException {
+  public Object readFromBackingStore(BackingStore backingStore, String key, Class<?> type)
+    throws BackingStoreException {
 
     return valueOf(backingStore.getString(key), type);
   }

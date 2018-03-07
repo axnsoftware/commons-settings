@@ -19,8 +19,6 @@ package eu.coldrye.settings.impl.accessor;
 
 import eu.coldrye.settings.util.ReflectionUtils;
 
-import java.util.Objects;
-
 /**
  * The class BranchArrayItemAccessorImpl models a concrete implementation
  * of the {@code Accessor} interface, responsible for accessing items in
@@ -32,13 +30,10 @@ public class BranchArrayItemAccessorImpl extends AbstractContainerItemAccessorIm
   implements ArrayItemAccessor {
 
   @Override
-  public Object getValue(Object settingsRoot) {
+  public void copyValue(Object source, Object target) {
 
-    Object result = ArrayItemAccessor.super.getValue(settingsRoot);
-    if (Objects.isNull(result)) {
-      result = ReflectionUtils.newInstance(getType());
-      setValue(result, settingsRoot);
-    }
-    return result;
+    Object copy = ReflectionUtils.newInstance(getType());
+    setValue(copy, target);
+    ArrayItemAccessor.super.copyValue(source, target);
   }
 }

@@ -17,11 +17,10 @@
 
 package eu.coldrye.settings.examples.simple.mapper;
 
+import eu.coldrye.settings.BackingStoreException;
 import eu.coldrye.settings.examples.simple.pojos.EAudioBitDepth;
 import eu.coldrye.settings.BackingStore;
 import eu.coldrye.settings.TypeMapper;
-
-import java.util.prefs.BackingStoreException;
 
 /**
  *

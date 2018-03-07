@@ -18,13 +18,14 @@
 package eu.coldrye.settings.impl.accessor;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.BackingStoreException;
 import eu.coldrye.settings.util.ReflectionUtils;
+import eu.coldrye.settings.util.TypeMapperRegistry;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.prefs.BackingStoreException;
 
 /**
  * The class ArrayPropertyAccessorImpl models a concrete implementation of the {@code Accessor} interface,
@@ -72,10 +73,15 @@ public class ArrayPropertyAccessorImpl extends AbstractContainerPropertyAccessor
         provableKey = key + "." + nextProvableItemKey;
       }
     }
-    Object items = getType().cast(Array.newInstance(getItemAccessorTemplate().getType(), nextProvableItemKey));
+    Object[] items = (Object[]) getType().cast(Array.newInstance(getItemAccessorTemplate().getType(), nextProvableItemKey));
     setValue(items, settingsRoot);
     for (int index = 0; index < itemKeys.size(); index++) {
       ContainerItemAccessor<Integer> accessor = (ContainerItemAccessor<Integer>) getItemAccessorTemplate().clone();
+      // if there is a mapper, then leave it to the child accessor, else it must be a property class without any
+      if (!TypeMapperRegistry.INSTANCE.isAvailable(accessor.getType())) {
+        Object o = ReflectionUtils.newInstance(accessor.getType());
+        items[index] = o;
+      }
       accessor.setItemKey(index);
       accessor.readFromBackingStore(properties, settingsRoot);
     }

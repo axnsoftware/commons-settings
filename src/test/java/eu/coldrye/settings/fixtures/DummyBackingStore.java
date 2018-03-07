@@ -18,10 +18,10 @@
 package eu.coldrye.settings.fixtures;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.BackingStoreException;
 
 import java.util.Properties;
 import java.util.Set;
-import java.util.prefs.BackingStoreException;
 
 /**
  *

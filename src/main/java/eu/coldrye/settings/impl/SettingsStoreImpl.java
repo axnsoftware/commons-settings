@@ -18,12 +18,11 @@
 package eu.coldrye.settings.impl;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.BackingStoreException;
 import eu.coldrye.settings.Settings;
 import eu.coldrye.settings.SettingsStore;
 import eu.coldrye.settings.impl.accessor.Accessor;
 import eu.coldrye.settings.util.ReflectionUtils;
-
-import java.util.prefs.BackingStoreException;
 
 /**
  * The class SettingsStoreImpl models a concrete implementation of the

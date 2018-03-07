@@ -17,9 +17,9 @@
 
 package eu.coldrye.settings.impl.accessor;
 
-import eu.coldrye.settings.util.ReflectionUtils;
+//import eu.coldrye.settings.util.ReflectionUtils;
 
-import java.util.Objects;
+//import java.util.Objects;
 
 /**
  * The class BranchMapItemAccessorImpl models a concrete implementation of
@@ -31,14 +31,14 @@ import java.util.Objects;
 public class BranchMapItemAccessorImpl extends AbstractContainerItemAccessorImpl<String>
   implements MapItemAccessor {
 
-  @Override
-  public Object getValue(Object settingsRoot) {
-
-    Object result = MapItemAccessor.super.getValue(settingsRoot);
-    if (Objects.isNull(result)) {
-      result = ReflectionUtils.newInstance(getType());
-      setValue(result, settingsRoot);
-    }
-    return result;
-  }
+  //@Override
+  //public Object getValue(Object settingsRoot) {
+  //
+  //  Object result = MapItemAccessor.super.getValue(settingsRoot);
+  //  if (Objects.isNull(result)) {
+  //    result = ReflectionUtils.newInstance(getType());
+  //    setValue(result, settingsRoot);
+  //  }
+  //  return result;
+  //}
 }

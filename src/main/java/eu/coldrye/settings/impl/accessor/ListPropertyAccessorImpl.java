@@ -18,13 +18,14 @@
 package eu.coldrye.settings.impl.accessor;
 
 import eu.coldrye.settings.BackingStore;
+import eu.coldrye.settings.BackingStoreException;
 import eu.coldrye.settings.util.ReflectionUtils;
+import eu.coldrye.settings.util.TypeMapperRegistry;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.prefs.BackingStoreException;
 
 /**
  * The class ListPropertyAccessorImpl models a concrete implementation of
@@ -44,6 +45,11 @@ public class ListPropertyAccessorImpl extends AbstractContainerPropertyAccessorI
     setValue(targetList, target);
     for (int index = 0; index < sourceList.size(); index++) {
       ContainerItemAccessor<Integer> accessor = (ContainerItemAccessor<Integer>) getItemAccessorTemplate().clone();
+      // if there is a mapper, then leave it to the child accessor, else it must be a property class without any
+      if (!TypeMapperRegistry.INSTANCE.isAvailable(accessor.getType())) {
+        Object o = ReflectionUtils.newInstance(accessor.getType());
+        targetList.add(o);
+      }
       accessor.setItemKey(index);
       accessor.copyValue(source, target);
     }
@@ -78,10 +84,15 @@ public class ListPropertyAccessorImpl extends AbstractContainerPropertyAccessorI
         provableKey = key + "." + nextProvableItemKey;
       }
     }
-    List<?> items = (List<?>) getType().cast(new ArrayList<>());
+    List items = (List) getType().cast(new ArrayList<>());
     setValue(items, settingsRoot);
     for (int index = 0; index < itemKeys.size(); index++) {
       ContainerItemAccessor<Integer> accessor = (ContainerItemAccessor<Integer>) getItemAccessorTemplate().clone();
+      // if there is a mapper, then leave it to the child accessor, else it must be a property class without any
+      if (!TypeMapperRegistry.INSTANCE.isAvailable(accessor.getType())) {
+        Object o = ReflectionUtils.newInstance(accessor.getType());
+        items.add(o);
+      }
       accessor.setItemKey(index);
       accessor.readFromBackingStore(backingStore, settingsRoot);
     }

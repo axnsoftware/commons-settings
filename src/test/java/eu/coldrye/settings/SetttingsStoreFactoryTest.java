@@ -18,7 +18,6 @@
 package eu.coldrye.settings;
 
 import eu.coldrye.settings.fixtures.CustomTypeSettingsRoot;
-import eu.coldrye.settings.impl.PropertiesBackingStoreImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -64,7 +63,7 @@ public class SetttingsStoreFactoryTest {
     SettingsStore store = factory.newFileStore(new File("/tmp/unused"), CustomTypeSettingsRoot.class);
     Assertions.assertNotNull(store);
     Assertions.assertTrue(
-      store.getBackingStore() instanceof PropertiesBackingStoreImpl);
+      store.getBackingStore() instanceof DefaultPropertiesBackingStore);
     Assertions.assertSame(CustomTypeSettingsRoot.class, store.getType());
   }
 
@@ -123,7 +122,7 @@ public class SetttingsStoreFactoryTest {
     SettingsStore store = factory.newXMLFileStore(new File("/tmp/unused"), CustomTypeSettingsRoot.class);
     Assertions.assertAll(
       () -> Assertions.assertNotNull(store),
-      () -> Assertions.assertTrue(store.getBackingStore() instanceof PropertiesBackingStoreImpl),
+      () -> Assertions.assertTrue(store.getBackingStore() instanceof DefaultPropertiesBackingStore),
       () -> Assertions.assertSame(CustomTypeSettingsRoot.class, store.getType())
     );
   }

@@ -17,10 +17,8 @@
 
 package eu.coldrye.settings;
 
-import eu.coldrye.settings.impl.SettingsStoreImpl;
-import eu.coldrye.settings.impl.accessor.Accessor;
-import eu.coldrye.settings.impl.PropertiesBackingStoreImpl;
-import eu.coldrye.settings.impl.accessor.RootAccessorBuilder;
+import eu.coldrye.settings.accessors.Accessor;
+import eu.coldrye.settings.accessors.RootAccessorBuilder;
 
 import java.io.File;
 
@@ -66,7 +64,7 @@ public class SettingsStoreFactory {
     if (null == storagePath) {
       throw new IllegalArgumentException("storagePath must not be null.");
     }
-    BackingStore backingStoreWrapper = new PropertiesBackingStoreImpl(FileFormat.PLAIN_TEXT, storagePath);
+    BackingStore backingStoreWrapper = new DefaultPropertiesBackingStore(FileFormat.PLAIN_TEXT, storagePath);
     return this.newStore(backingStoreWrapper, type);
   }
 
@@ -89,7 +87,7 @@ public class SettingsStoreFactory {
       throw new IllegalArgumentException("type must not be null.");
     }
     Accessor rootAccessor = new RootAccessorBuilder().buildRootAccessor(type);
-    return new SettingsStoreImpl<>(backingStore, rootAccessor, type);
+    return new DefaultSettingsStore<>(backingStore, rootAccessor, type);
   }
 
   /**
@@ -109,7 +107,7 @@ public class SettingsStoreFactory {
     if (null == storagePath) {
       throw new IllegalArgumentException("storagePath must not be null.");
     }
-    BackingStore backingStoreWrapper = new PropertiesBackingStoreImpl(FileFormat.XML, storagePath);
+    BackingStore backingStoreWrapper = new DefaultPropertiesBackingStore(FileFormat.XML, storagePath);
     return this.newStore(backingStoreWrapper, type);
   }
 }

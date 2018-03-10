@@ -17,6 +17,8 @@
 
 package eu.coldrye.settings.util;
 
+import eu.coldrye.settings.TypeMapperRegistry;
+
 /**
  * The class DefaultValueHolder models a holder for a default value which was
  * declared by the {@code Property} annotation's {@code defaultValue} property.

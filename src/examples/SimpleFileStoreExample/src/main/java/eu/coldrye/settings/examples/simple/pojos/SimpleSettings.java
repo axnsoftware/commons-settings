@@ -22,6 +22,7 @@ import eu.coldrye.settings.PropertyClass;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  *
@@ -119,7 +120,7 @@ public class SimpleSettings {
 
   public GeneralGraphicsSettings getGeneralGraphicsSettings() {
 
-    return this.generalGraphicsSettings;
+    return generalGraphicsSettings;
   }
 
   public void setGeneralGraphicsSettings(GeneralGraphicsSettings generalGraphicsSettings) {
@@ -128,8 +129,8 @@ public class SimpleSettings {
   }
 
   public GeneralAudioSettings getGeneralAudioSettings() {
-
-    return this.generalAudioSettings;
+    
+    return generalAudioSettings;
   }
 
   public void setGeneralAudioSettings(GeneralAudioSettings generalAudioSettings) {
@@ -139,7 +140,7 @@ public class SimpleSettings {
 
   public GeneralAudioSettings getProfileGeneralAudioSettings() {
 
-    return this.profileGeneralAudioSettings;
+    return profileGeneralAudioSettings;
   }
 
   public void setProfileGeneralAudioSettings(GeneralAudioSettings profileGeneralAudioSettings) {

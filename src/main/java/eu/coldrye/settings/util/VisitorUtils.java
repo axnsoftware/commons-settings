@@ -19,8 +19,8 @@ package eu.coldrye.settings.util;
 
 import eu.coldrye.settings.Property;
 import eu.coldrye.settings.TypeMapper;
-import eu.coldrye.settings.impl.accessor.Accessor;
-import eu.coldrye.settings.impl.accessor.PropertyAccessor;
+import eu.coldrye.settings.accessors.Accessor;
+import eu.coldrye.settings.accessors.PropertyAccessor;
 
 import java.lang.reflect.Field;
 import java.util.Map;
@@ -29,13 +29,6 @@ import java.util.Map;
  *
  */
 public final class VisitorUtils {
-
-  /**
-   * Must not be instantiated.
-   */
-  private VisitorUtils() {
-
-  }
 
   /**
    * Configures the specified {@code accessor} and adds it as a child accessor
@@ -91,5 +84,12 @@ public final class VisitorUtils {
       }
     }
     return result;
+  }
+
+  /**
+   * Must not be instantiated.
+   */
+  private VisitorUtils() {
+
   }
 }

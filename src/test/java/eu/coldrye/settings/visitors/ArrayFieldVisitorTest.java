@@ -15,16 +15,36 @@
  * limitations under the License.
  */
 
-package eu.coldrye.settings.fixtures;
+package eu.coldrye.settings.visitors;
 
-import eu.coldrye.settings.visitors.Visitor;
-
-import java.lang.reflect.Field;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  *
  */
-public interface FieldVisitor extends Visitor<Field> {
+public class ArrayFieldVisitorTest {
 
+  @Test
+  @Disabled
+  public void canVisitImplMustReturnFalseOnNonArrayTypeField() {
+
+    Assertions.fail("not implememented yet");
+  }
+
+  @Test
+  @Disabled
+  public void canVisitImplMustReturnFalseOnNonAnnotatedArrayTypeField() {
+
+    Assertions.fail("not implememented yet");
+  }
+
+  @Test
+  @Disabled
+  public void canVisitImplMustReturnTrueOnAnnotatedArrayTypeField() {
+
+    Assertions.fail("not implememented yet");
+  }
 }

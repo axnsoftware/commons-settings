@@ -15,16 +15,30 @@
  * limitations under the License.
  */
 
-package eu.coldrye.settings.fixtures;
+package eu.coldrye.settings.visitors;
 
-import eu.coldrye.settings.visitors.Visitor;
-
-import java.lang.reflect.Field;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  *
  */
-public interface FieldVisitor extends Visitor<Field> {
+public class FailFastVisitorTest {
 
+  @Test
+  public void canVisitMustFail() {
+
+    Assertions.assertThrows(RuntimeException.class, () -> {
+      new FailFastVisitor<>().canVisit(null);
+    });
+  }
+
+  @Test
+  public void visitMustFail() {
+
+    Assertions.assertThrows(RuntimeException.class, () -> {
+      new FailFastVisitor<>().visit(null, null);
+    });
+  }
 }

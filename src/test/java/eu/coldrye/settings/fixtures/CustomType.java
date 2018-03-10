@@ -25,7 +25,7 @@ import java.util.Objects;
  *
  *
  */
-@Property(typeMapper = CustomTypeTypeMapperImpl.class)
+@Property(typeMapper = CustomTypeTypeMapper.class)
 public class CustomType implements Comparable<CustomType> {
 
   private Integer intValue;

@@ -15,7 +15,7 @@
 // * limitations under the License.
 // */
 //
-//package eu.coldrye.settings.impl.accessor;
+//package eu.coldrye.settings.accessor;
 //
 //import eu.coldrye.settings.BackingStore;
 //import eu.coldrye.settings.TypeMapper;

@@ -17,8 +17,8 @@
 
 package eu.coldrye.settings.util;
 
-import eu.coldrye.settings.impl.accessor.Accessor;
-import eu.coldrye.settings.impl.accessor.PropertyAccessor;
+import eu.coldrye.settings.accessors.Accessor;
+import eu.coldrye.settings.accessors.PropertyAccessor;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Constructor;
@@ -156,24 +156,29 @@ public final class ReflectionUtils {
 
   public static Object getValue(PropertyAccessor accessor, Object settingsRoot) {
 
-    Accessor parentAccessor = accessor.getParentAccessor();
-    Object valueHolder = parentAccessor.getValue(settingsRoot);
     Method getter = accessor.getGetter();
     if (Objects.isNull(getter)) {
-      return valueHolder;
+      throw new IllegalStateException("no getter available");
     }
-    return invokeGetter(getter, valueHolder, accessor.getDefaultValueHolder());
+    Accessor parentAccessor = accessor.getParentAccessor();
+    Object valueHolder = parentAccessor.getValue(settingsRoot);
+    if (Objects.nonNull(valueHolder)) {
+      return invokeGetter(getter, valueHolder, accessor.getDefaultValueHolder());
+    }
+    return null;
   }
 
   public static void setValue(PropertyAccessor accessor, Object value, Object settingsRoot) {
 
-    Accessor parentAccessor = accessor.getParentAccessor();
-    Object valueHolder = parentAccessor.getValue(settingsRoot);
     Method setter = accessor.getSetter();
     if (Objects.isNull(setter)) {
       throw new IllegalStateException("no setter available");
     }
-    invokeSetter(setter, valueHolder, value);
+    Accessor parentAccessor = accessor.getParentAccessor();
+    Object valueHolder = parentAccessor.getValue(settingsRoot);
+    if (Objects.nonNull(valueHolder)) {
+      invokeSetter(setter, valueHolder, value);
+    }
   }
 
   /**

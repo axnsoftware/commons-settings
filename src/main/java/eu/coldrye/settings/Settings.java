@@ -66,7 +66,7 @@ public interface Settings<T> {
    *
    * @return the underlying store
    */
-  SettingsStore getStore();
+  SettingsStore<T> getStore();
 
   /**
    * @return
